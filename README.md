@@ -97,12 +97,12 @@ A pre-built starter campaign that ships with the app, showcasing all features wi
 
 ## 📅 Project Timeline
 
-| Phase | Focus                                | Target          |
-| ----- | ------------------------------------ | --------------- |
-| 0–2   | Setup, auth, core UI shell           | Day 1–9         |
-| 3     | **Probability Engine** _(prototype)_ | ~March 25, 2026 |
-| 4–5   | Campaign management + demo content   | Day 15–24       |
-| 6–7   | Polish, testing, final submission    | ~April 10, 2026 |
+| Phase | Focus                                | Dates                 |
+| ----- | ------------------------------------ | --------------------- |
+| 0–2   | Setup, auth, core UI shell           | Mar 11–17             |
+| 3     | **Probability Engine** _(prototype)_ | Mar 18–22 🎯          |
+| 4–5   | Campaign management + demo content   | Mar 23–29             |
+| 6–7   | Polish, testing, final submission    | Mar 30 – **Apr 3** 🚀 |
 
 ---
 
