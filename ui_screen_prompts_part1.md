@@ -30,11 +30,13 @@ All screens share these tokens. Each prompt references this system.
 | `text-muted` | `#475569` | Labels, captions |
 
 **Typography:**
+
 - **Display/Headings:** Space Grotesk Bold — 48px hero, 32px H1, 24px H2, 18px H3. Letter-spacing: -0.02em on display sizes.
 - **Body:** DM Sans Regular/Medium — 15px body, 14px secondary, 12px caption. Line-height: 1.6.
 - **Monospace (dice/stats):** JetBrains Mono Medium — 14-20px. Used for dice notation, stat numbers, probability values.
 
 **Component Tokens:**
+
 - Border-radius: 8px cards, 6px buttons/inputs, 12px modals, 9999px pills
 - Shadows: `0 4px 24px rgba(0,0,0,0.4)` cards, `0 8px 40px rgba(0,0,0,0.5)` elevated
 - Transitions: `all 200ms ease`
@@ -55,6 +57,7 @@ Design a premium dark login/signup page for "Dice & Decisions", a probability-po
 **Background & Canvas:** Base `#08080d`. A large, soft radial gradient centered behind the card: `#7c3aed` at 4% opacity, 800px diameter, 300px Gaussian blur. A secondary gradient in the bottom-left: `#06b6d4` at 3% opacity, 600px diameter, 250px blur. Subtle noise texture at 2% opacity over the entire background.
 
 **Authentication Card (centered, max-width 420px, padding 40px, bg `#111119`, border 1px solid `#1e1e2e`, border-radius 12px, shadow `0 8px 40px rgba(0,0,0,0.5)`):**
+
 - Top: Logo — a d20 die icon (geometric, outlined, 32px, stroke 1.5px, color `#7c3aed`) next to "Dice & Decisions" in Space Grotesk Bold 22px `#f1f5f9`, letter-spacing -0.02em. Below: tagline "Probability-Powered Campaign Command" in DM Sans Regular 13px `#475569`.
 - 24px gap.
 - Tab switcher: Two tabs "Sign In" and "Sign Up" side by side. Active tab: DM Sans Semibold 14px `#f1f5f9` with a 2px bottom border in `#7c3aed`. Inactive tab: DM Sans Medium 14px `#475569`, hover color `#94a3b8`. Tabs separated by 24px, full-width bottom border 1px `#1e1e2e`.
@@ -75,6 +78,7 @@ Design a premium dark login/signup page for "Dice & Decisions", a probability-po
 **Footer text (below card, 32px gap):** "Built for DMs who think in probabilities" in DM Sans Regular 12px `#475569`, centered.
 
 **Key Design Notes:**
+
 - Card has a very subtle top-edge highlight: `border-top: 1px solid rgba(124,58,237,0.1)` for depth
 - The atmospheric gradients create a sense of "entering a portal" without any literal imagery
 - Tab switcher between Sign In/Sign Up avoids a separate page — single-card auth
@@ -97,6 +101,7 @@ Design a premium dark web dashboard for "Dice & Decisions", showing the Dungeon 
 **Background & Canvas:** `#08080d` full page. Subtle noise texture at 2% opacity.
 
 **Sidebar (fixed left, width 260px, height 100vh, bg `#0c0c13`, border-right 1px solid `#1e1e2e`, padding 20px 16px):**
+
 - Top: Logo — d20 icon (20px, outlined, `#7c3aed`) + "Dice & Decisions" in Space Grotesk Bold 16px `#f1f5f9`. Below: small pill badge "DM MODE" in JetBrains Mono Medium 10px `#7c3aed`, bg `rgba(124,58,237,0.1)`, border-radius 9999px, padding 2px 10px.
 - 28px gap.
 - Campaign name: "Tower of Fate" in DM Sans Semibold 13px `#f1f5f9`. Below: "Active Campaign" in DM Sans Regular 11px `#475569`.
@@ -111,12 +116,14 @@ Design a premium dark web dashboard for "Dice & Decisions", showing the Dungeon 
 - Bottom of sidebar: Settings gear icon (18px, `#475569`). User avatar circle (32px, `#16161f` bg, initials "DM" in DM Sans Bold 12px `#7c3aed`). "Dungeon Master" in DM Sans Medium 13px `#f1f5f9`. Role switcher: small toggle showing "DM" active (purple) vs "Player" (muted). Toggle: 40px wide, 20px tall, pill shape, bg `#16161f`, active dot 16px circle `#7c3aed`.
 
 **Top Bar (sticky, height 56px, bg `#08080d`, border-bottom 1px solid `#1e1e2e`, padding 0 32px, flex space-between center):**
+
 - Left: "Dashboard" in Space Grotesk Semibold 20px `#f1f5f9`.
 - Right: Theme switcher (palette icon, 18px, `#475569`, hover `#94a3b8`). Notification bell icon (18px, `#475569`) with a small 8px dot in `#7c3aed` indicating unread. "New Session" button: bg `#7c3aed`, DM Sans Semibold 13px `#fff`, height 36px, padding 0 16px, border-radius 6px, hover bg `#6d28d9`.
 
 **Main Content (margin-left 260px, padding 24px 32px):**
 
 **Welcome Banner (full-width, bg linear-gradient(135deg, `#111119` 0%, `rgba(124,58,237,0.05)` 100%), border 1px solid `#1e1e2e`, border-radius 8px, padding 24px 28px, flex space-between):**
+
 - Left: "Tower of Fate" in Space Grotesk Bold 28px `#f1f5f9`. Below: "Session 4 — The Descent Begins" in DM Sans Regular 15px `#94a3b8`. Below: "Last session: 2 days ago" in DM Sans Regular 12px `#475569`.
 - Right: "Continue Session" button (bg `#7c3aed`, DM Sans Semibold 14px `#fff`, height 40px, padding 0 20px, border-radius 6px) and "Prep Mode" ghost button (border 1px solid `#1e1e2e`, DM Sans Medium 14px `#94a3b8`, same dimensions, hover border `#2d2d44`).
 
@@ -124,6 +131,7 @@ Design a premium dark web dashboard for "Dice & Decisions", showing the Dungeon 
 
 **Stats Row (4 cards in a row, CSS Grid 4 columns gap 16px):**
 Each card: bg `#111119`, border 1px `#1e1e2e`, border-radius 8px, padding 20px. Hover: border `#2d2d44`, shadow `0 4px 24px rgba(0,0,0,0.3)`.
+
 1. "Active Players" — icon: users (18px, `#7c3aed`). Value: "4" in JetBrains Mono Bold 32px `#f1f5f9`. Label: DM Sans Regular 13px `#475569`.
 2. "NPCs Created" — icon: user-circle (18px, `#06b6d4`). Value: "12". Same styling.
 3. "Encounters" — icon: swords (18px, `#eab308`). Value: "7".
@@ -134,6 +142,7 @@ Each card: bg `#111119`, border 1px `#1e1e2e`, border-radius 8px, padding 20px. 
 **Two-Column Section (CSS Grid, 2fr 1fr, gap 20px):**
 
 **Left Column — "Next Encounter" card (bg `#111119`, border 1px `#1e1e2e`, border-radius 8px, padding 24px):**
+
 - Header: "Next Encounter" in Space Grotesk Semibold 16px `#f1f5f9`. Right: status pill "PLANNED" in JetBrains Mono Medium 10px `#eab308`, bg `rgba(234,179,8,0.1)`, border-radius 9999px.
 - 16px gap.
 - Encounter name: "Goblin Ambush at the Bridge" in DM Sans Semibold 18px `#f1f5f9`.
@@ -144,6 +153,7 @@ Each card: bg `#111119`, border 1px `#1e1e2e`, border-radius 8px, padding 20px. 
 - "View Probability Cards" link: DM Sans Medium 13px `#7c3aed`, right arrow icon 14px. Hover: underline.
 
 **Right Column — "Party Overview" card (same card styling):**
+
 - Header: "Party" in Space Grotesk Semibold 16px `#f1f5f9`. Right: "4 members" DM Sans Regular 12px `#475569`.
 - 16px gap.
 - 4 player rows, each 48px tall, flex center:
@@ -155,11 +165,13 @@ Each card: bg `#111119`, border 1px `#1e1e2e`, border-radius 8px, padding 20px. 
 **20px gap.**
 
 **Recent Notes Preview (full-width card, same styling, padding 24px):**
+
 - Header: "Recent Notes" in Space Grotesk Semibold 16px `#f1f5f9`. Right: "View All" link DM Sans Medium 13px `#7c3aed`.
 - 16px gap.
 - 3 note rows: each with tag pill (color-coded: "SESSION LOG" `#06b6d4`, "PLOT" `#7c3aed`, "DM SECRET" `#ef4444` — all JetBrains Mono 10px, bg at 10% opacity), title in DM Sans Medium 14px `#f1f5f9`, preview text truncated in DM Sans Regular 13px `#475569`, timestamp right-aligned DM Sans Regular 12px `#475569`.
 
 **Key Design Notes:**
+
 - Sidebar uses grouped navigation with uppercase section labels for scannability
 - DM Mode badge in sidebar immediately communicates the active role
 - Stats row uses monospace numbers for a data-dashboard feel
@@ -184,6 +196,7 @@ Design a premium dark web dashboard for "Dice & Decisions", showing the Player v
 **Background & Canvas:** `#08080d`. Subtle noise 2%.
 
 **Sidebar (same structure as DM Dashboard but with reduced nav):**
+
 - Same logo and branding at top.
 - Role badge: "PLAYER" pill in JetBrains Mono 10px `#06b6d4`, bg `rgba(6,182,212,0.1)`.
 - Nav groups (reduced):
@@ -197,6 +210,7 @@ Design a premium dark web dashboard for "Dice & Decisions", showing the Player v
 **Main Content:**
 
 **Character Summary Banner (full-width, bg gradient `#111119` to `rgba(6,182,212,0.03)`):**
+
 - Left: Character avatar (64px circle, bg `#16161f`, letter "T" in DM Sans Bold 24px `#06b6d4`). Name "Thorin Ironforge" Space Grotesk Bold 24px `#f1f5f9`. "Dwarf Fighter · Level 5" DM Sans Regular 14px `#94a3b8`.
 - Right cluster: 4 mini stat pills — HP "28/32" (green tint), AC "16" (cyan tint), Initiative "+2" (purple tint), Speed "25ft" (yellow tint). Each: JetBrains Mono Medium 14px, bg at 8% of respective color, border 1px at 15% of respective color, border-radius 6px, padding 6px 12px.
 - "Edit Character" ghost button, "View Full Sheet" primary button on far right.
@@ -204,17 +218,20 @@ Design a premium dark web dashboard for "Dice & Decisions", showing the Player v
 **Two-Column Layout (2fr 1fr):**
 
 **Left — "Campaign Feed" card:** A chronological feed of DM-shared content:
+
 - Session 4 log preview (tagged "SESSION LOG" cyan pill)
 - Active quest description
 - "DM has updated the Tower of Fate map" feed entry
 
 **Right — "Quick Probability Check" card:** Mini probability calculator:
+
 - Dropdown: dice type (d20 selected)
 - Input: modifier (+3)
 - Input: target DC (15)
 - Result: "45% Success" in large JetBrains Mono Bold 36px `#eab308` (medium probability). Mini bar visualization below.
 
 **Key Design Notes:**
+
 - Player dashboard intentionally simpler than DM — less cognitive load
 - Cyan accent replaces purple as the primary accent to differentiate roles
 - Character banner gives instant awareness of character state
@@ -242,6 +259,7 @@ Design a premium dark web page for "Dice & Decisions", showing the Probability C
 **Main Content — Cards Tab:**
 
 **Probability Card Builder (top section, full-width card, bg `#111119`, padding 24px):**
+
 - Header: "Create Probability Card" Space Grotesk Semibold 18px.
 - Form row (flex, gap 16px):
   - "Action Name" text input (width 240px, placeholder "Attack the Goblin")
@@ -255,6 +273,7 @@ Design a premium dark web page for "Dice & Decisions", showing the Probability C
 **16px gap.**
 
 **Generated Probability Card (max-width 480px, bg `#111119`, border 1px `#1e1e2e`, border-radius 8px, padding 28px, shadow `0 4px 24px rgba(0,0,0,0.4)`):**
+
 - Top: Action name "Attack the Goblin" Space Grotesk Semibold 18px `#f1f5f9`. Dice notation "1d20 + 3" in JetBrains Mono Medium 14px `#7c3aed`, pill bg `rgba(124,58,237,0.08)`.
 - 16px gap.
 - Target: "DC 15" in JetBrains Mono Medium 14px `#94a3b8`.
@@ -270,11 +289,13 @@ Design a premium dark web page for "Dice & Decisions", showing the Probability C
   - "Nat 20" — "5.0%" JetBrains Mono 14px `#7c3aed`. Label "Crit!" Small star icon 14px.
 
 **Active Probability Cards Grid (below, CSS Grid 3 columns gap 16px):**
+
 - 3-4 pre-existing encounter cards in a compact format (mini version of the full card above): action name, dice, % in large mono text, tiny probability bar. Each from the current encounter. Hover: border `#2d2d44`, slight lift.
 
 **Main Content — Dice Visualizer Tab (show as alternate view):**
 
 **Dice Distribution Chart (full-width card, bg `#111119`, padding 24px):**
+
 - Header: "Dice Distribution Visualizer" Space Grotesk Semibold 18px.
 - Controls row: Dice selector buttons (d4, d6, d8, d10, d12, d20 — pill buttons, active one filled `#7c3aed`). Number of dice: "2" input. Total: "2d6" displayed in JetBrains Mono Bold 16px `#7c3aed`.
 - 20px gap.
@@ -282,6 +303,7 @@ Design a premium dark web page for "Dice & Decisions", showing the Probability C
 - **Compare Mode:** Toggle "Compare" — shows a second distribution overlaid in `#eab308` amber (e.g., 1d12 vs 2d6 side by side). Legend in top-right: colored squares + labels.
 
 **Key Design Notes:**
+
 - Probability cards use color-coded percentages (green/amber/red) — instantly communicable
 - JetBrains Mono for ALL numbers — reinforces the data-tool aesthetic
 - Bar chart uses gradient fills for visual richness, not flat colors
@@ -291,4 +313,4 @@ Design a premium dark web page for "Dice & Decisions", showing the Probability C
 
 ---
 
-*Continue in Part 2 →*
+_Continue in Part 2 →_

@@ -6,7 +6,7 @@
 - **Problem:** New and beginner D&D players struggle to understand dice probability, outcome likelihood, and the math behind their choices. DMs lack a centralized, modern tool to manage campaigns while teaching probability through gameplay.
 - **Solution:** A polished web app that combines campaign management (NPCs, encounters, story notes) with real-time probability visualization — showing players the chances of success/failure before they act. Features a Bayes Analyzer, probability cards, dice distribution charts, and a simplified character sheet designed for beginners.
 - **Platform:** Responsive web app (laptop, tablet, phone)
-- **Target Launch:** Prototype by ~March 25, 2026 · Final by ~April 10, 2026
+- **Target Launch:** Prototype by ~March 22, 2026 · Final by April 3, 2026 (23 days from March 11)
 - **Scope:** MVP (school project for probability class)
 
 ---
@@ -410,14 +410,14 @@
 
 #### **User**
 
-| Field          | Type      | Constraints                        |
-| -------------- | --------- | ---------------------------------- |
-| id             | UUID      | Primary key (from Supabase Auth)   |
-| email          | text      | Unique, not null                   |
-| display_name   | text      | Not null                           |
-| preferred_role | enum      | 'dm' \| 'player', default 'player' |
+| Field          | Type      | Constraints                                                                       |
+| -------------- | --------- | --------------------------------------------------------------------------------- |
+| id             | UUID      | Primary key (from Supabase Auth)                                                  |
+| email          | text      | Unique, not null                                                                  |
+| display_name   | text      | Not null                                                                          |
+| preferred_role | enum      | 'dm' \| 'player', default 'player'                                                |
 | selected_theme | enum      | 'fantasy' \| 'scifi' \| 'western' \| 'eldritch' \| 'steampunk', default 'fantasy' |
-| created_at     | timestamp | Default now()                      |
+| created_at     | timestamp | Default now()                                                                     |
 
 #### **Campaign**
 
@@ -663,19 +663,19 @@
 
 ## 8. Project Phases & Milestones
 
-| Phase | Focus                   | Duration  | Key Deliverables                                                                                                                                                       |
-| ----- | ----------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **0** | Project setup & tooling | Day 1-2   | Next.js scaffold, Tailwind config, Supabase project, GitHub repo, Vercel deployment, design system (colors, typography, card components)                               |
-| **1** | Auth + Data Layer       | Day 3-5   | Supabase auth (login/signup), DB schema migration, RLS policies, role switcher (DM/Player)                                                                             |
-| **2** | Core UI Shell           | Day 6-9   | Sidebar navigation, dashboard layout, responsive breakpoints, card component system, empty states                                                                      |
-| **3** | Probability Engine      | Day 10-14 | Probability calculator, Probability Cards UI, Dice Distribution Visualizer (Recharts), Bayes Analyzer with pre-built scenarios — **🎯 PROTOTYPE DEADLINE (~March 25)** |
-| **4** | Campaign Management     | Day 15-20 | Character sheet (CRUD), NPC manager (CRUD), Story Notes (rich text with Tiptap), Encounter Builder, Campaign Map Viewer (image upload + markers)                       |
-| **5** | Tower of Fate Demo      | Day 21-24 | Pre-built campaign data (NPCs, encounters, story notes, Bayes scenarios), seeding script                                                                               |
-| **6** | Polish & Testing        | Day 25-28 | Responsive QA, bug fixes, loading states, error handling, empty states, transitions                                                                                    |
-| **7** | Final Submission        | Day 29-30 | Final deployment, README, project documentation, demo walkthrough                                                                                                      |
+| Phase | Focus                   | Duration                 | Key Deliverables                                                                                                                                                       |
+| ----- | ----------------------- | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **0** | Project setup & tooling | Day 1-2 (Mar 11-12)      | Next.js scaffold, Tailwind config, Supabase project, GitHub repo, Vercel deployment, design system (colors, typography, card components)                               |
+| **1** | Auth + Data Layer       | Day 3-4 (Mar 13-14)      | Supabase auth (login/signup), DB schema migration, RLS policies, role switcher (DM/Player)                                                                             |
+| **2** | Core UI Shell           | Day 5-7 (Mar 15-17)      | Sidebar navigation, dashboard layout, responsive breakpoints, card component system, empty states                                                                      |
+| **3** | Probability Engine      | Day 8-12 (Mar 18-22)     | Probability calculator, Probability Cards UI, Dice Distribution Visualizer (Recharts), Bayes Analyzer with pre-built scenarios — **🎯 PROTOTYPE DEADLINE (~March 22)** |
+| **4** | Campaign Management     | Day 13-17 (Mar 23-27)    | Character sheet (CRUD), NPC manager (CRUD), Story Notes (rich text with Tiptap), Encounter Builder, Campaign Map Viewer (image upload + markers)                       |
+| **5** | Tower of Fate Demo      | Day 18-19 (Mar 28-29)    | Pre-built campaign data (NPCs, encounters, story notes, Bayes scenarios), seeding script                                                                               |
+| **6** | Polish & Testing        | Day 20-22 (Mar 30-Apr 1) | Responsive QA, bug fixes, loading states, error handling, empty states, transitions                                                                                    |
+| **7** | Final Submission        | Day 23 (Apr 2-3)         | Final deployment, README, project documentation, demo walkthrough                                                                                                      |
 
 > [!IMPORTANT]
-> **Prototype (Phase 3 deadline ~March 25):** The prototype should demonstrate the **probability tools** (probability cards, dice visualizer, Bayes Analyzer) + the **auth flow** + the **dashboard shell**. Campaign management features come after.
+> **Prototype (Phase 3 deadline ~March 22):** The prototype should demonstrate the **probability tools** (probability cards, dice visualizer, Bayes Analyzer) + the **auth flow** + the **dashboard shell**. Campaign management features come after.
 
 ---
 
@@ -709,8 +709,8 @@
 | **Beginner-friendly**                          | New player can create a character and understand a probability card in <2 minutes | User testing with a classmate                 |
 | **Responsive**                                 | Usable on laptop and phone                                                        | Test on Chrome DevTools responsive mode       |
 | **Professional aesthetic**                     | Looks like a real SaaS product                                                    | Visual comparison against D&D Beyond / Linear |
-| **Prototype on time**                          | Probability tools + auth + shell working by ~March 25                             | Deployed Vercel URL                           |
-| **Final submission on time**                   | All MVP features working by ~April 10                                             | Deployed Vercel URL                           |
+| **Prototype on time**                          | Probability tools + auth + shell working by ~March 22                             | Deployed Vercel URL                           |
+| **Final submission on time**                   | All MVP features working by April 3                                               | Deployed Vercel URL                           |
 
 ---
 
