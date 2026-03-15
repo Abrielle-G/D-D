@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dice &amp; Decisions | Enter the Tower</title>
+<!-- BEGIN: External Resources -->
+<!-- Tailwind CSS v3 with Forms & Container Queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Fonts: Space Grotesk & DM Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&amp;family=Space+Grotesk:wght@700&amp;display=swap" rel="stylesheet"/>
+<!-- END: External Resources -->
+<!-- BEGIN: Global Styles -->
+<style data-purpose="typography">
+    body {
+      font-family: 'DM Sans', sans-serif;
+    }
+    .font-space {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+  </style>
+<style data-purpose="layout-background">
+    .bg-void {
+      background-color: #08080d;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* Noise texture overlay */
+    .bg-void::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0.02;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    /* Arcane Gradients */
+    .gradient-purple {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(124, 58, 237, 0.04) 0%, rgba(124, 58, 237, 0) 70%);
+      filter: blur(300px);
+      z-index: 0;
+    }
+
+    .gradient-cyan {
+      position: absolute;
+      bottom: -100px;
+      left: -100px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.03) 0%, rgba(6, 182, 212, 0) 70%);
+      filter: blur(250px);
+      z-index: 0;
+    }
+  </style>
+<style data-purpose="ui-components">
+    .auth-card {
+      background-color: #111119;
+      border: 1px solid #1e1e2e;
+      border-top: 1px solid rgba(124, 58, 237, 0.1);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    .input-field {
+      background-color: #16161f;
+      border-color: #1e1e2e;
+      color: #f1f5f9;
+      transition: all 0.2s ease;
+    }
+
+    .input-field:focus {
+      border-color: #7c3aed;
+      box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.2);
+      outline: none;
+    }
+
+    .btn-primary {
+      background-color: #7c3aed;
+      transition: transform 0.1s ease, background-color 0.2s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #6d28d9;
+    }
+
+    .btn-primary:active {
+      transform: scale(0.98);
+    }
+
+    .tab-active {
+      color: #f1f5f9;
+      border-bottom: 2px solid #7c3aed;
+    }
+
+    .tab-inactive {
+      color: #475569;
+    }
+  </style>
+<!-- END: Global Styles -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"/></head>
+<body class="bg-void h-full flex flex-col items-center justify-center p-4">
+<!-- BEGIN: Background Elements -->
+<div class="gradient-purple"></div>
+<div class="gradient-cyan"></div>
+<!-- END: Background Elements -->
+<main class="relative z-10 w-full flex flex-col items-center">
+<!-- BEGIN: Header Section -->
+<header class="text-center mb-8" data-purpose="brand-header">
+<div class="flex items-center justify-center mb-3">
+<!-- SVG Geometric d20 Icon -->
+<i class="fa-solid fa-dice-d20 text-[40px] text-[#7c3aed]"></i>
+</div>
+<h1 class="font-space text-[22px] font-bold text-[#f1f5f9] tracking-tight">Dice &amp; Decisions</h1>
+<p class="text-[#475569] text-[13px] mt-1">Probability-Powered Campaign Command</p>
+</header>
+<!-- END: Header Section -->
+<!-- BEGIN: Authentication Card -->
+<section class="auth-card w-full max-w-[420px] rounded-[12px] p-8" data-purpose="login-container">
+<!-- BEGIN: Tabs -->
+<nav class="flex border-b border-[#1e1e2e] mb-8" data-purpose="auth-tabs">
+<button class="tab-active flex-1 pb-3 text-sm font-medium focus:outline-none">Sign In</button>
+<button class="tab-inactive flex-1 pb-3 text-sm font-medium hover:text-[#94a3b8] transition-colors focus:outline-none">Sign Up</button>
+</nav>
+<!-- END: Tabs -->
+<!-- BEGIN: Sign In Form -->
+<form action="#" class="space-y-5" method="POST">
+<div data-purpose="email-input-group">
+<label class="block text-xs font-medium text-[#94a3b8] uppercase tracking-wider mb-2" for="email">Sanctum Email</label>
+<input class="input-field w-full rounded-lg px-4 py-3 text-sm" id="email" name="email" placeholder="wizard@citadel.com" required="" type="email"/>
+</div>
+<div data-purpose="password-input-group">
+<div class="flex justify-between items-center mb-2">
+<label class="block text-xs font-medium text-[#94a3b8] uppercase tracking-wider" for="password">Secret Cypher</label>
+<a class="text-xs text-[#7c3aed] hover:text-[#a78bfa] transition-colors" href="#">Forgot password?</a>
+</div>
+<input class="input-field w-full rounded-lg px-4 py-3 text-sm" id="password" name="password" placeholder="••••••••" required="" type="password"/>
+</div>
+<!-- Primary Action -->
+<button class="btn-primary w-full py-3.5 rounded-lg text-white font-semibold text-sm shadow-lg shadow-purple-900/20" type="submit">
+          Enter the Tower
+        </button>
+<!-- Divider -->
+<div class="relative py-4 flex items-center" data-purpose="divider">
+<div class="flex-grow border-t border-[#1e1e2e]"></div>
+<span class="flex-shrink mx-4 text-[#475569] text-xs font-medium uppercase tracking-widest">or</span>
+<div class="flex-grow border-t border-[#1e1e2e]"></div>
+</div>
+<!-- Social Login -->
+<button class="w-full flex items-center justify-center gap-3 bg-transparent border border-[#1e1e2e] hover:bg-[#16161f] text-[#f1f5f9] py-3 rounded-lg text-sm transition-colors" type="button">
+<!-- Google Icon Placeholder (SVG) -->
+<svg class="w-5 h-5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"></path><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path></svg>
+          Continue with Google
+        </button>
+</form>
+<!-- END: Sign In Form -->
+</section>
+<!-- END: Authentication Card -->
+<!-- BEGIN: Footer -->
+<footer class="mt-8 text-center" data-purpose="site-footer">
+<p class="text-[#475569] text-xs font-medium tracking-wide">
+        Built for DMs who think in probabilities
+      </p>
+</footer>
+<!-- END: Footer -->
+</main>
+<!-- BEGIN: Logic/Interactivity -->
+<script data-purpose="tab-switcher">
+    // Simple tab switching visual logic
+    const tabs = document.querySelectorAll('nav button');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => {
+          t.classList.remove('tab-active');
+          t.classList.add('tab-inactive');
+        });
+        tab.classList.add('tab-active');
+        tab.classList.remove('tab-inactive');
+      });
+    });
+  </script>
+<!-- END: Logic/Interactivity -->
+</body></html>

@@ -110,9 +110,11 @@ A pre-built starter campaign that ships with the app, showcasing all features wi
 
 | File                                                         | Description                                                           |
 | ------------------------------------------------------------ | --------------------------------------------------------------------- |
+| [`AGENTS.md`](./AGENTS.md)                                   | **Agent master file** — skills, design tokens, UI reference, build methodology |
 | [`project_specification.md`](./project_specification.md)     | Full project spec — features, data model, architecture, design system |
 | [`ui_screen_prompts_part1.md`](./ui_screen_prompts_part1.md) | UI screen prompts for Google Stitch (screens 1–4)                     |
 | [`ui_screen_prompts_part2.md`](./ui_screen_prompts_part2.md) | UI screen prompts for Google Stitch (screens 5–11)                    |
+| `stitch_proba_project/`                                      | Stitch HTML samples — use as UI/code reference                        |
 
 ---
 

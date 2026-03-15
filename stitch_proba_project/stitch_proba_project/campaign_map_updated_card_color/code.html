@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dice &amp; Decisions - DM Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;family=Space+Grotesk:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;700&amp;family=Public+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#7c3aed",
+                        "background-light": "#f7f6f8",
+                        "background-dark": "#08080d",
+                        "card-dark": "#111119",
+                        "sidebar-dark": "#0c0c13",
+                        "border-dark": "#1e1e2e",
+                    },
+                    fontFamily: {
+                        "display": ["Libre Caslon Text", "serif"],
+                        "sans": ["Public Sans", "sans-serif"],
+                        "space": ["Space Grotesk", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>body {
+    font-family: "Public Sans", sans-serif;
+    background-color: #08080d
+    }
+.sidebar-item-active {
+    background-color: rgba(124, 58, 237, 0.1);
+    border-left: 2px solid #7c3aed
+    }
+.noise-overlay {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuDJcY7Uh1WQCVyfNm9B5kv-Yjo0a28OGuQQCCko4SNY5VX15Zwq7IyU4o8Hd6Jjfgvkf8WUVFC2ZQ7ka-8WbvwsLJrtgqJMtpsKMyhs8GCpMcjloZ6orT7vAAaOgEPdxgOWVIT6sMQ8SYx4IERiE0G0QaVvsViZu-ufTgumX6fivegJT6vWAJ3nkjjungHjuBFox8OAjF49IBoxs9yGD1_CuGBFLhhAri-NgW8wTdCeEViDRYHuVwtMHVJJoG2ockCVjSUMpvgx6Sk);
+    opacity: 0.03;
+    pointer-events: none
+    }
+.card-hover:hover {
+    border-color: #3f3f5a;
+    transform: translatey(-2px);
+    transition: all 0.2s ease-in-out
+    }</style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/></head>
+<body class="bg-background-light dark:bg-background-dark font-sans text-slate-900 dark:text-slate-100 overflow-hidden h-screen flex">
+<div class="fixed inset-0 noise-overlay"></div>
+<div class="flex flex-1 overflow-hidden relative h-screen">
+<aside class="w-[260px] bg-sidebar-dark border-r border-border-dark flex flex-col z-20 h-screen">
+<div class="p-6 flex flex-col gap-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white"><i class="fa-solid fa-dice-d20 text-xl"></i></div>
+<div>
+<h1 class="font-space font-bold text-lg leading-none tracking-tight">Dice &amp; Decisions</h1>
+<span class="inline-block mt-1 px-2 py-0.5 rounded-full bg-primary text-[10px] font-bold text-white uppercase tracking-wider" style="display: inline-block; padding: 2px 8px; border-radius: 9999px; background-color: #7c3aed; font-size: 10px; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 0.05em;">DM Mode</span>
+</div>
+</div>
+<nav class="flex flex-col gap-6 mt-4">
+<!-- Nav Group: Overview -->
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Overview</p>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+</div>
+<!-- Nav Group: Probability -->
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Probability</p>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">style</span>
+<span class="text-sm font-medium">Probability Cards</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">blur_on</span>
+<span class="text-sm font-medium">Dice Visualizer</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">analytics</span>
+<span class="text-sm font-medium">Bayes Analyzer</span>
+</a>
+</div>
+<!-- Nav Group: Campaign -->
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Campaign</p>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">history_edu</span>
+<span class="text-sm font-medium">Story Notes</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">swords</span>
+<span class="text-sm font-medium">Encounters</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">groups</span>
+<span class="text-sm font-medium">NPCs</span>
+</a>
+</div>
+<!-- Nav Group: World -->
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">World</p>
+<a class="sidebar-item-active flex items-center gap-3 px-3 py-2 rounded-lg text-primary bg-primary/10 border-l-4 border-primary" href="#">
+<span class="material-symbols-outlined text-lg">map</span>
+<span class="text-sm font-medium">Maps</span>
+</a>
+</div>
+<!-- Nav Group: Characters -->
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Characters</p>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">shield</span>
+<span class="text-sm font-medium">Party</span>
+</a>
+</div>
+</nav>
+</div>
+<div class="mt-auto p-6 border-t border-border-dark flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-cover bg-center border border-primary/50" data-alt="Dungeon Master profile avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAshkUesEjixDlSBYZvvXAuXxorvbVknOcFKc3m8GtX6oge0VGgrzc29oI_lJFacMJe__TxNmVUnebuln0od-kWnme4yN06bTf4BZRvq2c_700gB36QKBFKrbZxLovK3iATpNx999j6zzpIgWnubytw9Z7sYRjm9FnHdeDop-cxXugTZPXxLkFQS9hdPViT7r4pkjm-CHxl5qEaXRZJ80mcsgCikQCqPCTaFG7CuN1qh1FSlb9cM7GqVKQFNY8ZzwsT8CBjnZcdQD4");'></div>
+<div class="flex flex-col">
+<p class="text-xs font-bold">Dungeon Master</p>
+<p class="text-[10px] text-slate-500">Premium Account</p>
+</div>
+</div>
+<button class="text-slate-500 hover:text-white">
+<span class="material-symbols-outlined text-lg">swap_horiz</span>
+</button>
+</div>
+</aside>
+<div class="flex-1 flex flex-col overflow-hidden">
+<header class="h-16 bg-background-dark/80 backdrop-blur-md border-b border-border-dark px-8 flex items-center justify-between z-30 shrink-0">
+<h2 class="font-display text-xl font-bold tracking-tight">Maps — Tower of Fate</h2>
+<div class="flex items-center gap-6">
+<i class="fa-solid fa-palette cursor-pointer transition-colors" onmouseout="this.style.color='#475569'" onmouseover="this.style.color='#94a3b8'" style="font-size: 20px; color: #94a3b8; cursor: pointer; display: flex; align-items: center;"></i>
+<div class="relative cursor-pointer text-slate-400 hover:text-white flex items-center">
+<span class="material-symbols-outlined">notifications</span>
+<div class="absolute top-0 right-0 w-2 h-2 bg-primary rounded-full border border-background-dark"></div>
+</div>
+<button class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition-all shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-sm">add</span>
+          Upload Map
+        </button>
+</div>
+</header>
+<main class="flex-1 relative overflow-hidden flex items-center justify-center p-8" style="background-color: #111119;">
+<div class="atmospheric-glow absolute inset-0 z-0"></div>
+<div class="relative w-full max-w-5xl aspect-video rounded-xl shadow-2xl border border-border-dark overflow-hidden z-10">
+<div class="absolute inset-0 bg-[url('https://placeholder.pics/svg/1200x800')] bg-cover bg-center" data-alt="A detailed parchment dungeon floor plan with grid lines and stone textures" data-location="The Tower of Fate" style=""></div>
+<div class="absolute inset-0 bg-neutral-dark/10 pointer-events-none"></div>
+<div class="absolute top-[20%] left-[15%] group">
+<div class="w-7 h-7 rounded-full bg-neutral-dark border-2 border-[#ef4444] shadow-lg flex items-center justify-center text-[#ef4444] cursor-pointer hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-sm">swords</span>
+</div>
+</div>
+<div class="absolute top-[45%] left-[55%] z-20">
+<div class="w-7 h-7 rounded-full bg-neutral-dark border-2 border-primary shadow-lg flex items-center justify-center text-primary cursor-pointer scale-110">
+<span class="material-symbols-outlined text-sm">priority_high</span>
+</div>
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-60 border border-border-dark rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] p-4 animate-in fade-in slide-in-from-bottom-2" style="background-color: #111119;">
+<div class="flex items-center justify-between mb-2">
+<span class="text-[10px] font-bold font-heading bg-[#ef4444]/20 text-[#ef4444] px-2 py-0.5 rounded tracking-wider">COMBAT</span>
+<span class="material-symbols-outlined text-slate-500 text-sm hover:text-slate-300 cursor-pointer">more_vert</span>
+</div>
+<h4 class="font-heading font-semibold text-slate-100 text-sm mb-1">Goblin Ambush</h4>
+<p class="text-[12px] text-slate-400 leading-relaxed font-sans">4 goblins patrol this corridor. DC 14 Stealth to sneak past.</p>
+<div class="mt-3 pt-3 border-t border-border-dark/50 flex gap-2">
+<button class="flex-1 text-[11px] font-medium bg-primary py-1.5 rounded text-white hover:bg-primary/90 transition-colors">Open Log</button>
+<button class="flex-1 text-[11px] font-medium bg-border-dark py-1.5 rounded text-slate-300 hover:bg-slate-800 transition-colors">Dismiss</button>
+</div>
+<div class="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[6px] border-t-border-dark"></div>
+</div>
+</div>
+<div class="absolute top-[30%] left-[80%] group">
+<div class="w-7 h-7 rounded-full bg-neutral-dark border-2 border-[#eab308] shadow-lg flex items-center justify-center text-[#eab308] cursor-pointer hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-sm">shopping_bag</span>
+</div>
+</div>
+<div class="absolute top-[70%] left-[30%] group opacity-50">
+<div class="w-7 h-7 rounded-full bg-neutral-dark border-2 border-dashed border-[#475569] shadow-lg flex items-center justify-center text-[#475569] cursor-pointer">
+<span class="material-symbols-outlined text-sm">skull</span>
+</div>
+</div>
+<div class="absolute top-[85%] left-[65%] group">
+<div class="w-7 h-7 rounded-full bg-neutral-dark border-2 border-[#22c55e] shadow-lg flex items-center justify-center text-[#22c55e] cursor-pointer hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-sm">home</span>
+</div>
+</div>
+<div class="absolute bottom-6 right-6 flex flex-col items-center gap-2">
+<div class="bg-neutral-dark border border-border-dark rounded-lg flex flex-col">
+<button class="w-9 h-9 flex items-center justify-center text-slate-400 hover:text-slate-100 hover:bg-border-dark transition-colors border-b border-border-dark">
+<span class="material-symbols-outlined">add</span>
+</button>
+<button class="w-9 h-9 flex items-center justify-center text-slate-400 hover:text-slate-100 hover:bg-border-dark transition-colors">
+<span class="material-symbols-outlined">remove</span>
+</button>
+</div>
+<button class="bg-neutral-dark border border-border-dark px-3 py-1 rounded-lg text-[11px] font-mono text-slate-500 hover:text-slate-300 transition-colors uppercase tracking-wider">
+            Reset
+          </button>
+</div>
+<div class="absolute bottom-6 left-6 px-4 py-2 bg-neutral-dark/80 backdrop-blur-md border border-border-dark rounded-lg">
+<p class="text-[11px] font-mono text-slate-400">Viewing: <span class="text-primary">Tower of Fate — Level 1</span></p>
+</div>
+</div>
+<div class="absolute top-4 left-1/2 -translate-x-1/2 px-4 py-1.5 bg-neutral-dark/40 border border-border-dark/30 rounded-full flex items-center gap-3 text-[12px] text-slate-500 font-mono">
+<span>X: 1,422</span>
+<span class="w-1 h-1 rounded-full bg-slate-700"></span>
+<span>Y: 0,844</span>
+<span class="w-1 h-1 rounded-full bg-slate-700"></span>
+<span class="text-slate-400">Scale: 1.25x</span>
+</div>
+</main>
+<footer class="h-10 border-t border-border-dark bg-neutral-dark px-6 flex items-center justify-between shrink-0 z-40">
+<div class="flex items-center gap-4 text-[11px] text-slate-500 font-mono">
+<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> SYNCED</span>
+<span>MAP_VERSION: 1.0.4-BETA</span>
+</div>
+<div class="flex items-center gap-6 text-[11px] text-slate-500">
+<button class="hover:text-primary transition-colors">GRID SETTINGS</button>
+<button class="hover:text-primary transition-colors">OVERLAY OPACITY</button>
+<button class="hover:text-primary transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">share</span> EXPORT
+        </button>
+</div>
+</footer>
+</div>
+</div>
+</body></html>

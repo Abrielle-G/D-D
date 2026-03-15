@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dice &amp; Decisions - Story Notes</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;family=Space+Grotesk:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;700&amp;family=Public+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#7c3aed",
+                        "background-light": "#f7f6f8",
+                        "background-dark": "#08080d",
+                        "card-dark": "#111119",
+                        "sidebar-dark": "#0c0c13",
+                        "border-dark": "#1e1e2e",
+                        "panel-dark": "#111119",
+                    },
+                    fontFamily: {
+                        "display": ["Libre Caslon Text", "serif"],
+                        "sans": ["Public Sans", "sans-serif"],
+                        "space": ["Space Grotesk", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+body {
+    font-family: "Public Sans", sans-serif;
+    background-color: #08080d
+    }
+.sidebar-item-active {
+    background-color: rgba(124, 58, 237, 0.1);
+    border-left: 2px solid #7c3aed
+    }
+.custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #1e1e2e;
+    border-radius: 10px;
+}
+</style></head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100">
+<div class="flex h-screen overflow-hidden">
+<!-- Main Sidebar (Dice & Decisions Global Nav) -->
+<aside class="w-[260px] bg-sidebar-dark border-r border-border-dark flex flex-col z-20">
+<div class="p-6 flex flex-col gap-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white"><i class="fa-solid fa-dice-d20 text-xl"></i></div>
+<div>
+<h1 class="font-space font-bold text-lg leading-none tracking-tight font-display">Dice &amp; Decisions</h1>
+<span class="inline-block mt-1 px-2 py-0.5 rounded-full bg-primary text-[10px] font-bold text-white uppercase tracking-wider">DM Mode</span>
+</div>
+</div>
+<nav class="flex flex-col gap-6 mt-4">
+<!-- Nav Group: Overview -->
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Overview</p>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+</div>
+<!-- Nav Group: Probability -->
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Probability</p>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">style</span>
+<span class="text-sm font-medium">Probability Cards</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">blur_on</span>
+<span class="text-sm font-medium">Dice Visualizer</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">analytics</span>
+<span class="text-sm font-medium">Bayes Analyzer</span>
+</a>
+</div>
+<!-- Nav Group: Campaign -->
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Campaign</p>
+<a class="sidebar-item-active flex items-center gap-3 px-3 py-2 rounded-lg text-primary bg-primary/10 border-l-4 border-primary" href="#">
+<span class="material-symbols-outlined text-lg">history_edu</span>
+<span class="text-sm font-medium">Story Notes</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">swords</span>
+<span class="text-sm font-medium">Encounters</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">groups</span>
+<span class="text-sm font-medium">NPCs</span>
+</a>
+</div>
+<!-- Nav Group: World -->
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">World</p>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">map</span>
+<span class="text-sm font-medium">Maps</span>
+</a>
+</div>
+</nav>
+</div>
+<div class="mt-auto p-6 border-t border-border-dark flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-cover bg-center border border-primary/50" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBZ5Y97JkpvOermd8MjdQ24Tf08fVqR0pmufk0Zqpj2--U2_sF3LLe_liCnpWhjVK4MK77sL0tJb04zi1ozO3ABsp7UNzda4COLX3ySj_E9n6UHG2bCPH2tD_gg0DgIqIZfTIl8FyCmNXimuSTz3mK1zmhJgW_r89xk210JeyRSiPl8ag8s8ql_61woOayWASGB1eQrEDgMeE9bc-C-HoZazGauOoaeTtmEya-IEISoyFbY6iPfrIeoE0yASHH_vl5oHmbNG1hG0Ro");'></div>
+<div class="flex flex-col">
+<p class="text-xs font-bold">The Architect</p>
+<p class="text-[10px] text-slate-500">PRO ACCOUNT</p>
+</div>
+</div>
+<button class="text-slate-500 hover:text-white">
+<span class="material-symbols-outlined text-lg">swap_horiz</span>
+</button>
+</div>
+</aside>
+<!-- Secondary Note List Panel (300px) -->
+<aside class="w-[320px] bg-sidebar-dark border-r border-border-dark flex flex-col">
+<div class="p-4 space-y-4">
+<button class="w-full bg-primary hover:bg-primary/90 text-white py-2 rounded font-sans font-medium flex items-center justify-center gap-2 text-sm transition-all shadow-lg shadow-primary/20"><span class="material-symbols-outlined text-lg">add</span>
+                    New Note</button>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-slate-500 text-sm">search</span>
+<input class="w-full bg-panel-dark border border-border-dark rounded py-2 pl-9 pr-4 text-xs text-slate-300 focus:outline-none focus:border-primary/50 font-sans" placeholder="Search notes..." type="text"/>
+</div>
+</div>
+<div class="px-4 pb-4 flex flex-wrap gap-2 border-b border-border-dark">
+<span class="px-2 py-1 bg-primary text-white rounded-full text-[10px] font-bold cursor-pointer">ALL</span>
+<span class="px-2 py-1 bg-cyan-900/30 text-cyan-400 border border-cyan-400/20 rounded-full text-[10px] font-bold cursor-pointer">SESSION LOG</span>
+<span class="px-2 py-1 bg-purple-900/30 text-purple-400 border border-purple-400/20 rounded-full text-[10px] font-bold cursor-pointer">WORLD LORE</span>
+<span class="px-2 py-1 bg-emerald-900/30 text-emerald-400 border border-emerald-400/20 rounded-full text-[10px] font-bold cursor-pointer">PLOT</span>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar">
+<!-- Active Note Item -->
+<div class="p-4 bg-primary/5 border-l-2 border-primary cursor-pointer border-b border-border-dark/50">
+<div class="flex items-center gap-2 mb-1">
+<span class="px-1.5 py-0.5 bg-cyan-900/40 text-cyan-400 rounded text-[9px] font-bold">SESSION LOG</span>
+<span class="text-[10px] text-slate-500 ml-auto">2h ago</span>
+</div>
+<h4 class="font-sans font-semibold text-sm text-slate-200 mb-1">Session 4 — The Descent Begins</h4>
+<p class="text-[13px] text-slate-500 truncate">The party reaches the mouth of the Whispering Caves...</p>
+</div>
+<!-- Note Item -->
+<div class="p-4 hover:bg-white/5 cursor-pointer border-b border-border-dark/50 transition-colors">
+<div class="flex items-center gap-2 mb-1">
+<span class="px-1.5 py-0.5 bg-emerald-900/40 text-emerald-400 rounded text-[9px] font-bold">PLOT</span>
+<span class="text-[10px] text-slate-500 ml-auto">Yesterday</span>
+</div>
+<h4 class="font-sans font-semibold text-sm text-slate-400 mb-1">Betrayal of Kaelen</h4>
+<p class="text-[13px] text-slate-500 truncate">The merchant prince has ties to the cult, wait for...</p>
+</div>
+<!-- DM Secret Note -->
+<div class="p-4 hover:bg-red-500/5 bg-red-500/5 cursor-pointer border-b border-border-dark/50 transition-colors">
+<div class="flex items-center gap-2 mb-1">
+<span class="px-1.5 py-0.5 bg-red-900/40 text-red-400 rounded text-[9px] font-bold flex items-center gap-1">
+<span class="material-icons text-[10px]">lock</span> DM SECRET
+                        </span>
+<span class="text-[10px] text-slate-500 ml-auto">Oct 12</span>
+</div>
+<h4 class="font-sans font-semibold text-sm text-slate-300 mb-1">The True Identity of Elara</h4>
+<p class="text-[13px] text-slate-500 truncate">She is not a half-elf; she's a silver dragon in disguise...</p>
+</div>
+<!-- More Note Items -->
+<div class="p-4 hover:bg-white/5 cursor-pointer border-b border-border-dark/50 transition-colors">
+<div class="flex items-center gap-2 mb-1">
+<span class="px-1.5 py-0.5 bg-purple-900/40 text-purple-400 rounded text-[9px] font-bold">WORLD LORE</span>
+<span class="text-[10px] text-slate-500 ml-auto">Oct 10</span>
+</div>
+<h4 class="font-sans font-semibold text-sm text-slate-400 mb-1">Calendar of the Third Age</h4>
+<p class="text-[13px] text-slate-500 truncate">The Era of Mist lasted for four hundred years...</p>
+</div>
+<div class="p-4 hover:bg-white/5 cursor-pointer border-b border-border-dark/50 transition-colors">
+<div class="flex items-center gap-2 mb-1">
+<span class="px-1.5 py-0.5 bg-cyan-900/40 text-cyan-400 rounded text-[9px] font-bold">SESSION LOG</span>
+<span class="text-[10px] text-slate-500 ml-auto">Oct 8</span>
+</div>
+<h4 class="font-sans font-semibold text-sm text-slate-400 mb-1">Session 3 — Salt and Sorrows</h4>
+<p class="text-[13px] text-slate-500 truncate">Arriving at the port town of Oakhaven during the storm...</p>
+</div>
+</div>
+</aside>
+<!-- Main Editor Area -->
+<main class="flex-1 bg-background-dark overflow-y-auto custom-scrollbar">
+<!-- Editor Toolbar -->
+<div class="sticky top-0 bg-background-dark/95 backdrop-blur-sm z-10 border-b border-border-dark px-10 py-3 flex items-center justify-between">
+<div class="flex items-center gap-2 bg-sidebar-dark border border-border-dark rounded-lg p-1"><button class="p-1.5 hover:bg-white/10 rounded transition-colors text-slate-500 hover:text-white">
+<span class="material-symbols-outlined text-[18px]">format_bold</span>
+</button>
+<button class="p-1.5 hover:bg-white/10 rounded transition-colors text-slate-500 hover:text-white">
+<span class="material-symbols-outlined text-[18px]">format_italic</span>
+</button>
+<div class="w-[1px] h-4 bg-border-dark mx-1"></div>
+<button class="p-1.5 hover:bg-white/10 rounded transition-colors text-slate-500 hover:text-white">
+<span class="material-symbols-outlined text-[18px]">format_list_bulleted</span>
+</button>
+<button class="p-1.5 hover:bg-white/10 rounded transition-colors text-slate-500 hover:text-white">
+<span class="material-symbols-outlined text-[18px]">title</span>
+</button>
+<button class="p-1.5 hover:bg-white/10 rounded transition-colors text-slate-500 hover:text-white">
+<span class="material-symbols-outlined text-[18px]">format_quote</span>
+</button>
+<div class="w-[1px] h-4 bg-border-dark mx-1"></div>
+<button class="p-1.5 hover:bg-white/10 rounded transition-colors text-slate-500 hover:text-white">
+<span class="material-symbols-outlined text-[18px]">add_photo_alternate</span>
+</button></div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 bg-sidebar-dark border border-border-dark rounded-full px-3 py-1 cursor-pointer hover:border-primary/50 transition-all"><button class="p-1.5 hover:bg-white/10 rounded transition-colors text-slate-500 hover:text-white">
+<span class="material-symbols-outlined text-[18px]">format_bold</span>
+</button>
+<button class="p-1.5 hover:bg-white/10 rounded transition-colors text-slate-500 hover:text-white">
+<span class="material-symbols-outlined text-[18px]">format_italic</span>
+</button>
+<div class="w-[1px] h-4 bg-border-dark mx-1"></div>
+<button class="p-1.5 hover:bg-white/10 rounded transition-colors text-slate-500 hover:text-white">
+<span class="material-symbols-outlined text-[18px]">format_list_bulleted</span>
+</button>
+<button class="p-1.5 hover:bg-white/10 rounded transition-colors text-slate-500 hover:text-white">
+<span class="material-symbols-outlined text-[18px]">title</span>
+</button>
+<button class="p-1.5 hover:bg-white/10 rounded transition-colors text-slate-500 hover:text-white">
+<span class="material-symbols-outlined text-[18px]">format_quote</span>
+</button>
+<div class="w-[1px] h-4 bg-border-dark mx-1"></div>
+<button class="p-1.5 hover:bg-white/10 rounded transition-colors text-slate-500 hover:text-white">
+<span class="material-symbols-outlined text-[18px]">add_photo_alternate</span>
+</button></div>
+<div class="h-6 w-[1px] bg-border-dark"></div>
+<button class="text-slate-500 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[18px]">format_bold</span>
+</button>
+</div>
+</div>
+<!-- Content Container -->
+<div class="max-w-[720px] mx-auto pt-16 pb-32 px-6">
+<header class="mb-10">
+<div class="flex items-center gap-2 mb-4">
+<span class="px-2 py-1 bg-cyan-900/30 text-cyan-400 border border-cyan-400/20 rounded-full text-[10px] font-bold tracking-wider">SESSION LOG</span>
+<span class="text-slate-600 text-sm font-sans">•</span>
+<span class="text-slate-500 text-sm font-sans">Updated 2 hours ago by The Architect</span>
+</div>
+<h1 class="font-bold text-4xl text-slate-100 leading-tight font-space font-display">Session 4 — The Descent Begins</h1>
+</header>
+<article class="font-sans text-[17px] text-slate-400 leading-[1.8] space-y-6">
+<p>
+                        The party finally arrived at the jagged entrance of the <strong class="text-slate-200">Whispering Caves</strong> as the blood-red sun dipped below the Horizon of Ash. The air grew heavy with the smell of wet stone and ancient decay. <em class="italic text-slate-300">Thrain</em> felt a distinct vibration in his warhammer, a warning from the ancestors that the ground here was not merely rock, but something more... visceral.
+                    </p>
+<div class="relative pl-6 border-l-2 border-primary/30 py-1 bg-primary/5 rounded-r-lg">
+<p class="text-slate-300 italic">"Do not listen to the echoes of your own voice," the hermit had warned. "In the descent, every sound you make is a debt you'll eventually have to pay."</p>
+</div>
+<h3 class="text-2xl text-slate-200 pt-4 font-semibold font-space font-display">Key Objectives &amp; Encounters</h3>
+<ul class="space-y-4">
+<li class="flex gap-4">
+<span class="w-1.5 h-1.5 rounded-full bg-primary mt-2.5 flex-shrink-0"></span>
+<span><strong class="text-slate-200">The Maw of Silence:</strong> A skill challenge (DC 14 Athletics/Acrobatics) to navigate the crumbling descent into the first chamber. Failure results in 2d6 bludgeoning damage and alerting the scouts.</span>
+</li>
+<li class="flex gap-4">
+<span class="w-1.5 h-1.5 rounded-full bg-primary mt-2.5 flex-shrink-0"></span>
+<span><strong class="text-slate-200">The Pale-Eyed Sentinels:</strong> Three Deep-Ghouls are currently feasting on a carcass near the eastern tunnel. If the party uses Stealth (DC 12), they can bypass them.</span>
+</li>
+<li class="flex gap-4">
+<span class="w-1.5 h-1.5 rounded-full bg-primary mt-2.5 flex-shrink-0"></span>
+<span><strong class="text-slate-200">The Rune-Coded Lock:</strong> A stone door with glowing purple glyphs. Requires the <em class="italic">Crescent Key</em> found in Session 2 or a DC 18 Arcana check to bypass.</span>
+</li>
+</ul>
+<p>
+                        As they stepped into the darkness, the ambient light of the surface faded instantly. It was as if the darkness itself was aggressive, pushing against their torches. This is where the <span class="text-primary font-medium">real campaign begins</span>.
+                    </p>
+<div class="mt-12 p-6 rounded-xl border border-dashed border-border-dark bg-sidebar-dark/40 flex flex-col items-center justify-center text-center">
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-primary">image</span>
+</div>
+<p class="text-sm font-sans text-slate-500">Drop an image or map here to attach to this note</p>
+<button class="mt-4 text-xs font-bold text-primary hover:underline uppercase tracking-widest">Browse Assets</button>
+</div>
+</article>
+</div>
+</main>
+</div>
+</body></html>

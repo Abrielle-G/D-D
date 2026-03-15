@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dice &amp; Decisions | Probability Visualizer</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#7c3aed",
+                        "background-light": "#f7f6f8",
+                        "background-dark": "#08080d",
+                        "card-dark": "#111119",
+                        "accent-cyan": "#06b6d4",
+                        "accent-amber": "#f59e0b",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>body {
+    font-family: "Public Sans", sans-serif;
+    background-color: #08080d
+    }
+.sidebar-item-active {
+    background-color: rgba(124, 58, 237, 0.1);
+    border-left: 4px solid #7c3aed
+    }
+.noise-overlay {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuDJcY7Uh1WQCVyfNm9B5kv-Yjo0a28OGuQQCCko4SNY5VX15Zwq7IyU4o8Hd6Jjfgvkf8WUVFC2ZQ7ka-8WbvwsLJrtgqJMtpsKMyhs8GCpMcjloZ6orT7vAAaOgEPdxgOWVIT6sMQ8SYx4IERiE0G0QaVvsViZu-ufTgumX6fivegJT6vWAJ3nkjjungHjuBFox8OAjF49IBoxs9yGD1_CuGBFLhhAri-NgW8wTdCeEViDRYHuVwtMHVJJoG2ockCVjSUMpvgx6Sk);
+    opacity: 0.03;
+    pointer-events: none
+    }
+.card-hover:hover {
+    border-color: #3f3f5a;
+    transform: translatey(-2px);
+    transition: all 0.2s ease-in-out
+    }
+.mono-text {
+    font-family: 'JetBrains Mono', monospace;
+}</style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100"><div class="fixed inset-0 noise-overlay"></div>
+<div class="relative flex h-screen w-full overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-[260px] bg-sidebar-dark border-r border-border-dark flex flex-col z-20">
+<div class="p-6 flex flex-col gap-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white"><i class="fa-solid fa-dice-d20 text-xl"></i></div>
+<div>
+<h1 class="font-space font-bold text-lg leading-none tracking-tight">Dice &amp; Decisions</h1>
+<span class="inline-block mt-1 px-2 py-0.5 rounded-full bg-primary text-[10px] font-bold text-white uppercase tracking-wider">DM Mode</span>
+</div>
+</div>
+<nav class="flex flex-col gap-6 mt-4">
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Overview</p>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+</div>
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Probability</p>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">style</span>
+<span class="text-sm font-medium">Probability Cards</span>
+</a>
+<a class="sidebar-item-active flex items-center gap-3 px-3 py-2 rounded-lg text-primary bg-primary/10 border-l-4 border-primary" href="#">
+<span class="material-symbols-outlined text-lg">blur_on</span>
+<span class="text-sm font-medium">Dice Visualizer</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">analytics</span>
+<span class="text-sm font-medium">Bayes Analyzer</span>
+</a>
+</div>
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Campaign</p>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">history_edu</span>
+<span class="text-sm font-medium">Story Notes</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">swords</span>
+<span class="text-sm font-medium">Encounters</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">groups</span>
+<span class="text-sm font-medium">NPCs</span>
+</a>
+</div>
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">World</p>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">map</span>
+<span class="text-sm font-medium">Maps</span>
+</a>
+</div>
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Characters</p>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">shield</span>
+<span class="text-sm font-medium">Party</span>
+</a>
+</div>
+</nav>
+</div>
+<div class="mt-auto p-6 border-t border-border-dark flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-cover bg-center border border-primary/50" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAshkUesEjixDlSBYZvvXAuXxorvbVknOcFKc3m8GtX6oge0VGgrzc29oI_lJFacMJe__TxNmVUnebuln0od-kWnme4yN06bTf4BZRvq2c_700gB36QKBFKrbZxLovK3iATpNx999j6zzpIgWnubytw9Z7sYRjm9FnHdeDop-cxXugTZPXxLkFQS9hdPViT7r4pkjm-CHxl5qEaXRZJ80mcsgCikQCqPCTaFG7CuN1qh1FSlb9cM7GqVKQFNY8ZzwsT8CBjnZcdQD4");'></div>
+<div class="flex flex-col">
+<p class="text-xs font-bold">Dungeon Master</p>
+<p class="text-[10px] text-slate-500">Premium Account</p>
+</div>
+</div>
+<button class="text-slate-500 hover:text-white">
+<span class="material-symbols-outlined text-lg">swap_horiz</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col overflow-hidden">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 h-16 bg-background-dark/80 backdrop-blur-md border-b border-border-dark px-8 flex items-center justify-between z-30">
+<div class="flex items-center gap-8">
+<h2 class="font-display text-xl font-bold tracking-tight">Probability Tools</h2>
+<nav class="flex gap-6">
+<a class="text-sm font-medium text-slate-500 hover:text-white transition-colors py-2" href="#">Cards</a>
+<a class="text-sm font-medium text-primary border-b-2 border-primary py-2" href="#">Dice Visualizer</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<i class="fa-solid fa-palette text-slate-500 hover:text-slate-300 cursor-pointer text-xl transition-colors"></i>
+<div class="relative cursor-pointer text-slate-400 hover:text-white">
+<span class="material-symbols-outlined">notifications</span>
+<div class="absolute top-0 right-0 w-2 h-2 bg-primary rounded-full border border-background-dark"></div>
+</div>
+<div class="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-white font-bold text-xs shadow-lg shadow-primary/20">
+                        JD
+                    </div>
+</div>
+</header>
+<!-- Content Scroll Area -->
+<div class="flex-1 overflow-y-auto p-8 space-y-8">
+<!-- Visualizer Main Card -->
+<section class="bg-card-dark rounded-xl border border-primary/10 shadow-2xl p-6">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+<div>
+<h3 class="text-xl font-bold">Dice Distribution Visualizer</h3>
+<p class="text-sm text-slate-400">Comparing binomial distributions across variance types.</p>
+</div>
+<div class="flex items-center gap-2 bg-black/40 p-1.5 rounded-full border border-primary/20">
+<span class="text-[10px] uppercase tracking-tighter text-slate-500 px-3 font-bold">Legend</span>
+<div class="flex items-center gap-4 px-2">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+<span class="text-xs font-medium mono-text">2d6</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-accent-amber"></div>
+<span class="text-xs font-medium mono-text">1d12</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Controls Section -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
+<div class="lg:col-span-8 flex flex-wrap gap-2">
+<button class="px-4 py-1.5 rounded-full bg-primary/20 border border-primary/40 text-primary text-sm font-bold mono-text hover:bg-primary hover:text-white transition-all">d4</button>
+<button class="px-4 py-1.5 rounded-full bg-primary text-white border border-primary text-sm font-bold mono-text shadow-[0_0_15px_rgba(124,58,237,0.4)] transition-all">d6</button>
+<button class="px-4 py-1.5 rounded-full bg-primary/20 border border-primary/40 text-primary text-sm font-bold mono-text hover:bg-primary hover:text-white transition-all">d8</button>
+<button class="px-4 py-1.5 rounded-full bg-primary/20 border border-primary/40 text-primary text-sm font-bold mono-text hover:bg-primary hover:text-white transition-all">d10</button>
+<button class="px-4 py-1.5 rounded-full bg-primary/20 border border-primary/40 text-primary text-sm font-bold mono-text hover:bg-primary hover:text-white transition-all">d12</button>
+<button class="px-4 py-1.5 rounded-full bg-primary/20 border border-primary/40 text-primary text-sm font-bold mono-text hover:bg-primary hover:text-white transition-all">d20</button>
+</div>
+<div class="lg:col-span-4 flex items-center gap-4 justify-end">
+<div class="flex flex-col">
+<label class="text-[10px] uppercase font-bold text-slate-500 mb-1">Dice Count</label>
+<div class="flex items-center bg-black/40 border border-primary/20 rounded-lg px-2 py-1">
+<input class="w-10 bg-transparent border-none text-center mono-text font-bold focus:ring-0 text-slate-100" type="text" value="2"/>
+<div class="flex flex-col border-l border-primary/20 ml-2">
+<span class="material-symbols-outlined text-[16px] cursor-pointer hover:text-primary transition-colors">expand_less</span>
+<span class="material-symbols-outlined text-[16px] cursor-pointer hover:text-primary transition-colors">expand_more</span>
+</div>
+</div>
+</div>
+<div class="bg-primary px-6 py-2 rounded-lg flex flex-col items-center">
+<span class="text-[10px] uppercase font-bold text-white/70">Selected</span>
+<span class="text-xl font-bold mono-text text-white">2d6</span>
+</div>
+</div>
+</div>
+<!-- Chart Visualizer Area -->
+<div class="relative h-96 w-full border-l border-b border-primary/20 mt-12 mb-6 flex items-end px-4 gap-1 sm:gap-2">
+<!-- Y-Axis Labels -->
+<div class="absolute -left-12 bottom-0 top-0 flex flex-col justify-between text-[10px] font-bold text-slate-600 mono-text">
+<span>20%</span>
+<span>15%</span>
+<span>10%</span>
+<span>5%</span>
+<span>0%</span>
+</div>
+<!-- Overlay Comparison Line (1d12) -->
+<div class="absolute inset-x-0 bottom-0 h-full w-full pointer-events-none px-4">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 1000 400">
+<path class="opacity-50" d="M 0 380 L 100 380 L 200 380 L 300 380 L 400 380 L 500 380 L 600 380 L 700 380 L 800 380 L 900 380 L 1000 380" fill="none" stroke="#f59e0b" stroke-dasharray="4" stroke-width="2"></path>
+<rect fill="#f59e0b" height="2" opacity="0.4" width="900" x="50" y="320"></rect>
+</svg>
+</div>
+<!-- Bar Chart (2d6 Distribution) -->
+<div class="flex-1 flex items-end justify-around h-full">
+<!-- Bar 2 -->
+<div class="group relative w-full mx-1 flex flex-col items-center">
+<div class="w-full bg-gradient-to-t from-primary/20 to-accent-cyan/40 rounded-t-sm" style="height: 10%;"></div>
+<span class="absolute -bottom-6 text-xs mono-text font-bold text-slate-500">2</span>
+</div>
+<!-- Bar 3 -->
+<div class="group relative w-full mx-1 flex flex-col items-center">
+<div class="w-full bg-gradient-to-t from-primary/20 to-accent-cyan/40 rounded-t-sm" style="height: 15%;"></div>
+<span class="absolute -bottom-6 text-xs mono-text font-bold text-slate-500">3</span>
+</div>
+<!-- Bar 4 -->
+<div class="group relative w-full mx-1 flex flex-col items-center">
+<div class="w-full bg-gradient-to-t from-primary/20 to-accent-cyan/40 rounded-t-sm" style="height: 25%;"></div>
+<span class="absolute -bottom-6 text-xs mono-text font-bold text-slate-500">4</span>
+</div>
+<!-- Bar 5 -->
+<div class="group relative w-full mx-1 flex flex-col items-center">
+<div class="w-full bg-gradient-to-t from-primary/20 to-accent-cyan/40 rounded-t-sm" style="height: 40%;"></div>
+<span class="absolute -bottom-6 text-xs mono-text font-bold text-slate-500">5</span>
+</div>
+<!-- Bar 6 -->
+<div class="group relative w-full mx-1 flex flex-col items-center">
+<div class="w-full bg-gradient-to-t from-primary/20 to-accent-cyan/40 rounded-t-sm" style="height: 60%;"></div>
+<span class="absolute -bottom-6 text-xs mono-text font-bold text-slate-500">6</span>
+</div>
+<!-- Bar 7 (Highlighted / Tooltip) -->
+<div class="group relative w-full mx-1 flex flex-col items-center">
+<div class="absolute -top-24 z-10 w-32 bg-slate-900 border border-primary p-3 rounded-lg shadow-[0_0_20px_rgba(124,58,237,0.3)]">
+<div class="flex justify-between items-center mb-1">
+<span class="text-xs font-bold text-primary">Result: 7</span>
+<span class="text-[10px] text-slate-400">P = 16.6%</span>
+</div>
+<div class="w-full h-1 bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 16.6%;"></div>
+</div>
+<p class="text-[9px] text-slate-500 mt-2">Combinations: 6/36</p>
+</div>
+<div class="w-full bg-gradient-to-t from-primary to-accent-cyan rounded-t-sm shadow-[0_0_20px_rgba(6,182,212,0.4)]" style="height: 85%;"></div>
+<span class="absolute -bottom-6 text-xs mono-text font-bold text-white">7</span>
+</div>
+<!-- Bar 8 -->
+<div class="group relative w-full mx-1 flex flex-col items-center">
+<div class="w-full bg-gradient-to-t from-primary/20 to-accent-cyan/40 rounded-t-sm" style="height: 60%;"></div>
+<span class="absolute -bottom-6 text-xs mono-text font-bold text-slate-500">8</span>
+</div>
+<!-- Bar 9 -->
+<div class="group relative w-full mx-1 flex flex-col items-center">
+<div class="w-full bg-gradient-to-t from-primary/20 to-accent-cyan/40 rounded-t-sm" style="height: 40%;"></div>
+<span class="absolute -bottom-6 text-xs mono-text font-bold text-slate-500">9</span>
+</div>
+<!-- Bar 10 -->
+<div class="group relative w-full mx-1 flex flex-col items-center">
+<div class="w-full bg-gradient-to-t from-primary/20 to-accent-cyan/40 rounded-t-sm" style="height: 25%;"></div>
+<span class="absolute -bottom-6 text-xs mono-text font-bold text-slate-500">10</span>
+</div>
+<!-- Bar 11 -->
+<div class="group relative w-full mx-1 flex flex-col items-center">
+<div class="w-full bg-gradient-to-t from-primary/20 to-accent-cyan/40 rounded-t-sm" style="height: 15%;"></div>
+<span class="absolute -bottom-6 text-xs mono-text font-bold text-slate-500">11</span>
+</div>
+<!-- Bar 12 -->
+<div class="group relative w-full mx-1 flex flex-col items-center">
+<div class="w-full bg-gradient-to-t from-primary/20 to-accent-cyan/40 rounded-t-sm" style="height: 10%;"></div>
+<span class="absolute -bottom-6 text-xs mono-text font-bold text-slate-500">12</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Analytics Breakdown -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-card-dark p-6 rounded-xl border border-primary/10">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary">analytics</span>
+<h4 class="font-bold text-sm uppercase tracking-wider text-slate-400">Mean Variance</h4>
+</div>
+<p class="text-3xl font-bold mono-text">7.0000</p>
+<p class="text-xs text-slate-500 mt-2">Standard deviation: 2.4152</p>
+</div>
+<div class="bg-card-dark p-6 rounded-xl border border-primary/10">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-accent-cyan">percent</span>
+<h4 class="font-bold text-sm uppercase tracking-wider text-slate-400">Probability of 7+</h4>
+</div>
+<p class="text-3xl font-bold mono-text">58.33%</p>
+<p class="text-xs text-slate-500 mt-2">Cumulative distribution peak</p>
+</div>
+<div class="bg-card-dark p-6 rounded-xl border border-primary/10">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-accent-amber">compare_arrows</span>
+<h4 class="font-bold text-sm uppercase tracking-wider text-slate-400">Comparison Delta</h4>
+</div>
+<div class="flex items-baseline gap-2">
+<p class="text-3xl font-bold mono-text text-accent-amber">+8.2%</p>
+<span class="text-[10px] text-slate-500">vs 1d12 mode</span>
+</div>
+<p class="text-xs text-slate-500 mt-2">Kurtosis shift: Platykurtic</p>
+</div>
+</div>
+<!-- Footer Log -->
+<section class="bg-card-dark rounded-xl border border-primary/10 overflow-hidden">
+<div class="px-6 py-4 border-b border-primary/10 bg-white/5 flex justify-between items-center">
+<h5 class="text-sm font-bold uppercase tracking-widest text-slate-400">Recent Simulations</h5>
+<button class="text-xs text-primary font-bold hover:underline">Export CSV</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left text-sm mono-text">
+<thead class="bg-black/20 text-slate-500 border-b border-primary/10">
+<tr>
+<th class="px-6 py-3 font-medium">TIMESTAMP</th>
+<th class="px-6 py-3 font-medium">ROLL_CONFIG</th>
+<th class="px-6 py-3 font-medium">RESULT</th>
+<th class="px-6 py-3 font-medium">PERCENTILE</th>
+<th class="px-6 py-3 font-medium text-right">LATENCY</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-primary/5">
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-4 text-slate-400">14:22:01.034</td>
+<td class="px-6 py-4 font-bold text-slate-200">2d6</td>
+<td class="px-6 py-4 text-accent-cyan">11</td>
+<td class="px-6 py-4">91.66%</td>
+<td class="px-6 py-4 text-right text-slate-500">0.02ms</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-4 text-slate-400">14:21:58.892</td>
+<td class="px-6 py-4 font-bold text-slate-200">2d6</td>
+<td class="px-6 py-4 text-primary">7</td>
+<td class="px-6 py-4">50.00%</td>
+<td class="px-6 py-4 text-right text-slate-500">0.01ms</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-4 text-slate-400">14:21:55.120</td>
+<td class="px-6 py-4 font-bold text-slate-200">1d12</td>
+<td class="px-6 py-4 text-accent-amber">3</td>
+<td class="px-6 py-4">25.00%</td>
+<td class="px-6 py-4 text-right text-slate-500">0.03ms</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</main>
+</div>
+</body></html>

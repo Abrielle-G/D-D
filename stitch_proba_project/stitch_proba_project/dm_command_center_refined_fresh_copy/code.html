@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dice &amp; Decisions - DM Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;family=Space+Grotesk:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;700&amp;family=Public+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#7c3aed",
+                        "background-light": "#f7f6f8",
+                        "background-dark": "#08080d",
+                        "card-dark": "#111119",
+                        "sidebar-dark": "#0c0c13",
+                        "border-dark": "#1e1e2e",
+                    },
+                    fontFamily: {
+                        "display": ["Libre Caslon Text", "serif"],
+                        "sans": ["Public Sans", "sans-serif"],
+                        "space": ["Space Grotesk", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>body {
+    font-family: "Public Sans", sans-serif;
+    background-color: #08080d
+    }
+.sidebar-item-active {
+    background-color: rgba(124, 58, 237, 0.1);
+    border-left: 2px solid #7c3aed
+    }
+.noise-overlay {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuDJcY7Uh1WQCVyfNm9B5kv-Yjo0a28OGuQQCCko4SNY5VX15Zwq7IyU4o8Hd6Jjfgvkf8WUVFC2ZQ7ka-8WbvwsLJrtgqJMtpsKMyhs8GCpMcjloZ6orT7vAAaOgEPdxgOWVIT6sMQ8SYx4IERiE0G0QaVvsViZu-ufTgumX6fivegJT6vWAJ3nkjjungHjuBFox8OAjF49IBoxs9yGD1_CuGBFLhhAri-NgW8wTdCeEViDRYHuVwtMHVJJoG2ockCVjSUMpvgx6Sk);
+    opacity: 0.03;
+    pointer-events: none
+    }
+.card-hover:hover {
+    border-color: #3f3f5a;
+    transform: translatey(-2px);
+    transition: all 0.2s ease-in-out
+    }</style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/></head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased overflow-x-hidden">
+<div class="fixed inset-0 noise-overlay"></div>
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-[260px] bg-sidebar-dark border-r border-border-dark flex flex-col z-20">
+<div class="p-6 flex flex-col gap-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white"><i class="fa-solid fa-dice-d20 text-xl"></i></div>
+<div>
+<h1 class="font-space font-bold text-lg leading-none tracking-tight" style="">Dice &amp; Decisions</h1>
+<span class="inline-block mt-1 px-2 py-0.5 rounded-full bg-primary text-[10px] font-bold text-white uppercase tracking-wider" style="display: inline-block; padding: 2px 8px; border-radius: 9999px; background-color: #7c3aed; font-size: 10px; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 0.05em;">DM Mode</span>
+</div>
+</div>
+<nav class="flex flex-col gap-6 mt-4">
+<!-- Nav Group: Overview -->
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1" style="">Overview</p>
+<a class="sidebar-item-active flex items-center gap-3 px-3 py-2 rounded-lg text-primary bg-primary/10 border-l-4 border-primary" href="#" style="">
+<span class="material-symbols-outlined text-lg" style="">dashboard</span>
+<span class="text-sm font-medium" style="">Dashboard</span>
+</a>
+</div>
+<!-- Nav Group: Probability -->
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1" style="">Probability</p>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#" style="">
+<span class="material-symbols-outlined text-lg" style="">style</span>
+<span class="text-sm font-medium" style="">Probability Cards</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#" style="">
+<span class="material-symbols-outlined text-lg" style="">blur_on</span>
+<span class="text-sm font-medium" style="">Dice Visualizer</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#" style="">
+<span class="material-symbols-outlined text-lg" style="">analytics</span>
+<span class="text-sm font-medium" style="">Bayes Analyzer</span>
+</a>
+</div>
+<!-- Nav Group: Campaign -->
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1" style="">Campaign</p>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#" style="">
+<span class="material-symbols-outlined text-lg" style="">history_edu</span>
+<span class="text-sm font-medium" style="">Story Notes</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#" style="">
+<span class="material-symbols-outlined text-lg" style="">swords</span>
+<span class="text-sm font-medium" style="">Encounters</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#" style="">
+<span class="material-symbols-outlined text-lg" style="">groups</span>
+<span class="text-sm font-medium" style="">NPCs</span>
+</a>
+</div>
+<!-- Nav Group: World -->
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1" style="">World</p>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#" style="">
+<span class="material-symbols-outlined text-lg" style="">map</span>
+<span class="text-sm font-medium" style="">Maps</span>
+</a>
+</div>
+<!-- Nav Group: Characters -->
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1" style="">Characters</p>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#" style="">
+<span class="material-symbols-outlined text-lg" style="">shield</span>
+<span class="text-sm font-medium" style="">Party</span>
+</a>
+</div>
+</nav>
+</div>
+<div class="mt-auto p-6 border-t border-border-dark flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-cover bg-center border border-primary/50" data-alt="Dungeon Master profile avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAshkUesEjixDlSBYZvvXAuXxorvbVknOcFKc3m8GtX6oge0VGgrzc29oI_lJFacMJe__TxNmVUnebuln0od-kWnme4yN06bTf4BZRvq2c_700gB36QKBFKrbZxLovK3iATpNx999j6zzpIgWnubytw9Z7sYRjm9FnHdeDop-cxXugTZPXxLkFQS9hdPViT7r4pkjm-CHxl5qEaXRZJ80mcsgCikQCqPCTaFG7CuN1qh1FSlb9cM7GqVKQFNY8ZzwsT8CBjnZcdQD4");'></div>
+<div class="flex flex-col">
+<p class="text-xs font-bold" style="">Dungeon Master</p>
+<p class="text-[10px] text-slate-500" style="">Premium Account</p>
+</div>
+</div>
+<button class="text-slate-500 hover:text-white" style="">
+<span class="material-symbols-outlined text-lg" style="">swap_horiz</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto z-10">
+<!-- Top Bar -->
+<header class="sticky top-0 h-16 bg-background-dark/80 backdrop-blur-md border-b border-border-dark px-8 flex items-center justify-between z-30">
+<h2 class="font-display text-xl font-bold tracking-tight" style="">Dashboard</h2>
+<div class="flex items-center gap-6">
+<i class="fa-solid fa-palette cursor-pointer transition-colors" onmouseout="this.style.color='#475569'" onmouseover="this.style.color='#94a3b8'" style="font-size: 20px; color: #94a3b8; cursor: pointer;"></i><div class="relative cursor-pointer text-slate-400 hover:text-white">
+<span class="material-symbols-outlined" style="">notifications</span>
+<div class="absolute top-0 right-0 w-2 h-2 bg-primary rounded-full border border-background-dark"></div>
+</div>
+<button class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition-all shadow-lg shadow-primary/20" style="">
+<span class="material-symbols-outlined text-sm" style="">add</span>
+                        New Session
+                    </button>
+</div>
+</header>
+<div class="p-8 flex flex-col gap-8 max-w-[1440px] mx-auto">
+<!-- Welcome Banner -->
+<section class="relative rounded-xl overflow-hidden border border-border-dark group">
+<div class="absolute inset-0 bg-gradient-to-r from-background-dark via-background-dark/80 to-transparent z-10"></div>
+<div class="h-64 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="Atmospheric dark fantasy tower in the mist" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCx4Y2EHga9HLn8DM3b9OXvD3WyU-YYlfoy85rDd0_ZaVH23d6j3D2AuaNfidv_tFqP1UBbRmbHbvMn0U15kWA6qahU3i20S0W7bRYqo4e01ujS6SpiMrQQyzhpvzQdmsiXOyC7uuTuxMgb28gU-2DefxCJzDM_Q77bW3kHwzJSXzoT6o4IrnNCKww2kAFlfJ9FSrjsLui7JUdCw6gpk0fmakSJMB0O-x9-AcWnkr8FuR-ih8h6m1BvXlCTF3QcsUPgUmNBGYNGWL4");'></div>
+<div class="absolute inset-0 flex flex-col justify-center p-10 z-20">
+<p class="text-primary font-bold uppercase tracking-[0.2em] text-xs mb-2" style="">Current Campaign: Tower of Fate</p>
+<h3 class="font-display text-4xl font-bold mb-4" style="">Session 4 — The Descent Begins</h3>
+<div class="flex items-center gap-4">
+<button class="bg-primary hover:bg-primary/90 text-white px-6 py-2.5 rounded-lg text-sm font-bold transition-all" style="">
+                                Continue Session
+                            </button>
+<button class="bg-white/10 hover:bg-white/20 text-white backdrop-blur-sm px-6 py-2.5 rounded-lg text-sm font-bold border border-white/10 transition-all" style="">
+                                Session Logs
+                            </button>
+</div>
+</div>
+</section>
+<!-- Stats Row -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="bg-card-dark p-6 rounded-xl border border-border-dark card-hover transition-all duration-300">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-primary" style="">groups</span>
+<span class="text-[10px] text-green-500 bg-green-500/10 px-2 py-0.5 rounded font-bold" style="">+1 Active</span>
+</div>
+<p class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-1" style="">Active Players</p>
+<p class="font-mono text-3xl font-bold" style="">4</p>
+</div>
+<div class="bg-card-dark p-6 rounded-xl border border-border-dark card-hover transition-all duration-300">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-primary" style="">person_add</span>
+</div>
+<p class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-1" style="">NPCs Created</p>
+<p class="font-mono text-3xl font-bold" style="">12</p>
+</div>
+<div class="bg-card-dark p-6 rounded-xl border border-border-dark card-hover transition-all duration-300">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-primary" style="">swords</span>
+</div>
+<p class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-1" style="">Encounters</p>
+<p class="font-mono text-3xl font-bold" style="">7</p>
+</div>
+<div class="bg-card-dark p-6 rounded-xl border border-border-dark card-hover transition-all duration-300">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-primary" style="">trending_up</span>
+<span class="text-[10px] text-slate-500 bg-slate-500/10 px-2 py-0.5 rounded font-bold" style="">DC 14 Avg</span>
+</div>
+<p class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-1" style="">Avg. Success Rate</p>
+<p class="font-mono text-3xl font-bold" style="">47%</p>
+</div>
+</section>
+<!-- Grid Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Left: Next Encounter -->
+<div class="lg:col-span-2 flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<h4 class="font-space font-semibold text-base text-[#f1f5f9]" style="">Next Encounter</h4>
+<span class="px-3 py-1 bg-[#eab308]/10 text-[#eab308] font-mono font-medium text-[10px] rounded-full tracking-wider uppercase" style="background-color: rgba(234, 179, 8, 0.1); color: #eab308; padding: 4px 12px; border-radius: 9999px; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.1em;">PLANNED</span>
+</div>
+<div class="bg-card-dark rounded-xl border border-border-dark p-6 flex flex-col gap-4">
+<div>
+<h5 class="font-sans font-semibold text-[18px] text-[#f1f5f9]" style="">Goblin Ambush at the Bridge</h5>
+<p class="font-sans text-sm text-[#94a3b8] mt-1 line-clamp-2" style="">A pack of 4 goblins attacks as the party crosses the stone bridge...</p>
+</div>
+<div class="flex flex-col gap-3 my-2">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#ef4444] text-lg" style="">skull</span>
+<span class="font-sans font-medium text-[13px] text-[#f1f5f9]" style="">Goblin Scavenger</span>
+<span class="font-mono text-[12px] text-[#475569] ml-auto" style="">HP: 12 | AC: 13 | ATK: +4</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#ef4444] text-lg" style="">skull</span>
+<span class="font-sans font-medium text-[13px] text-[#f1f5f9]" style="">Goblin Scavenger</span>
+<span class="font-mono text-[12px] text-[#475569] ml-auto" style="">HP: 12 | AC: 13 | ATK: +4</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#ef4444] text-lg" style="">skull</span>
+<span class="font-sans font-medium text-[13px] text-[#f1f5f9]" style="">Goblin Scavenger</span>
+<span class="font-mono text-[12px] text-[#475569] ml-auto" style="">HP: 12 | AC: 13 | ATK: +4</span>
+</div>
+</div>
+<a class="flex items-center gap-1 font-sans font-medium text-[13px] text-[#7c3aed] hover:underline w-fit" href="#" style="">
+            View Probability Cards
+            <span class="material-symbols-outlined text-sm" style="">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Right: Party Overview -->
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<h4 class="font-space font-bold text-lg flex items-center gap-2" style=""><span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1; font-size: 24px;">shield</span> Party Overview</h4>
+</div>
+<div class="bg-card-dark rounded-xl border border-border-dark p-6 flex flex-col gap-6">
+<!-- Player 1 -->
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-cover bg-center border border-border-dark" data-alt="Fighter character portrait" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDdmdpKhwSyYMcIISydLTp7K1pQx15F72JEWcaEvQaZUh5wI0FazoGX0qwf-MGr335qy-SrTK74N1PnOCsLT4F7NSjwLNzc07jj3icSuXt6sXbKz5s0wH-QU5tr2BUujubryOHIxaOFqBPbKfg4mykyCH_PttGp8WrUH07neSlC-VvTyCjgG_1sBLBlVJleCZOXAUYRZYNyhx7JItOiT_rksCL1R_lB5eACKyYASGcIiBj-0-9zfftJRxOj5-zOh3sS8qbLrxYFsHk");'></div>
+<div>
+<p class="text-sm font-bold" style="">Theron</p>
+<p class="text-[10px] text-slate-500 uppercase" style="">Lv. 5 Fighter</p>
+</div>
+</div>
+<p class="font-mono text-sm" style="">48/52 HP</p>
+</div>
+<div class="w-full bg-white/5 h-1.5 rounded-full overflow-hidden" style="background-color: rgba(255, 255, 255, 0.05); height: 6px; border-radius: 9999px; overflow: hidden;">
+<div class="bg-green-500 h-full w-[92%]"></div>
+</div>
+</div>
+<!-- Player 2 -->
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-cover bg-center border border-border-dark" data-alt="Mage character portrait" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCBb6bzwzsoFWUt2_e9NnKWPVltCW-Pj0mJZZDYblh8Ml7eua_mjOAdgFGklvf2kqyiQWJ0g5-mltJxzrYKGVxzXo261nHs2Tw8NVIjGWSbSrrn9KGDsSuAc4uQRgLrGxMQzyRrqG1uibR12ABMF3ImQAQPmPXL0sWuLxXy3fJ4zOHiZrjKpyfbsN9iOtQo6FoCeRnzqv5FmBpa9qHEXOJg1U_qBO28qeyYOWds1hwaAc3KDDGxWCbnq9RmVNHEg9U01dQ6uJxYTqQ");'></div>
+<div>
+<p class="text-sm font-bold" style="">Elara</p>
+<p class="text-[10px] text-slate-500 uppercase" style="">Lv. 5 Wizard</p>
+</div>
+</div>
+<p class="font-mono text-sm" style="">12/34 HP</p>
+</div>
+<div class="w-full bg-white/5 h-1.5 rounded-full overflow-hidden" style="background-color: rgba(255, 255, 255, 0.05); height: 6px; border-radius: 9999px; overflow: hidden;">
+<div class="bg-red-500 h-full w-[35%]"></div>
+</div>
+</div>
+<!-- Player 3 -->
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-cover bg-center border border-border-dark" data-alt="Rogue character portrait" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAGehH4jme-NNaGCZJkdNXh2R8KL11kwF26IXUlIpjrNYD6YyeE4y6g6IaO82ldoaj8Q4Lp9UdZjAGcZ7e05v2eG_13E9dwZqDyKs9USf9skNIDHXYKAn7xVe5RS2Lh-TtGR8YRM9jg_KGIgxXbbq5H0wQDzSYg00r1Tlf3J1v96PGs3WbXgkiGqigCa0fn1ud5LZwfryM3gMXOtS3NJP4bJArb7UIJ5-drqXAty4ewpq_FMuSmu-q8OvKfrevKmuj8OsjRzhemoqM");'></div>
+<div>
+<p class="text-sm font-bold" style="">Kaelen</p>
+<p class="text-[10px] text-slate-500 uppercase" style="">Lv. 5 Rogue</p>
+</div>
+</div>
+<p class="font-mono text-sm" style="">29/41 HP</p>
+</div>
+<div class="w-full bg-white/5 h-1.5 rounded-full overflow-hidden" style="background-color: rgba(255, 255, 255, 0.05); height: 6px; border-radius: 9999px; overflow: hidden;">
+<div class="bg-yellow-500 h-full w-[70%]"></div>
+</div>
+</div>
+<!-- Player 4 -->
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-cover bg-center border border-border-dark" data-alt="Cleric character portrait" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDcNmLn-oAa0xCK9oJweUMC1Y1jtssQP2qDlY9ftTo2EKCDSswd7toF_eK0vUzGv3Jj30s_rKtfsn1Fe9yMw-OPm3OikZb3mxFdsqmchJU2i4Pi1nW__gx7qrdsd1jz5GY7aaIsy96TLFcEG5mKxgn-y7_d1fZiDRbUeeFVRkuFYKHcASSYmdgHpoeOaZDcgcJs6Ng1aTORYIafByPC67x5HmN5WyaMiyIiQzgbHTVfyhu1FVtbRthsFHa5LqcnKSs1qK00jjqYViA");'></div>
+<div>
+<p class="text-sm font-bold" style="">Bryn</p>
+<p class="text-[10px] text-slate-500 uppercase" style="">Lv. 5 Cleric</p>
+</div>
+</div>
+<p class="font-mono text-sm" style="">38/45 HP</p>
+</div>
+<div class="w-full bg-white/5 h-1.5 rounded-full overflow-hidden" style="background-color: rgba(255, 255, 255, 0.05); height: 6px; border-radius: 9999px; overflow: hidden;">
+<div class="bg-green-500 h-full w-[84%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Notes -->
+<section class="flex flex-col gap-4 mb-8">
+<div class="flex items-center justify-between">
+<h4 class="font-space font-semibold text-base text-[#f1f5f9]" style="">Recent Notes</h4>
+<a class="text-[#7c3aed] text-xs font-bold uppercase tracking-widest hover:underline" href="#" style="">View All</a>
+</div>
+<div class="bg-card-dark rounded-xl border border-border-dark overflow-hidden">
+<!-- Note 1 -->
+<div class="p-4 flex items-center justify-between border-b border-border-dark hover:bg-white/[0.02] transition-colors">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-3">
+<span class="px-2 py-0.5 rounded bg-[#06b6d4]/10 text-[#06b6d4] font-mono text-[10px] font-bold tracking-tight uppercase" style="">SESSION LOG</span>
+<h6 class="text-sm font-semibold text-[#f1f5f9]" style="">The Iron Gate</h6>
+</div>
+<p class="text-xs text-[#475569]" style="">The party finally reached the iron gate...</p>
+</div>
+<div class="text-[10px] font-mono text-[#475569]" style="">2h ago</div>
+</div>
+<!-- Note 2 -->
+<div class="p-4 flex items-center justify-between border-b border-border-dark hover:bg-white/[0.02] transition-colors">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-3">
+<span class="px-2 py-0.5 rounded bg-[#7c3aed]/10 text-[#7c3aed] font-mono text-[10px] font-bold tracking-tight uppercase" style="">PLOT</span>
+<h6 class="text-sm font-semibold text-[#f1f5f9]" style="">The Stranger's Gift</h6>
+</div>
+<p class="text-xs text-[#475569]" style="">A mysterious traveler gave Theron a...</p>
+</div>
+<div class="text-[10px] font-mono text-[#475569]" style="">5h ago</div>
+</div>
+<!-- Note 3 -->
+<div class="p-4 flex items-center justify-between hover:bg-white/[0.02] transition-colors">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-3">
+<span class="px-2 py-0.5 rounded bg-[#ef4444]/10 text-[#ef4444] font-mono text-[10px] font-bold tracking-tight uppercase" style="">DM SECRET</span>
+<h6 class="text-sm font-semibold text-[#f1f5f9]" style="">Hidden Trap</h6>
+</div>
+<p class="text-xs text-[#475569]" style="">There is a pressure plate behind the...</p>
+</div>
+<div class="text-[10px] font-mono text-[#475569]" style="">1d ago</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+</body></html>

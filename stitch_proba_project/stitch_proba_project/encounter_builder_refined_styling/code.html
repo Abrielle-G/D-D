@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&amp;family=DM+Sans:wght@400;500;700&amp;family=JetBrains+Mono:wght@400;700&amp;family=Libre+Caslon+Text&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#7c3aed",
+                        "background-light": "#f7f6f8",
+                        "background-dark": "#08080d",
+                        "card-dark": "#111119",
+                        "item-dark": "#16161f",
+                        "border-dark": "#1e1e2e",
+                    },
+                    fontFamily: {
+                        "display": ["Libre Caslon Text"],
+                        "space": ["Space Grotesk", "sans-serif"],
+                        "ui": ["DM Sans", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-dark text-slate-100 font-ui selection:bg-primary/30 min-h-screen">
+<div class="flex">
+<!-- Sidebar -->
+<aside class="w-[260px] bg-[#0c0c13] border-r border-border-dark flex flex-col z-20 h-screen fixed">
+<div class="p-6 flex flex-col gap-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white"><i class="fa-solid fa-dice-d20 text-xl"></i></div>
+<div>
+<h1 class="font-space font-bold text-lg leading-none tracking-tight">Dice &amp; Decisions</h1>
+<span class="inline-block mt-1 px-2 py-0.5 rounded-full bg-primary text-[10px] font-bold text-white uppercase tracking-wider">DM Mode</span>
+</div>
+</div>
+<nav class="flex flex-col gap-6 mt-4">
+<!-- Nav Group: Overview -->
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Overview</p>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+</div>
+<!-- Nav Group: Probability -->
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Probability</p>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">style</span>
+<span class="text-sm font-medium">Probability Cards</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">blur_on</span>
+<span class="text-sm font-medium">Dice Visualizer</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">analytics</span>
+<span class="text-sm font-medium">Bayes Analyzer</span>
+</a>
+</div>
+<!-- Nav Group: Campaign -->
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Campaign</p>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">history_edu</span>
+<span class="text-sm font-medium">Story Notes</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-primary bg-primary/10 border-l-4 border-primary font-medium transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">swords</span>
+<span class="text-sm">Encounters</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">groups</span>
+<span class="text-sm font-medium">NPCs</span>
+</a>
+</div>
+<!-- Nav Group: World -->
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">World</p>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">map</span>
+<span class="text-sm font-medium">Maps</span>
+</a>
+</div>
+<!-- Nav Group: Characters -->
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Characters</p>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">shield</span>
+<span class="text-sm font-medium">Party</span>
+</a>
+</div>
+</nav>
+</div>
+<div class="mt-auto p-6 border-t border-border-dark flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-cover bg-center border border-primary/50" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDoKE_RsnbxGzuI3OFP59wncZfbGA8hHhs5HDAVkdPqWMhRWbXYAyW1P4PRvSDw_1L4nXdsPL_h78RZWZyGjmYJGynkFvDdTZ5bW1AOSre2LtBhpcSrbe_1sNeFxfo-JfTdyWHUORJym2n5HEud2x0oo1TkoNHCP6UHm6PDVaaKkv37kbAX_qY2yb5mVbcJaalCSZecyXYSqjYLgzAGG4iDUlUnVs7VEuZ3RUjWF_CI0p2Y-0sNOIsw1jECEiRZXbBNJyb3NUpKuHM");'></div>
+<div class="flex flex-col">
+<p class="text-xs font-bold">Vaelin Al Sorna</p>
+<p class="text-[10px] text-slate-500">Lead Storyteller</p>
+</div>
+</div>
+<button class="text-slate-500 hover:text-white">
+<span class="material-symbols-outlined text-lg">swap_horiz</span>
+</button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="ml-[260px] flex-1 min-h-screen bg-[#08080d] relative overflow-x-hidden"><div class="absolute inset-0 pointer-events-none opacity-[0.02] z-0" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB_RzElj0M5PROc4Ll6cJnidVGoZSvBae2C4n7GzEPi3_uZ4415jLPIX6GzUX-ZUhn-J0qLNJmDh4Alw-fm4ePlRjXCJC8K8W11HvxGYOmLHPmYJAmyh_86O4T-IcN2VGZoJDUeDrmBiwKb0u7bqXoBZH0AtaJhHiG_qUo9wY6d6e9yTrODa0NYd8CSryT6G5Gwy9CQlJwdN_KNPTUw78mjMu6z18S98G3mx_YmqrGKE2GMwx_uKOZd1zltT4HuqGEUA3I8O5d_8tg'); filter: contrast(150%) brightness(100%);"></div>
+<!-- Top Bar -->
+<header class="sticky top-0 z-40 bg-[#08080d]/80 backdrop-blur-md border-b border-border-dark px-8 py-4 flex items-center justify-between relative z-10">
+<h2 class="font-space font-semibold text-xl text-slate-100">Encounter Builder</h2>
+<div class="flex items-center gap-4"><div class="flex items-center gap-6">
+<i class="fa-solid fa-palette cursor-pointer transition-colors text-slate-400 hover:text-white" style="font-size: 20px;"></i>
+<div class="relative cursor-pointer text-slate-400 hover:text-white">
+<span class="material-symbols-outlined">notifications</span>
+<div class="absolute top-0 right-0 w-2 h-2 bg-primary rounded-full border border-background-dark"></div>
+</div>
+<button class="material-symbols-outlined text-slate-400 hover:text-white transition-colors">help</button>
+</div></div>
+</header>
+<!-- Grid Layout -->
+<div class="p-8 max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-6 relative z-10">
+<!-- Left Column: Encounter Form -->
+<section class="bg-card-dark border border-border-dark rounded-lg p-7 shadow-2xl">
+<div class="flex justify-between items-start mb-8">
+<div>
+<h3 class="font-space font-bold text-2xl text-slate-100 mb-2">Create Encounter</h3>
+<div class="flex gap-2">
+<button class="px-4 py-1.5 rounded-full text-xs font-bold bg-amber-500 text-background-dark flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span> PLANNED
+                                </button>
+<button class="px-4 py-1.5 rounded-full text-xs font-bold bg-slate-800 text-slate-400 hover:text-slate-200 transition-colors">ACTIVE</button>
+<button class="px-4 py-1.5 rounded-full text-xs font-bold bg-slate-800 text-slate-400 hover:text-slate-200 transition-colors">COMPLETED</button>
+</div>
+</div>
+</div>
+<form class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4 relative z-10">
+<div class="md:col-span-3">
+<label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Encounter Name</label>
+<input class="w-full bg-item-dark border border-border-dark rounded-lg px-4 py-3 text-slate-100 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all" type="text" value="Goblin Ambush at the Bridge"/>
+</div>
+<div>
+<label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">DC</label>
+<input class="w-full bg-item-dark border border-border-dark rounded-lg px-4 py-3 text-slate-100 font-mono text-center focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all" type="number" value="14"/>
+</div>
+</div>
+<div>
+<label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Description</label>
+<textarea class="w-full bg-item-dark border border-border-dark rounded-lg px-4 py-3 text-slate-300 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all resize-none" placeholder="Describe the scene setup..." rows="3">The party reaches the old stone bridge over the Whispering Gorge. Three goblins hide behind the crumbling pillars...</textarea>
+</div>
+<!-- Enemies List -->
+<div class="space-y-4">
+<div class="flex items-center justify-between border-b border-border-dark pb-2">
+<h4 class="font-space font-bold text-lg text-slate-300">Enemies</h4>
+<button class="text-xs font-bold text-primary flex items-center gap-1 hover:bg-primary/10 px-3 py-1.5 rounded transition-all" type="button">
+<span class="material-symbols-outlined text-sm">add</span> ADD ENEMY
+                                </button>
+</div>
+<div class="space-y-3">
+<!-- Enemy Card 1 -->
+<div class="bg-item-dark border border-border-dark p-4 rounded-lg grid grid-cols-2 md:grid-cols-[1.5fr_1fr_1fr_1fr_1fr] gap-4 items-end relative z-10">
+<div>
+<label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Name</label>
+<input class="w-full bg-background-dark/50 border border-border-dark rounded px-2 py-1 text-xs" type="text" value="Goblin Scout"/>
+</div>
+<div>
+<label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">HP</label>
+<input class="w-full bg-background-dark/50 border border-border-dark rounded px-2 py-1 text-xs font-mono" type="text" value="7"/>
+</div>
+<div>
+<label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">AC</label>
+<input class="w-full bg-background-dark/50 border border-border-dark rounded px-2 py-1 text-xs font-mono" type="text" value="15"/>
+</div>
+<div>
+<label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">ATK</label>
+<input class="w-full bg-background-dark/50 border border-border-dark rounded px-2 py-1 text-xs font-mono" type="text" value="+4"/>
+</div>
+<div>
+<label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">DMG</label>
+<input class="w-full bg-background-dark/50 border border-border-dark rounded px-2 py-1 text-xs font-mono" type="text" value="1d6+2"/>
+</div>
+</div>
+<!-- Enemy Card 2 -->
+<div class="bg-item-dark border border-border-dark p-4 rounded-lg grid grid-cols-2 md:grid-cols-[1.5fr_1fr_1fr_1fr_1fr] gap-4 items-end opacity-90 relative z-10">
+<div>
+<input class="w-full bg-background-dark/50 border border-border-dark rounded px-2 py-1 text-xs" type="text" value="Goblin Archer"/>
+</div>
+<div>
+<input class="w-full bg-background-dark/50 border border-border-dark rounded px-2 py-1 text-xs font-mono" type="text" value="5"/>
+</div>
+<div>
+<input class="w-full bg-background-dark/50 border border-border-dark rounded px-2 py-1 text-xs font-mono" type="text" value="13"/>
+</div>
+<div>
+<input class="w-full bg-background-dark/50 border border-border-dark rounded px-2 py-1 text-xs font-mono" type="text" value="+4"/>
+</div>
+<div>
+<input class="w-full bg-background-dark/50 border border-border-dark rounded px-2 py-1 text-xs font-mono" type="text" value="1d6+2"/>
+</div>
+</div>
+<!-- Enemy Card 3 -->
+<div class="bg-item-dark border border-border-dark p-4 rounded-lg grid grid-cols-2 md:grid-cols-[1.5fr_1fr_1fr_1fr_1fr] gap-4 items-end opacity-80 relative z-10">
+<div>
+<input class="w-full bg-background-dark/50 border border-border-dark rounded px-2 py-1 text-xs" type="text" value="Goblin Boss"/>
+</div>
+<div>
+<input class="w-full bg-background-dark/50 border border-border-dark rounded px-2 py-1 text-xs font-mono" type="text" value="21"/>
+</div>
+<div>
+<input class="w-full bg-background-dark/50 border border-border-dark rounded px-2 py-1 text-xs font-mono" type="text" value="17"/>
+</div>
+<div>
+<input class="w-full bg-background-dark/50 border border-border-dark rounded px-2 py-1 text-xs font-mono" type="text" value="+5"/>
+</div>
+<div>
+<input class="w-full bg-background-dark/50 border border-border-dark rounded px-2 py-1 text-xs font-mono" type="text" value="2d6+3"/>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-border-dark">
+<button class="flex-1 bg-primary hover:bg-primary/90 text-white font-bold py-3 px-6 rounded-lg transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2" type="button">
+<span class="material-symbols-outlined text-sm">save</span> SAVE ENCOUNTER
+                            </button>
+<button class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-100 font-bold py-3 px-6 rounded-lg transition-all border border-border-dark flex items-center justify-center gap-2" type="button">
+<span class="material-symbols-outlined text-sm">calculate</span> GENERATE PROBABILITY
+                            </button>
+</div>
+</form>
+</section>
+<!-- Right Column: Probability Cards -->
+<section class="space-y-4">
+<div class="flex items-center justify-between mb-4">
+<h4 class="font-space font-bold text-slate-400 text-sm uppercase tracking-widest">Live Probability Stream</h4>
+<span class="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+</div>
+<!-- Card 1 -->
+<div class="bg-card-dark border border-border-dark rounded-lg p-5 border-l-4 border-emerald-500 hover:scale-[1.02] transition-transform cursor-pointer">
+<div class="flex justify-between items-start mb-3">
+<div>
+<p class="text-[10px] text-slate-500 font-bold uppercase tracking-tight">Matchup</p>
+<p class="text-sm font-bold text-slate-100">Thorin Oakshield vs Goblin Scout</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] text-slate-500 font-bold uppercase tracking-tight">Success Chance</p>
+<p class="text-xl font-mono font-bold text-emerald-500">72.4%</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="bg-item-dark px-2 py-1 rounded text-[10px] font-mono text-slate-400 border border-border-dark">1d20 + 3 vs AC 15</span>
+<div class="flex-1 h-1.5 bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-emerald-500 w-[72%]"></div>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-card-dark border border-border-dark rounded-lg p-5 border-l-4 border-amber-500 hover:scale-[1.02] transition-transform cursor-pointer">
+<div class="flex justify-between items-start mb-3">
+<div>
+<p class="text-[10px] text-slate-500 font-bold uppercase tracking-tight">Matchup</p>
+<p class="text-sm font-bold text-slate-100">Lyra Shadowstep vs Goblin Boss</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] text-slate-500 font-bold uppercase tracking-tight">Success Chance</p>
+<p class="text-xl font-mono font-bold text-amber-500">41.8%</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="bg-item-dark px-2 py-1 rounded text-[10px] font-mono text-slate-400 border border-border-dark">1d20 + 5 vs AC 17</span>
+<div class="flex-1 h-1.5 bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-amber-500 w-[41%]"></div>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-card-dark border border-border-dark rounded-lg p-5 border-l-4 border-emerald-500 hover:scale-[1.02] transition-transform cursor-pointer">
+<div class="flex justify-between items-start mb-3">
+<div>
+<p class="text-[10px] text-slate-500 font-bold uppercase tracking-tight">Matchup</p>
+<p class="text-sm font-bold text-slate-100">Garret Hill vs Goblin Archer</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] text-slate-500 font-bold uppercase tracking-tight">Success Chance</p>
+<p class="text-xl font-mono font-bold text-emerald-500">88.2%</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="bg-item-dark px-2 py-1 rounded text-[10px] font-mono text-slate-400 border border-border-dark">1d20 + 7 vs AC 13</span>
+<div class="flex-1 h-1.5 bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-emerald-500 w-[88%]"></div>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-card-dark border border-border-dark rounded-lg p-5 border-l-4 border-slate-500 hover:scale-[1.02] transition-transform cursor-pointer opacity-60">
+<div class="flex justify-between items-start mb-3">
+<div>
+<p class="text-[10px] text-slate-500 font-bold uppercase tracking-tight">Matchup</p>
+<p class="text-sm font-bold text-slate-100">Unknown vs Goblin Scout</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] text-slate-500 font-bold uppercase tracking-tight">Success Chance</p>
+<p class="text-xl font-mono font-bold text-slate-400">-%</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="bg-item-dark px-2 py-1 rounded text-[10px] font-mono text-slate-400 border border-border-dark">Waiting for player select</span>
+<div class="flex-1 h-1.5 bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-slate-700 w-0"></div>
+</div>
+</div>
+</div>
+<div class="mt-8 bg-primary/5 border border-primary/20 rounded-lg p-6 relative overflow-hidden group">
+<div class="relative z-10">
+<h5 class="font-space font-bold text-primary mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">tips_and_updates</span>
+                                DM Insight
+                            </h5>
+<p class="text-sm text-slate-400 leading-relaxed italic">"Probability favors the prepared DM. With a DC 14 and 3 enemies, this encounter is rated <span class="text-amber-500 font-bold">CHALLENGING</span> for Level 3 parties."</p>
+</div>
+<div class="absolute -right-4 -bottom-4 text-primary/10 opacity-20 group-hover:opacity-40 transition-opacity">
+<span class="material-symbols-outlined text-8xl">bolt</span>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+</body></html>

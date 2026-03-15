@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;family=JetBrains+Mono:wght@400;700&amp;family=Space+Grotesk:wght@500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#7c3aed",
+                        "accent-cyan": "#06b6d4",
+                        "background-light": "#f7f6f8",
+                        "background-dark": "#08080d",
+                        "card-dark": "#171121",
+                        "border-muted": "#1e1e2e",
+                    },
+                    fontFamily: {
+                        "display": ["Libre Caslon Text", "serif"],
+                        "mono": ["JetBrains Mono", "monospace"],
+                        "sans": ["Space Grotesk", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>body {
+    background-color: #08080d;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuDYfH3AhwJMetIymVs3akdCkL5wzpGIYZSvdbXy_IYDgJjqVcxRuGVefh1B5xwybZUNIIsy1Trt8a2PP48KUbMubvm6rb16p6jHU4bXypBONiv7pwlEe46ddcRlgnioJ7o_iDffDWiKw77k9nnniZifC1ALkXdeza_BnDKL_6noEwo9qBiTOlrYIYdSbXz1aCcj3VzcNbS2vjeL_Jm6KMLq1NUp10-zNy5Kb3g0j7fNZh8Sk9Gr1lLKFE7cH8naV7CPXQceG1xU11Q)
+    }
+.custom-slider::-webkit-slider-runnable-track {
+    background: linear-gradient(90deg, #7c3aed 0%, #06b6d4 100%);
+    height: 4px;
+    border-radius: 2px
+    }
+.custom-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #fff;
+    margin-top: -6px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(124, 58, 237, 0.5)
+    }</style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/><style>
+  main::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDYfH3AhwJMetIymVs3akdCkL5wzpGIYZSvdbXy_IYDgJjqVcxRuGVefh1B5xwybZUNIIsy1Trt8a2PP48KUbMubvm6rb16p6jHU4bXypBONiv7pwlEe46ddcRlgnioJ7o_iDffDWiKw77k9nnniZifC1ALkXdeza_BnDKL_6noEwo9qBiTOlrYIYdSbXz1aCcj3VzcNbS2vjeL_Jm6KMLq1NUp10-zNy5Kb3g0j7fNZh8Sk9Gr1lLKFE7cH8naV7CPXQceG1xU11Q');
+    opacity: 0.02;
+    pointer-events: none;
+    z-index: 0;
+  }
+  main > * {
+    position: relative;
+    z-index: 1;
+  }
+</style></head>
+<body class="font-sans text-slate-100 min-h-screen">
+<div class="flex h-screen overflow-hidden">
+<!-- SideNavBar -->
+<aside class="w-[260px] border-r border-border-dark flex flex-col z-20" style="background-color: #0c0c13; border-right-color: #1e1e2e;">
+<div class="p-6 flex flex-col gap-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white"><i class="fa-solid fa-dice-d20 text-xl"></i></div>
+<div>
+<h1 class="font-space font-bold text-lg leading-none tracking-tight">Dice &amp; Decisions</h1>
+<span class="inline-block mt-1 px-2 py-0.5 rounded-full bg-primary text-[10px] font-bold text-white uppercase tracking-wider" style="display: inline-block; padding: 2px 8px; border-radius: 9999px; background-color: #7c3aed; font-size: 10px; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 0.05em;">DM Mode</span>
+</div>
+</div>
+<nav class="flex flex-col gap-6 mt-4">
+<!-- Nav Group: Overview -->
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Overview</p>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+</div>
+<!-- Nav Group: Probability -->
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Probability</p>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">style</span>
+<span class="text-sm font-medium">Probability Cards</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">blur_on</span>
+<span class="text-sm font-medium">Dice Visualizer</span>
+</a>
+<a class="sidebar-item-active flex items-center gap-3 px-3 py-2 rounded-lg text-primary bg-primary/10 border-l-4 border-primary" href="#" style="background-color: rgba(124, 58, 237, 0.1); border-left-width: 4px; border-left-color: #7c3aed;">
+<span class="material-symbols-outlined text-lg">analytics</span>
+<span class="text-sm font-medium">Bayes Analyzer</span>
+</a>
+</div>
+<!-- Nav Group: Campaign -->
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Campaign</p>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">history_edu</span>
+<span class="text-sm font-medium">Story Notes</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">swords</span>
+<span class="text-sm font-medium">Encounters</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">groups</span>
+<span class="text-sm font-medium">NPCs</span>
+</a>
+</div>
+<!-- Nav Group: World -->
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">World</p>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">map</span>
+<span class="text-sm font-medium">Maps</span>
+</a>
+</div>
+<!-- Nav Group: Characters -->
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Characters</p>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">shield</span>
+<span class="text-sm font-medium">Party</span>
+</a>
+</div>
+</nav>
+</div>
+<div class="mt-auto p-6 border-t border-border-dark flex items-center justify-between" style="border-top-color: #1e1e2e;">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-cover bg-center border border-primary/50" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAshkUesEjixDlSBYZvvXAuXxorvbVknOcFKc3m8GtX6oge0VGgrzc29oI_lJFacMJe__TxNmVUnebuln0od-kWnme4yN06bTf4BZRvq2c_700gB36QKBFKrbZxLovK3iATpNx999j6zzpIgWnubytw9Z7sYRjm9FnHdeDop-cxXugTZPXxLkFQS9hdPViT7r4pkjm-CHxl5qEaXRZJ80mcsgCikQCqPCTaFG7CuN1qh1FSlb9cM7GqVKQFNY8ZzwsT8CBjnZcdQD4');"></div>
+<div class="flex flex-col">
+<p class="text-xs font-bold">Dungeon Master</p>
+<p class="text-[10px] text-slate-500">Premium Account</p>
+</div>
+</div>
+<button class="text-slate-500 hover:text-white">
+<span class="material-symbols-outlined text-lg">swap_horiz</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col overflow-hidden bg-background-dark" style="position: relative; background-color: #08080d;">
+<!-- Top Bar -->
+<header class="h-16 border-b border-border-muted flex items-center justify-between px-8 bg-background-dark/80 backdrop-blur-md z-10">
+<h2 class="text-xl font-semibold tracking-tight text-slate-100 flex items-center gap-2 font-display text-xl font-bold tracking-tight">Bayes Analyzer</h2>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<button class="flex items-center gap-3 bg-card-dark border border-border-muted px-4 py-2 rounded-lg hover:border-primary transition-all">
+<span class="text-sm font-medium">Scenario: Is This Chest Trapped?</span>
+<span class="material-symbols-outlined text-slate-500">expand_more</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Grid Content -->
+<div class="flex-1 overflow-y-auto p-8">
+<div class="grid grid-cols-12 gap-8 max-w-7xl mx-auto">
+<!-- Left Column: Inputs -->
+<div class="col-span-12 lg:col-span-5 flex flex-col gap-6">
+<div class="bg-card-dark border border-border-muted rounded-xl p-6 shadow-2xl">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-sm font-mono uppercase tracking-widest" style="color: #f1f5f9;">Model Inputs</h3>
+<span class="material-symbols-outlined text-slate-600">settings_input_component</span>
+</div>
+<div class="space-y-8">
+<!-- Prior -->
+<div class="space-y-4">
+<div class="flex justify-between items-end">
+<label class="text-slate-300 text-sm font-medium">Prior Probability P(Trapped)</label>
+<span class="font-mono text-primary text-lg font-bold">30%</span>
+</div>
+<input class="w-full custom-slider appearance-none bg-transparent cursor-pointer" max="100" min="0" type="range" value="30"/>
+<p class="text-[11px] text-slate-500 leading-relaxed italic">Base chance based on dungeon difficulty or room context.</p>
+</div>
+<!-- Likelihood -->
+<div class="space-y-4">
+<div class="flex justify-between items-end">
+<label class="text-slate-300 text-sm font-medium">Likelihood P(Scratches | Trapped)</label>
+<span class="font-mono text-primary text-lg font-bold">60%</span>
+</div>
+<input class="w-full custom-slider appearance-none bg-transparent cursor-pointer" max="100" min="0" type="range" value="60"/>
+<p class="text-[11px] text-slate-500 leading-relaxed italic">The probability of finding scratches if the chest is actually trapped.</p>
+</div>
+<!-- False Positive -->
+<div class="space-y-4">
+<div class="flex justify-between items-end">
+<label class="text-slate-300 text-sm font-medium">False Positive P(Scratches | Safe)</label>
+<span class="font-mono text-primary text-lg font-bold">10%</span>
+</div>
+<input class="w-full custom-slider appearance-none bg-transparent cursor-pointer" max="100" min="0" type="range" value="10"/>
+<p class="text-[11px] text-slate-500 leading-relaxed italic">Probability scratches exist due to wear, even if safe.</p>
+</div>
+</div>
+</div>
+<!-- Data Logs -->
+<div class="bg-card-dark/50 border border-border-muted rounded-xl p-4 font-mono text-[10px] text-slate-500">
+<p class="mb-1 text-slate-400 border-b border-border-muted pb-1">[SYSTEM LOG] CALC_V4.2 READY</p>
+<p>&gt; OBSERVATION DETECTED: [VISIBLE_SCRATCHES]</p>
+<p>&gt; UPDATING BELIEF SYSTEM...</p>
+<p>&gt; CONVERGENCE REACHED IN 12ms</p>
+</div>
+</div>
+<!-- Right Column: Results & Visualization -->
+<div class="col-span-12 lg:col-span-7 flex flex-col gap-6">
+<!-- Posterior Result Hero -->
+<div class="bg-card-dark border border-border-muted rounded-xl p-8 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-8xl">troubleshoot</span>
+</div>
+<div class="relative z-10 flex flex-col items-center justify-center text-center">
+<h3 class="text-slate-400 text-sm font-mono uppercase tracking-widest mb-2" style="color: #f1f5f9;">Posterior Probability P(Trapped | Scratches)</h3>
+<div class="text-[84px] font-mono font-bold text-red-500 drop-shadow-[0_0_20px_rgba(239,68,68,0.4)]">
+                                    72.0%
+                                </div>
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/30 text-red-500 text-xs font-mono font-bold uppercase mt-4">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+</span>
+                                    High Risk Recommendation: Disarm Required
+                                </div>
+</div>
+</div>
+<!-- Formula Breakdown -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="bg-card-dark border border-border-muted rounded-xl p-6">
+<h4 class="text-xs font-mono text-slate-500 uppercase mb-4">Theorem Breakdown</h4>
+<div class="space-y-3 font-mono text-sm">
+<div class="flex justify-between border-b border-border-muted pb-1">
+<span class="text-slate-400">P(H|E) =</span>
+<span class="text-white">0.720</span>
+</div>
+<div class="flex justify-between border-b border-border-muted pb-1">
+<span class="text-slate-400">P(H)P(E|H) =</span>
+<span class="text-accent-cyan">0.18</span>
+</div>
+<div class="flex justify-between">
+<span class="text-slate-400">P(E) =</span>
+<span class="text-primary">0.25</span>
+</div>
+</div>
+</div>
+<div class="bg-card-dark border border-border-muted rounded-xl p-6">
+<h4 class="text-xs font-mono text-slate-500 uppercase mb-4">Evidence Weight</h4>
+<div class="h-16 flex items-end gap-1">
+<div class="flex-1 bg-primary/20 rounded-t-sm h-[30%]"></div>
+<div class="flex-1 bg-accent-cyan/40 rounded-t-sm h-[60%]"></div>
+<div class="flex-1 bg-red-500/60 rounded-t-sm h-[72%]"></div>
+<div class="flex-1 bg-slate-700/40 rounded-t-sm h-[10%]"></div>
+</div>
+<p class="text-[10px] font-mono text-slate-500 mt-2 text-center">Likelihood Distribution Scale</p>
+</div>
+</div>
+<!-- Probability Tree -->
+<div class="bg-card-dark border border-border-muted rounded-xl p-6">
+<h4 class="text-xs font-mono text-slate-500 uppercase mb-6">Probability Tree Visualization</h4>
+<div class="relative h-48 w-full flex items-center justify-center font-mono">
+<!-- Tree Lines (SVG) -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+<path class="text-slate-800" d="M40,96 L120,48 M40,96 L120,144 M160,48 L240,24 M160,48 L240,72 M160,144 L240,120 M160,144 L240,168" fill="none" stroke="currentColor" stroke-width="1.5"></path>
+</svg>
+<!-- Tree Nodes -->
+<div class="absolute left-4 top-1/2 -translate-y-1/2 bg-slate-900 border border-slate-700 px-3 py-1 rounded text-xs text-white z-10">Start</div>
+<div class="absolute left-32 top-1/4 -translate-y-1/2 bg-red-900/40 border border-red-500/50 px-3 py-1 rounded text-[10px] text-red-200 z-10">Trapped (0.3)</div>
+<div class="absolute left-32 bottom-1/4 translate-y-1/2 bg-emerald-900/40 border border-emerald-500/50 px-3 py-1 rounded text-[10px] text-emerald-200 z-10">Safe (0.7)</div>
+<div class="absolute right-8 top-0 bg-slate-800 border border-slate-600 px-2 py-1 rounded text-[9px] text-slate-300">Scratches (0.18)</div>
+<div class="absolute right-8 top-16 bg-slate-800 border border-slate-600 px-2 py-1 rounded text-[9px] text-slate-300">Clean (0.12)</div>
+<div class="absolute right-8 bottom-16 bg-slate-800 border border-slate-600 px-2 py-1 rounded text-[9px] text-slate-300">Scratches (0.07)</div>
+<div class="absolute right-8 bottom-0 bg-slate-800 border border-slate-600 px-2 py-1 rounded text-[9px] text-slate-300">Clean (0.63)</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Ticker -->
+<footer class="h-8 border-t border-border-muted flex items-center bg-background-dark px-4 overflow-hidden">
+<div class="flex gap-8 items-center text-[10px] font-mono text-slate-600 whitespace-nowrap animate-marquee">
+<span>SYSTEM_STATUS: NOMINAL</span>
+<span>•</span>
+<span>DUNGEON_BIAS: MINIMAL</span>
+<span>•</span>
+<span>ROGUE_BONUS: +2 PROFICIENCY</span>
+<span>•</span>
+<span>INFERENCE_MODE: LAPLACE_SMOOTHING_OFF</span>
+<span>•</span>
+<span>SEED: 0x8F2A11</span>
+<span class="text-primary opacity-50">• CALCULATING NEXT STEP...</span>
+</div>
+</footer>
+</main>
+</div>
+</body></html>

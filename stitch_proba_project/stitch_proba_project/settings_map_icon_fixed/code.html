@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;family=Space+Grotesk:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;700&amp;family=Public+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Settings - Dice &amp; Decisions</title>
+<!-- Google Fonts: Space Grotesk & DM Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'arcane-black': '#08080d',
+            'arcane-border': '#1e1e2e',
+            'arcane-sidebar': '#0a0a0f',
+            'arcane-accent': '#7c3aed',
+          },
+          fontFamily: {
+            sans: ['DM Sans', 'sans-serif'],
+            space: ['Space Grotesk', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-layout">body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: #08080d;
+    color: #e2e8f0;
+}
+h1, h2, h3, h4, .font-space {
+    font-family: 'Space Grotesk', sans-serif;
+}
+.sidebar-item-active {
+    background-color: rgba(124, 58, 237, 0.1);
+    border-left: 2px solid #7c3aed;
+}
+.noise-overlay {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuDJcY7Uh1WQCVyfNm9B5kv-Yjo0a28OGuQQCCko4SNY5VX15Zwq7IyU4o8Hd6Jjfgvkf8WUVFC2ZQ7ka-8WbvwsLJrtgqJMtpsKMyhs8GCpMcjloZ6orT7vAAaOgEPdxgOWVIT6sMQ8SYx4IERiE0G0QaVvsViZu-ufTgumX6fivegJT6vWAJ3nkjjungHjuBFox8OAjF49IBoxs9yGD1_CuGBFLhhAri-NgW8wTdCeEViDRYHuVwtMHVJJoG2ockCVjSUMpvgx6Sk);
+    opacity: 0.02;
+    pointer-events: none;
+}
+.custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #1e1e2e transparent;
+}
+.custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #1e1e2e;
+    border-radius: 10px;
+}</style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/></head>
+<body class="flex min-h-screen overflow-hidden" style="background-color: #08080d;"><div class="fixed inset-0 noise-overlay"></div>
+<!-- BEGIN: Sidebar -->
+<aside class="w-[260px] bg-[#0c0c13] border-r border-arcane-border flex flex-col z-20" style="background-color: #0c0c13;">
+<div class="p-6 flex flex-col gap-6">
+<div class="flex items-center gap-3"><div class="w-10 h-10 bg-arcane-accent rounded-lg flex items-center justify-center text-white"><i class="fa-solid fa-dice-d20 text-xl"></i></div><div><h1 class="font-space font-bold text-lg leading-none tracking-tight text-white">Dice &amp; Decisions</h1><span class="inline-block mt-1 px-2 py-0.5 rounded-full bg-arcane-accent text-[10px] font-bold text-white uppercase tracking-wider">DM Mode</span></div></div>
+<nav class="flex flex-col gap-4 mt-4"><!-- Nav Group: Overview -->
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Overview</p>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+</div>
+<!-- Nav Group: Probability -->
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Probability</p>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">style</span>
+<span class="text-sm font-medium">Probability Cards</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">blur_on</span>
+<span class="text-sm font-medium">Dice Visualizer</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">analytics</span>
+<span class="text-sm font-medium">Bayes Analyzer</span>
+</a>
+</div>
+<!-- Nav Group: World -->
+<!-- Nav Group: Characters -->
+<!-- Nav Group: Campaign -->
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Campaign</p>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">history_edu</span>
+<span class="text-sm font-medium">Story Notes</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">swords</span>
+<span class="text-sm font-medium">Encounters</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">groups</span>
+<span class="text-sm font-medium">NPCs</span>
+</a>
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1 mt-4">World</p><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<i class="fa-solid fa-map text-lg"></i>
+<span class="text-sm font-medium">Maps</span>
+</a><p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1 mt-4">Characters</p><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">shield</span>
+<span class="text-sm font-medium">Party</span>
+</a></div>
+<!-- Nav Group: Account -->
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Account</p>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-white sidebar-item-active transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</div></nav>
+</div>
+<div class="mt-auto p-6 border-t border-border-dark flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-cover bg-center border border-primary/50" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCeI_nVgms5Ll8LcSCM9v3jpOJAqOkfjXRTmU55RGX0PeoQynZLdpihNq5dhkjMbuGDGzb2Z1k2-9M90R3SB3epS7B0GfZLvwAfNuUOWiWrb3UXiDAoQc5reBhCLTrTb-2WxiO4qpYYcNA-Ds8f-yIWy9ZEdM8ANMjvkt4HdM9FacOgCQJmwke0qd10yY1onZTqBcZOHEvwfQQ2u2KSzLR0iQixfFWzquuEFP-HcaL-zfwo2iVqZrlyybIi_ej-UGvMayjFsKN_nOo');"></div>
+<div class="flex flex-col">
+<p class="text-xs font-bold">Dungeon Master</p>
+<p class="text-[10px] text-slate-500">Premium Account</p>
+</div>
+</div>
+<button class="text-slate-500 hover:text-white">
+<span class="material-symbols-outlined text-lg leading-none">swap_horiz</span>
+</button>
+</div>
+</aside>
+<!-- END: Sidebar -->
+<!-- BEGIN: Main Content Container -->
+<main class="flex-1 overflow-y-auto custom-scrollbar bg-background-dark/30">
+<header class="sticky top-0 h-16 bg-[#08080d]/80 backdrop-blur-md border-b border-arcane-border px-8 flex items-center justify-between z-30">
+<h2 class="font-display text-xl font-bold tracking-tight">Settings</h2>
+<div class="flex items-center gap-6">
+<div class="relative cursor-pointer text-slate-400 hover:text-white">
+<span class="material-symbols-outlined"><i class="fa-solid fa-bell text-lg"></i></span>
+<div class="absolute top-0 right-0 w-2 h-2 bg-primary rounded-full border border-background-dark"></div>
+</div>
+</div>
+</header><div class="max-w-[1000px] mx-auto px-8 py-12 flex flex-col gap-12">
+<!-- BEGIN: Hero Section -->
+<!-- END: Hero Section -->
+<!-- BEGIN: Theme Card Grid -->
+<section class="mb-16" data-purpose="theme-switcher-grid">
+<!-- Row 1 (3 Columns) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+<!-- Theme 1: Fantasy (Active) -->
+<button class="relative group text-left rounded-xl overflow-hidden border-2 border-arcane-accent bg-gradient-to-b from-[#0a0a0f] to-[#12121a] p-4 theme-card-glow transition-all">
+<div class="absolute top-0 left-0 w-full h-1 bg-arcane-accent"></div>
+<div class="flex justify-between items-start mb-4">
+<div class="w-10 h-10 rounded-lg bg-arcane-accent/20 flex items-center justify-center text-arcane-accent"><i class="fa-solid fa-wand-magic-sparkles text-xl"></i></div>
+<div class="w-5 h-5 rounded-full bg-arcane-accent flex items-center justify-center">
+<svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path></svg>
+</div>
+</div>
+<h4 class="font-space text-base font-semibold text-white mb-1">Fantasy</h4>
+<p class="text-[12px] text-slate-400 leading-tight">Arcane, magical, medieval vibes for your quest.</p>
+</button>
+<!-- Theme 2: Sci-Fi -->
+<button class="relative group text-left rounded-xl overflow-hidden border border-arcane-border bg-gradient-to-b from-[#0a0f12] to-[#0a1a1f] p-4 hover:border-cyan-500/50 transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="w-10 h-10 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-500"><i class="fa-solid fa-rocket text-xl"></i></div>
+</div>
+<h4 class="font-space text-base font-semibold text-white mb-1">Sci-Fi</h4>
+<p class="text-[12px] text-slate-400 leading-tight">Neon, holographic, futuristic interface.</p>
+</button>
+<!-- Theme 3: Western -->
+<button class="relative group text-left rounded-xl overflow-hidden border border-arcane-border bg-gradient-to-b from-[#1a120a] to-[#251a0f] p-4 hover:border-amber-600/50 transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="w-10 h-10 rounded-lg bg-amber-600/10 flex items-center justify-center text-amber-600"><i class="fa-solid fa-star text-xl"></i></div>
+</div>
+<h4 class="font-space text-base font-semibold text-white mb-1">Western</h4>
+<p class="text-[12px] text-slate-400 leading-tight">Dusty, rugged, weathered frontier feel.</p>
+</button>
+</div>
+<!-- Row 2 (2 Columns Centered) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-[520px] mx-auto">
+<!-- Theme 4: Eldritch Horror -->
+<button class="relative group text-left rounded-xl overflow-hidden border border-arcane-border bg-gradient-to-b from-[#0a120a] to-[#0f1a0f] p-4 hover:border-green-600/50 transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="w-10 h-10 rounded-lg bg-green-600/10 flex items-center justify-center text-green-600"><i class="fa-solid fa-eye text-xl"></i></div>
+</div>
+<h4 class="font-space text-base font-semibold text-white mb-1">Eldritch Horror</h4>
+<p class="text-[12px] text-slate-400 leading-tight">Unsettling, Lovecraftian, cosmic terror.</p>
+</button>
+<!-- Theme 5: Steampunk -->
+<button class="relative group text-left rounded-xl overflow-hidden border border-arcane-border bg-gradient-to-b from-[#1a160a] to-[#25200f] p-4 hover:border-yellow-600/50 transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="w-10 h-10 rounded-lg bg-yellow-600/10 flex items-center justify-center text-yellow-600"><i class="fa-solid fa-gear text-xl"></i></div>
+</div>
+<h4 class="font-space text-base font-semibold text-white mb-1">Steampunk</h4>
+<p class="text-[12px] text-slate-400 leading-tight">Brass, gears, Victorian mechanical aesthetic.</p>
+</button>
+</div>
+</section>
+<!-- END: Theme Card Grid -->
+<!-- BEGIN: Profile Section -->
+<section class="mb-12 border-t border-arcane-border pt-12" id="profile-settings">
+<h2 class="font-space font-semibold text-lg text-white mb-6">Profile Settings</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Avatar Column -->
+<div class="flex flex-col items-center gap-4">
+<div class="relative group">
+<img alt="Profile Avatar" class="w-32 h-32 rounded-2xl border-2 border-arcane-border object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDWHrUCcrlzDd0AKO4DcLKYA0atdjz_YN-PixDGtdhp_HfaQuOC2MEHcR7hRamtd7I8iaIKuKL-54b1STJzYGOtxDAvwCxn6f5zmZ5In0YNhlHcfEhyppyC3_ot601RxLy-DjYfOKFXqTbUWTb04lfpYxEQTzE1QdMSnwLY6Mj98w21-WqtRTxjSSakv6uUKlllgWIQ6B8UYeRDZAwbv3kNjNnf1t6XPFEYyIXOHrBNq05NXuJJ-aw0MXsrW29BFPrM21Q3VnpJhg"/>
+<button class="absolute inset-0 bg-black/60 rounded-2xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="text-[10px] font-bold uppercase tracking-wider">Change</span>
+</button>
+</div>
+<p class="text-[11px] text-slate-500 text-center">JPG or PNG. Max size 2MB.</p>
+</div>
+<!-- Form Column -->
+<div class="md:col-span-2 space-y-6">
+<div data-purpose="input-group">
+<label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Display Name</label>
+<input class="w-full bg-black/40 border border-arcane-border rounded-lg px-4 py-2 text-sm text-white focus:border-arcane-accent focus:ring-1 focus:ring-arcane-accent transition-all" type="text" value="Dungeon Master"/>
+</div>
+<div data-purpose="input-group">
+<label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Email Address (Read-only)</label>
+<input class="w-full bg-black/20 border border-arcane-border/50 rounded-lg px-4 py-2 text-sm text-slate-500 cursor-not-allowed" readonly="" type="email" value="master@diceanddecisions.com"/>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Profile Section -->
+<!-- BEGIN: Role Preference Section -->
+<section class="mb-12 border-t border-arcane-border pt-12" id="role-preferences">
+<h2 class="font-space font-semibold text-lg text-white mb-2">System Preferences</h2>
+<p class="text-sm text-slate-400 mb-6">Configure how the dashboard defaults on startup.</p>
+<div class="flex items-center justify-between p-4 bg-black/20 border border-arcane-border rounded-xl">
+<div>
+<h4 class="text-sm font-bold text-white">Default Role</h4>
+<p class="text-xs text-slate-500">Automatically switch to DM tools when loading a campaign</p>
+</div>
+<div class="flex items-center gap-1 bg-arcane-border rounded-lg p-1">
+<button class="px-4 py-1.5 text-xs font-bold bg-arcane-accent text-white rounded-md shadow-lg">DM</button>
+<button class="px-4 py-1.5 text-xs font-bold text-slate-400 hover:text-white transition-colors">Player</button>
+</div>
+</div>
+</section>
+<!-- END: Role Preference Section -->
+<!-- BEGIN: Account / Danger Zone -->
+<section class="mb-12 border-t border-arcane-border pt-12" id="account-danger-zone">
+<h2 class="font-space font-semibold text-lg text-white mb-6">Account Management</h2>
+<div class="flex flex-col gap-4">
+<button class="flex items-center justify-center gap-2 w-full py-3 rounded-lg border border-arcane-border text-sm font-bold text-slate-400 hover:bg-white/5 transition-colors">
+            Sign Out
+          </button>
+<div class="mt-4 p-6 border-2 border-red-900/30 bg-red-950/10 rounded-xl">
+<h4 class="text-sm font-bold text-red-500 mb-1">Delete Account</h4>
+<p class="text-[12px] text-slate-400 mb-4">Permanently remove all your campaigns, characters, and assets. This action is irreversible.</p>
+<button class="px-6 py-2 bg-red-600/10 border border-red-600 text-red-500 text-xs font-bold rounded-lg hover:bg-red-600 hover:text-white transition-all">
+              Request Deletion
+            </button>
+</div>
+</div>
+</section>
+<!-- END: Account / Danger Zone -->
+<!-- Save Changes Floating Footer -->
+<div class="sticky bottom-8 flex justify-end">
+<button class="px-8 py-3 bg-arcane-accent text-white font-space font-bold rounded-xl shadow-xl shadow-arcane-accent/20 hover:scale-105 transition-transform active:scale-95">
+          Save All Changes
+        </button>
+</div>
+</div>
+</main>
+<!-- END: Main Content Container -->
+</body></html>

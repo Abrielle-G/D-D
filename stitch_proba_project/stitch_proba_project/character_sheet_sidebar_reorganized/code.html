@@ -1,0 +1,352 @@
+<!DOCTYPE html><html class="dark" lang="en"><head><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Character Sheet - Dice &amp; Decisions</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text&amp;family=Space+Grotesk:wght@400;700&amp;family=DM+Sans:wght@400;500;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#7c3aed",
+                        "accent-cyan": "#06b6d4",
+                        "background-light": "#f7f6f8",
+                        "background-dark": "#08080d",
+                        "panel-dark": "#111119",
+                        "border-dark": "#1e1e2e",
+                    },
+                    fontFamily: {
+                        "display": ["Libre Caslon Text"],
+                        "space": ["Space Grotesk"],
+                        "dm": ["DM Sans"],
+                        "mono": ["JetBrains Mono"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>body {
+    font-family: "Public Sans", sans-serif;
+    background-color: #08080d
+    }
+.sidebar-item-active {
+    background-color: rgba(124, 58, 237, 0.1);
+    border-left: 2px solid #7c3aed
+    }
+.noise-overlay {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuDJcY7Uh1WQCVyfNm9B5kv-Yjo0a28OGuQQCCko4SNY5VX15Zwq7IyU4o8Hd6Jjfgvkf8WUVFC2ZQ7ka-8WbvwsLJrtgqJMtpsKMyhs8GCpMcjloZ6orT7vAAaOgEPdxgOWVIT6sMQ8SYx4IERiE0G0QaVvsViZu-ufTgumX6fivegJT6vWAJ3nkjjungHjuBFox8OAjF49IBoxs9yGD1_CuGBFLhhAri-NgW8wTdCeEViDRYHuVwtMHVJJoG2ockCVjSUMpvgx6Sk);
+    opacity: 0.03;
+    pointer-events: none
+    }
+.card-hover:hover {
+    border-color: #3f3f5a;
+    transform: translatey(-2px);
+    transition: all 0.2s ease-in-out
+    }</style>
+</head>
+<body class="bg-background-dark text-slate-100 font-dm antialiased overflow-x-hidden min-h-screen"><div class="fixed inset-0 noise-overlay"></div>
+<div class="flex h-screen overflow-hidden atmospheric-glow">
+<!-- Sidebar Navigation -->
+<aside class="w-[260px] bg-sidebar-dark border-r border-border-dark flex flex-col z-20">
+<div class="p-6 flex flex-col gap-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white"><i class="fa-solid fa-dice-d20 text-xl"></i></div>
+<div>
+<h1 class="font-space font-bold text-lg leading-none tracking-tight" style="">Dice &amp; Decisions</h1>
+<span class="inline-block mt-1 px-2 py-0.5 rounded-full bg-primary text-[10px] font-bold text-white uppercase tracking-wider" style="display: inline-block; padding: 2px 8px; border-radius: 9999px; background-color: rgb(124, 58, 237); font-size: 10px; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 0.05em;">Player</span>
+</div>
+</div>
+<nav class="flex flex-col gap-6 mt-4">
+<!-- Nav Group: Overview -->
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1" style="">Overview</p>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#" style="">
+<span class="material-symbols-outlined text-lg" style="">dashboard</span>
+<span class="text-sm font-medium" style="">Dashboard</span>
+</a>
+</div>
+<!-- Nav Group: Probability -->
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1" style="">Probability</p>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#" style="">
+<span class="material-symbols-outlined text-lg" style="">style</span>
+<span class="text-sm font-medium" style="">Probability Cards</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#" style="">
+<span class="material-symbols-outlined text-lg" style="">blur_on</span>
+<span class="text-sm font-medium" style="">Dice Visualizer</span>
+</a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#" style="">
+<span class="material-symbols-outlined text-lg" style="">poll</span>
+<span class="text-sm font-medium" style="">Bayes Analyzer</span>
+</a>
+</div><div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1" style="">World</p>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors" href="#" style="">
+<span class="material-symbols-outlined text-lg" style="">map</span>
+<span class="text-sm font-medium" style="">Maps</span>
+</a>
+</div>
+<!-- Nav Group: Characters -->
+<div class="flex flex-col gap-1">
+<p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1" style="">Characters</p>
+<a class="sidebar-item-active flex items-center gap-3 px-3 py-2 rounded-lg text-primary bg-primary/10 border-l-4 border-primary" href="#" style="">
+<span class="material-symbols-outlined text-lg" style="">shield</span>
+<span class="text-sm font-medium" style="">Character Sheet</span>
+</a>
+</div><!-- Nav Group: World -->
+</nav>
+</div>
+<div class="mt-auto p-6 border-t border-border-dark flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-cover bg-center border border-primary/50" data-alt="Thorin Profile" style="background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuAcr5ex0eGf4lrKl9G189gTN8meNyxPfNxUAbzZ2BMQSVsIO5E2QGM5pvP_Jgdvk5zWWAtwcWRCde-bX0d0SWtvetHTklrty_hlVALKBVtncCZjPfbU8MG4-ArQgnel-tKt_RX_7M2hLrZk88QsM9MB3QVtL8UyNX0Q3pVXeY1WDn5Gw_EUM6C9TRf6VDc5OJd-zusWLx3vpKPmHIAo3rCv-lq3bEN7DBgscoBLhrC0DdKDnbOVzg-F4wdYR415UuAF7k1ZEvTafFw&quot;);"></div>
+<div class="flex flex-col">
+<p class="text-xs font-bold" style="">Thorin</p>
+<p class="text-[10px] text-slate-500" style="">Lvl 5 Dwarf Fighter</p>
+</div>
+</div>
+<button class="text-slate-500 hover:text-white" style="">
+<span class="material-symbols-outlined text-lg" style="">swap_horiz</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto z-10">
+<header class="sticky top-0 h-16 bg-[#08080d]/80 backdrop-blur-md border-b border-border-accent px-8 flex items-center justify-between z-30"> <div class="flex items-center gap-3"><h2 class="font-heading text-lg font-bold tracking-tight text-white" style="">Character Sheet</h2></div> <div class="flex items-center gap-6"> <div class="relative cursor-pointer text-slate-400 hover:text-white"> <span class="material-symbols-outlined" style=""><i class="fa-solid fa-bell text-lg"></i></span> <div class="absolute top-0 right-0 w-2 h-2 bg-primary rounded-full border border-background-dark"></div> </div> </div> </header><div class="max-w-6xl mx-auto p-8 space-y-6">
+<!-- Character Header -->
+<header class="bg-panel-dark border border-border-dark rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-6">
+<div class="flex items-center gap-6">
+<div class="relative">
+<div class="size-[72px] rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center text-primary text-2xl font-bold font-space" style="">
+                                T
+                            </div>
+<div class="absolute -bottom-1 -right-1 size-6 bg-accent-cyan rounded-full flex items-center justify-center border-2 border-panel-dark">
+<span class="material-symbols-outlined text-[12px] text-white" style="">edit</span>
+</div>
+</div>
+<div class="space-y-2">
+<h1 class="text-2xl font-bold font-space tracking-tight text-white leading-none" style="">Thorin Ironforge</h1>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-bold uppercase tracking-wider text-accent-cyan" style="">Dwarf</span>
+<span class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-bold uppercase tracking-wider text-primary" style="">Fighter</span>
+<span class="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-bold uppercase tracking-wider text-slate-400" style="">Level 5</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-8">
+<div class="relative size-20 flex items-center justify-center rounded-full circular-progress p-1">
+<div class="bg-panel-dark size-full rounded-full flex flex-col items-center justify-center border border-border-dark">
+<span class="text-sm font-bold font-mono text-white" style="">28/32</span>
+<span class="text-[8px] uppercase tracking-widest text-slate-500 font-bold" style="">HP</span>
+</div>
+</div>
+<div class="h-10 w-px bg-border-dark hidden md:block"></div>
+<div class="flex gap-4">
+<div class="text-center">
+<div class="text-[10px] uppercase tracking-widest text-slate-500 font-bold mb-1" style="">XP</div>
+<div class="font-mono text-sm text-slate-300" style="">6,500/14,000</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Ability Scores Grid -->
+<section class="grid grid-cols-2 md:grid-cols-6 gap-4">
+<!-- STR -->
+<div class="bg-panel-dark border border-border-dark p-4 rounded-xl flex flex-col items-center gap-3 group hover:border-primary/50 transition-colors">
+<span class="text-[10px] font-bold text-slate-500 tracking-[0.2em]" style="">STR</span>
+<div class="size-14 rounded-full border-2 border-primary flex items-center justify-center bg-primary/5">
+<span class="text-2xl font-bold font-space text-white" style="">+3</span>
+</div>
+<span class="font-mono text-sm text-slate-400" style="">16</span>
+</div>
+<!-- DEX -->
+<div class="bg-panel-dark border border-border-dark p-4 rounded-xl flex flex-col items-center gap-3 group hover:border-primary/50 transition-colors">
+<span class="text-[10px] font-bold text-slate-500 tracking-[0.2em]" style="">DEX</span>
+<div class="size-14 rounded-full border-2 border-primary flex items-center justify-center bg-primary/5">
+<span class="text-2xl font-bold font-space text-white" style="">+2</span>
+</div>
+<span class="font-mono text-sm text-slate-400" style="">14</span>
+</div>
+<!-- CON -->
+<div class="bg-panel-dark border border-border-dark p-4 rounded-xl flex flex-col items-center gap-3 group hover:border-primary/50 transition-colors">
+<span class="text-[10px] font-bold text-slate-500 tracking-[0.2em]" style="">CON</span>
+<div class="size-14 rounded-full border-2 border-primary flex items-center justify-center bg-primary/5">
+<span class="text-2xl font-bold font-space text-white" style="">+2</span>
+</div>
+<span class="font-mono text-sm text-slate-400" style="">15</span>
+</div>
+<!-- INT -->
+<div class="bg-panel-dark border border-border-dark p-4 rounded-xl flex flex-col items-center gap-3 group hover:border-primary/50 transition-colors">
+<span class="text-[10px] font-bold text-slate-500 tracking-[0.2em]" style="">INT</span>
+<div class="size-14 rounded-full border-2 border-primary/20 flex items-center justify-center bg-white/5">
+<span class="text-2xl font-bold font-space text-white" style="">0</span>
+</div>
+<span class="font-mono text-sm text-slate-400" style="">10</span>
+</div>
+<!-- WIS -->
+<div class="bg-panel-dark border border-border-dark p-4 rounded-xl flex flex-col items-center gap-3 group hover:border-primary/50 transition-colors">
+<span class="text-[10px] font-bold text-slate-500 tracking-[0.2em]" style="">WIS</span>
+<div class="size-14 rounded-full border-2 border-primary flex items-center justify-center bg-primary/5">
+<span class="text-2xl font-bold font-space text-white" style="">+1</span>
+</div>
+<span class="font-mono text-sm text-slate-400" style="">12</span>
+</div>
+<!-- CHA -->
+<div class="bg-panel-dark border border-border-dark p-4 rounded-xl flex flex-col items-center gap-3 group hover:border-primary/50 transition-colors">
+<span class="text-[10px] font-bold text-slate-500 tracking-[0.2em]" style="">CHA</span>
+<div class="size-14 rounded-full border-2 border-primary/20 flex items-center justify-center bg-white/5">
+<span class="text-2xl font-bold font-space text-white" style="">-1</span>
+</div>
+<span class="font-mono text-sm text-slate-400" style="">8</span>
+</div>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<!-- Left Column -->
+<div class="space-y-6">
+<!-- Derived Stats -->
+<div class="grid grid-cols-3 gap-4">
+<div class="bg-panel-dark border border-border-dark p-4 rounded-xl text-center">
+<div class="text-[9px] font-bold text-slate-500 tracking-[0.2em] mb-1" style="">ARMOR CLASS</div>
+<div class="text-2xl font-bold font-space text-accent-cyan" style="">16</div>
+</div>
+<div class="bg-panel-dark border border-border-dark p-4 rounded-xl text-center">
+<div class="text-[9px] font-bold text-slate-500 tracking-[0.2em] mb-1" style="">INITIATIVE</div>
+<div class="text-2xl font-bold font-space text-white" style="">+2</div>
+</div>
+<div class="bg-panel-dark border border-border-dark p-4 rounded-xl text-center">
+<div class="text-[9px] font-bold text-slate-500 tracking-[0.2em] mb-1" style="">SPEED</div>
+<div class="text-2xl font-bold font-space text-white" style="">25<span class="text-xs text-slate-500 ml-1" style="">ft</span></div>
+</div>
+</div>
+<!-- Weapons -->
+<div class="bg-panel-dark border border-border-dark rounded-xl overflow-hidden">
+<div class="px-4 py-3 bg-white/5 border-b border-border-dark flex justify-between items-center">
+<h3 class="text-xs font-bold tracking-widest text-slate-400" style="">WEAPONS &amp; ATTACKS</h3>
+<button class="material-symbols-outlined text-sm text-primary" style="">add</button>
+</div>
+<div class="divide-y divide-border-dark">
+<div class="p-4 flex items-center justify-between group hover:bg-white/5 transition-colors cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="size-10 bg-white/5 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-400" style="">swords</span>
+</div>
+<div>
+<div class="text-sm font-bold text-white" style="">Battleaxe</div>
+<div class="text-[10px] text-slate-500" style="">Slashing, Versatile</div>
+</div>
+</div>
+<div class="flex gap-6 items-center">
+<div class="text-right">
+<div class="text-xs font-mono font-bold text-primary" style="">+6 ATK</div>
+<div class="text-[10px] font-mono text-slate-400" style="">1d8+3</div>
+</div>
+<span class="material-symbols-outlined text-sm text-slate-600" style="">chevron_right</span>
+</div>
+</div>
+<div class="p-4 flex items-center justify-between group hover:bg-white/5 transition-colors cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="size-10 bg-white/5 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-400" style="">construction</span>
+</div>
+<div>
+<div class="text-sm font-bold text-white" style="">Handaxe</div>
+<div class="text-[10px] text-slate-500" style="">Slashing, Light, Thrown (20/60)</div>
+</div>
+</div>
+<div class="flex gap-6 items-center">
+<div class="text-right">
+<div class="text-xs font-mono font-bold text-primary" style="">+6 ATK</div>
+<div class="text-[10px] font-mono text-slate-400" style="">1d6+3</div>
+</div>
+<span class="material-symbols-outlined text-sm text-slate-600" style="">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column -->
+<div class="space-y-6">
+<!-- Special Abilities -->
+<div class="bg-panel-dark border border-border-dark rounded-xl overflow-hidden">
+<div class="px-4 py-3 bg-white/5 border-b border-border-dark">
+<h3 class="text-xs font-bold tracking-widest text-slate-400 uppercase" style="">Special Abilities</h3>
+</div>
+<div class="p-4 space-y-4">
+<div class="p-3 bg-primary/5 border border-primary/20 rounded-lg">
+<div class="flex justify-between items-start mb-1">
+<span class="text-sm font-bold text-primary" style="">Second Wind</span>
+<span class="text-[10px] bg-primary text-white px-2 py-0.5 rounded uppercase" style="">1/Long Rest</span>
+</div>
+<p class="text-xs text-slate-400 leading-relaxed" style="">As a bonus action, you can regain hit points equal to 1d10 + your fighter level.</p>
+</div>
+<div class="p-3 bg-accent-cyan/5 border border-accent-cyan/20 rounded-lg">
+<div class="flex justify-between items-start mb-1">
+<span class="text-sm font-bold text-accent-cyan" style="">Action Surge</span>
+<span class="text-[10px] bg-accent-cyan text-white px-2 py-0.5 rounded uppercase" style="">1/Short Rest</span>
+</div>
+<p class="text-xs text-slate-400 leading-relaxed" style="">On your turn, you can take one additional action on top of your regular action and a bonus action.</p>
+</div>
+</div>
+</div>
+<!-- Inventory List -->
+<div class="bg-panel-dark border border-border-dark rounded-xl overflow-hidden">
+<div class="px-4 py-3 bg-white/5 border-b border-border-dark flex justify-between items-center">
+<h3 class="text-xs font-bold tracking-widest text-slate-400 uppercase" style="">Inventory Summary</h3>
+<span class="text-[10px] font-mono text-slate-500" style="">72 / 160 lbs</span>
+</div>
+<div class="divide-y divide-border-dark">
+<div class="px-4 py-3 flex justify-between items-center">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-sm text-accent-cyan" style="">medication</span>
+<span class="text-sm text-slate-300" style="">Healing Potion</span>
+</div>
+<span class="font-mono text-xs text-slate-500" style="">x3</span>
+</div>
+<div class="px-4 py-3 flex justify-between items-center">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-sm text-slate-500" style="">cable</span>
+<span class="text-sm text-slate-300" style="">Silk Rope (50ft)</span>
+</div>
+<span class="font-mono text-xs text-slate-500" style="">x1</span>
+</div>
+<div class="px-4 py-3 flex justify-between items-center bg-white/[0.02]">
+<button class="text-[10px] font-bold text-primary uppercase flex items-center gap-1" style="">
+                                        View All Equipment
+                                        <span class="material-symbols-outlined text-xs" style="">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Character Notes -->
+<section class="space-y-3">
+<div class="flex items-center justify-between">
+<h3 class="text-xs font-bold tracking-widest text-slate-500 uppercase" style="">Adventure Journal &amp; Notes</h3>
+<span class="text-[10px] text-slate-600 italic" style="">Auto-saving...</span>
+</div>
+<textarea class="w-full h-48 bg-panel-dark border border-border-dark rounded-xl p-6 text-sm text-slate-300 font-dm focus:ring-1 focus:ring-primary focus:border-primary outline-none resize-none transition-all placeholder:text-slate-700" placeholder="Describe recent events, NPCs met, or personal goals..."></textarea>
+</section>
+<!-- Footer Stats Bar -->
+<footer class="flex justify-center gap-12 py-8 border-t border-border-dark">
+<div class="text-center">
+<div class="text-[9px] font-bold text-slate-600 tracking-[0.2em] mb-1" style="">PASSIVE PERCEPTION</div>
+<div class="text-xl font-space font-bold text-slate-400" style="">11</div>
+</div>
+<div class="text-center">
+<div class="text-[9px] font-bold text-slate-600 tracking-[0.2em] mb-1" style="">PROFICIENCY BONUS</div>
+<div class="text-xl font-space font-bold text-primary" style="">+3</div>
+</div>
+<div class="text-center">
+<div class="text-[9px] font-bold text-slate-600 tracking-[0.2em] mb-1" style="">HIT DICE</div>
+<div class="text-xl font-space font-bold text-slate-400" style="">5d10</div>
+</div>
+</footer>
+</div>
+</main>
+</div>
+</body></html>
