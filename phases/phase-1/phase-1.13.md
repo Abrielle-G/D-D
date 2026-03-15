@@ -32,3 +32,20 @@
    - Container: `bg-[#1e1e2e] rounded-lg p-1 flex items-center gap-1`
 
 4. Ensure the role change propagates to all components that depend on it (sidebar badge, any DM-only UI elements, etc.). The role context/provider should trigger a re-render.
+
+5. **Hydrate the ThemeProvider from the DB** (mirror of the role hydration above):
+
+   In `src/app/(dashboard)/layout.tsx`, the layout already fetches the user's profile to get `preferred_role`. Extend this to also pass `profile.selected_theme` as the `initialTheme` prop to `<ThemeProvider>`:
+
+   ```tsx
+   <ThemeProvider initialTheme={profile.selected_theme ?? 'fantasy'}>
+     <RoleProvider initialRole={profile.preferred_role ?? 'player'}>
+       {children}
+     </RoleProvider>
+   </ThemeProvider>
+   ```
+
+   This ensures:
+   - The correct theme loads instantly on every page refresh and on every device
+   - No flash of the default Fantasy theme before switching to the user's saved theme
+   - Theme state is the source of truth from the DB, not just localStorage

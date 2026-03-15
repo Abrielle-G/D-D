@@ -55,7 +55,7 @@ When the user clicks "Generate Probability":
 
 Rendered at the bottom of the right column, below the matchup cards.
 
-- Card with a purple/accent left border.
+- Card with a `border-l-[var(--color-accent)]` left border.
 - Crystal ball icon (Lucide `Sparkles` or a similar thematic icon) next to the heading "DM Insight" in accent color.
 - Body text in italics: a generated summary of the encounter difficulty. Calculate this based on:
   - Total enemy HP vs total party HP ratio.

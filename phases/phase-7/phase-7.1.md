@@ -45,6 +45,6 @@ For each route, create a `loading.tsx` file (Next.js auto-detects these):
 
 The skeleton elements should:
 - Match the approximate size and position of the real content
-- Use a dark gray color (`#1a1a2e`) with a lighter pulse animation (`#2a2a3e`)
+- Use `var(--color-bg-elevated)` as the base color and `var(--color-border)` as the lighter pulse color so skeletons adapt to all 5 themes
 - Animate with `@keyframes pulse` — opacity oscillating between 0.4 and 1.0, 1.5s duration
 - Have rounded corners matching the content they're replacing

@@ -47,15 +47,17 @@ A pre-built starter campaign that ships with the app, showcasing all features wi
 
 ### 🎨 Campaign Theme Switcher
 
-5 genre themes that re-skin the entire app via CSS custom properties:
+5 genre themes that re-skin the **entire app** instantly via CSS custom properties — zero page reload, zero flash. Each theme has its own full color palette (backgrounds, sidebars, borders, text hierarchy, accent glow) and is saved to the user's profile in Supabase so it persists across devices.
 
-| Theme                  | Accent | Feel                            |
-| ---------------------- | ------ | ------------------------------- |
-| 🏰 Fantasy _(default)_ | Purple | Arcane, magical, medieval       |
-| 🚀 Sci-Fi              | Cyan   | Neon, holographic, futuristic   |
-| 🤠 Western             | Amber  | Dusty, rugged, weathered        |
-| 👁️ Eldritch Horror     | Green  | Unsettling, Lovecraftian, eerie |
-| ⚙️ Steampunk           | Gold   | Brass, gears, Victorian         |
+| Theme                  | Accent           | Background             | Text             | Feel                            |
+| ---------------------- | ---------------- | ---------------------- | ---------------- | ------------------------------- |
+| 🏰 Fantasy _(default)_ | `#7c3aed` purple | `#0a0a0f` midnight     | `#f1f5f9` slate  | Arcane, magical, medieval       |
+| 🚀 Sci-Fi              | `#06b6d4` cyan   | `#080d14` dark navy    | `#e2e8f0` cool   | Neon, holographic, futuristic   |
+| 🤠 Western             | `#d97706` amber  | `#0f0b08` warm black   | `#fef3c7` sepia  | Dusty, rugged, weathered        |
+| 👁️ Eldritch Horror     | `#16a34a` green  | `#080d08` void green   | `#dcfce7` pallid | Unsettling, Lovecraftian, eerie |
+| ⚙️ Steampunk           | `#ca8a04` gold   | `#0d0a06` dark bronze  | `#fef9ec` brass  | Brass, gears, Victorian         |
+
+Switched from **Settings → System Preferences**. Active theme is highlighted with a selected card + accent-colored border.
 
 ---
 
@@ -78,6 +80,10 @@ A pre-built starter campaign that ships with the app, showcasing all features wi
 | **Styling**         | Tailwind CSS 3 · shadcn/ui                        |
 | **Charts**          | Recharts + custom SVG                             |
 | **Rich Text**       | Tiptap                                            |
+| **State**           | Zustand                                           |
+| **Forms**           | React Hook Form · Zod                             |
+| **Icons**           | Lucide React                                      |
+| **Toasts**          | Sonner                                            |
 | **Backend / DB**    | Supabase (PostgreSQL + Auth + Row Level Security) |
 | **File Storage**    | Supabase Storage                                  |
 | **Map Interaction** | CSS transforms + native event handlers            |
@@ -97,24 +103,23 @@ A pre-built starter campaign that ships with the app, showcasing all features wi
 
 ## 📅 Project Timeline
 
-| Phase | Focus                                | Dates                 |
-| ----- | ------------------------------------ | --------------------- |
-| 0–2   | Setup, auth, core UI shell           | Mar 11–17             |
-| 3     | **Probability Engine** _(prototype)_ | Mar 18–22 🎯          |
-| 4–5   | Campaign management + demo content   | Mar 23–29             |
-| 6–7   | Polish, testing, final submission    | Mar 30 – **Apr 3** 🚀 |
+| Phase | Focus                                | Dates                          |
+| ----- | ------------------------------------ | ------------------------------ |
+| 0–2   | Setup, auth, core UI shell           | Mar 11–17 ← **In Progress** ✅ |
+| 3     | **Probability Engine** _(prototype)_ | Mar 18–22 🎯                   |
+| 4–5   | Campaign management + demo content   | Mar 23–29                      |
+| 6–7   | Polish, testing, final submission    | Mar 30 – **Apr 3** 🚀          |
 
 ---
 
 ## 📂 Project Documents
 
-| File                                                         | Description                                                           |
-| ------------------------------------------------------------ | --------------------------------------------------------------------- |
-| [`AGENTS.md`](./AGENTS.md)                                   | **Agent master file** — skills, design tokens, UI reference, build methodology |
-| [`project_specification.md`](./project_specification.md)     | Full project spec — features, data model, architecture, design system |
-| [`ui_screen_prompts_part1.md`](./ui_screen_prompts_part1.md) | UI screen prompts for Google Stitch (screens 1–4)                     |
-| [`ui_screen_prompts_part2.md`](./ui_screen_prompts_part2.md) | UI screen prompts for Google Stitch (screens 5–11)                    |
-| `stitch_proba_project/`                                      | Stitch HTML samples — use as UI/code reference                        |
+| File                                                     | Description                                                              |
+| -------------------------------------------------------- | ------------------------------------------------------------------------ |
+| [`implementation_guide.md`](./implementation_guide.md)   | **Agent master file** — design tokens, UI reference, phase instructions, mockup-to-screen mappings |
+| [`project_specification.md`](./project_specification.md) | Full project spec — features, data model, architecture, design system    |
+| `phases/`                                                | Step-by-step agent instruction files, organized by phase (phase-0 → phase-7) |
+| `stitch_proba_project/`                                  | Stitch HTML samples — use as UI/code reference                           |
 
 ---
 

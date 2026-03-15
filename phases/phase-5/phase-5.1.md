@@ -15,7 +15,7 @@ Define the following TypeScript types and constants:
    - `label`: human-readable name (e.g., `"Combat"`, `"Quest"`, `"Shop"`, `"Danger"`, `"Safe Zone"`)
    - `icon`: the emoji or Lucide icon name to display inside the marker circle
    - `color`: the Tailwind background color class for the marker circle (e.g., `"bg-red-600"`, `"bg-amber-500"`, `"bg-cyan-500"`, `"bg-red-900"`, `"bg-emerald-500"`)
-   - `borderColor`: the Tailwind border color class for selected state (e.g., `"border-red-400"`)
+   - `borderColor`: the border class for the selected state — use `border-[var(--color-accent)]` for all marker types so the selection ring always matches the active theme (not type-specific)
    - `badgeLabel`: uppercase label for the popup badge (e.g., `"COMBAT"`, `"QUEST"`)
 
 3. **`MapMarkerData`** — Interface representing a single marker:

@@ -15,7 +15,7 @@ Set up the page container as a CSS grid: `grid-template-columns: 280px 1fr`. The
 - An input with a magnifying glass icon (Lucide `Search`), placeholder "Search notes...". Debounce 300ms.
 
 **Filter pills:**
-- A horizontal row of pills/chips: "ALL" (accent filled background when active), "SESSION LOG" (green outlined), "WORLD LORE" (purple outlined), "PLOT" (purple filled), "DM SECRET" (red outlined).
+- A horizontal row of pills/chips: "ALL" (accent filled background when active), "SESSION LOG" (green outlined), "WORLD LORE" (accent outlined, `border-[var(--color-accent)] text-[var(--color-accent)]`), "PLOT" (accent filled, `bg-[var(--color-accent)] text-white`), "DM SECRET" (red outlined).
 - Only one active at a time. Clicking a pill filters the notes list to that tag. "ALL" removes the filter.
 
 **Note cards** (scrollable list below):
@@ -44,7 +44,7 @@ The editor should have a transparent background so it inherits the dark page bac
 **Toolbar** (`tiptap-toolbar.tsx`):
 - A horizontal bar above the editor with icon buttons for: Bold (Lucide `Bold`), Italic (Lucide `Italic`), Bullet List (Lucide `List`), Heading (Lucide `Heading` — toggles H1/H2 on repeated clicks or via a small dropdown), Blockquote (Lucide `Quote`).
 - Active formatting gets a highlighted/pressed button state.
-- Blockquotes should render with a 3px purple left border and italic text (configure this in the Tiptap editor's CSS or via a custom extension style).
+- Blockquotes should render with a `border-l-[var(--color-accent)]` 3px left border and italic text (configure this in the Tiptap editor's CSS or via a custom extension style).
 
 **Auto-save:**
 - On every content change from Tiptap's `onUpdate` callback, reset a debounce timer (1 second). When it fires, call `updateNote` with the current HTML content.

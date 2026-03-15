@@ -24,7 +24,7 @@ When the form submits, call `calculateSuccessProbability` from dice-math.ts, bui
 
 **Visual structure:**
 - A shadcn Card component.
-- Header row: purple grid icon (from Lucide, e.g., `Grid3X3`) + title "Create Probability Card" in bold.
+- Header row: accent-colored grid icon (use `var(--color-accent)` for the icon stroke) + title "Create Probability Card" in bold.
 - Horizontal row of form fields (use flex/grid, wrap on mobile):
   - **ACTION NAME**: text input. Uppercase label, small text, letter-spaced, muted color. Placeholder: "e.g., Sneak Attack".
   - **DICE**: dropdown/select for dice type (d4 through d20). Same label style.
@@ -57,7 +57,7 @@ When the form submits, call `calculateSuccessProbability` from dice-math.ts, bui
 
 - **Dice notation badge:** A small pill/badge with green border, e.g., "1D20 + 3". Uses the card's dice config.
 
-- **Massive result number:** The success probability displayed as a percentage in ~64px JetBrains Mono font, gold/yellow color. Example: "45%".
+- **Massive result number:** The success probability displayed as a percentage in ~64px JetBrains Mono font, using `var(--color-accent)`. Example: "45%".
 
 - **Descriptor text:** Below the number, an italic accent-colored descriptor based on probability range:
   - 0%: "Impossible"
@@ -73,16 +73,16 @@ When the form submits, call `calculateSuccessProbability` from dice-math.ts, bui
   - Red: crit fail percentage (nat 1 auto-fail, only for single d20)
   - Gray: normal fail percentage
   - Green: normal success percentage
-  - Purple: crit success percentage (nat 20 auto-success, only for single d20)
+  - Accent (`var(--color-accent)`): crit success percentage (nat 20 auto-success, only for single d20)
   - For multi-dice: only two segments (fail in gray, success in green).
 
-- **Bar labels:** "CRIT FAIL 5%" in red on the left, "CRIT SUCC 5%" in purple on the right (only for single d20).
+- **Bar labels:** "CRIT FAIL 5%" in red on the left, "CRIT SUCC 5%" in `var(--color-accent)` on the right (only for single d20).
 
 - **4 stat boxes** in a horizontal row at the bottom:
   - NAT 1: red accent, shows "5%" for single d20, "--" otherwise
   - FAIL RANGE: gray, shows fail percentage
   - SUCCESS RANGE: green, shows success percentage
-  - NAT 20: purple accent, shows "5%" for single d20, "--" otherwise
+  - NAT 20: accent color (`var(--color-accent)`), shows "5%" for single d20, "--" otherwise
 
 ---
 

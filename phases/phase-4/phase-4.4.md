@@ -28,7 +28,7 @@ Each card, from top to bottom:
 
 3. **"DM ONLY" overlay**: if `is_visible_to_players` is false, render a semi-transparent red banner across the top of the card with "DM ONLY" in white caps. Only visible to the DM obviously (players never see these cards at all, thanks to the query filter).
 
-4. **Name**: bold white text. To the right, a small purple circle with a pencil icon — clicking it opens the edit dialog.
+4. **Name**: bold white text. To the right, a small accent circle (`bg-[rgba(var(--color-accent-rgb),0.15)] text-[var(--color-accent)]`) with a pencil icon — clicking it opens the edit dialog.
 
 5. **Description**: italic gray text, truncated to 2 lines with CSS `line-clamp`.
 

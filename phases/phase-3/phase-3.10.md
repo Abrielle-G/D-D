@@ -58,8 +58,8 @@ When a scenario is selected, populate the `input` state with the scenario's defa
 
 **Each slider control:**
 - **Label:** Dynamic based on scenario. Default: "Prior Probability P(H)". With scenario: "Prior Probability P(Trapped)".
-- **Value display:** Current value as percentage in cyan color, e.g., "30%". Positioned to the right of the label.
-- **Slider track:** Use shadcn `Slider` component. Style the track with an accent-to-cyan gradient (use CSS custom styling on the track). White circular thumb.
+- **Value display:** Current value as percentage in `var(--color-accent-secondary)`, e.g., "30%". Positioned to the right of the label.
+- **Slider track:** Use shadcn `Slider` component. Style the track with a `var(--color-accent)` to `var(--color-accent-secondary)` gradient (use CSS custom styling on the track). White circular thumb.
 - **Range:** 0% to 100% (maps to 0-1 internally). Step: 1% (0.01).
 - **Helper text:** Italic, muted color, below each slider. Explains what the input means. If a scenario is active, use the scenario's educational text. Otherwise, use generic text like "The initial probability before considering evidence."
 
@@ -155,7 +155,7 @@ This is a cosmetic/flavor component that adds atmosphere to the page. It simulat
 
 **Visual structure:**
 - A horizontal stacked bar (similar to the probability bar):
-  - Purple segment: `P(E|H) * P(H)` -- labeled "True Positive"
+  - Accent segment (`var(--color-accent)`): `P(E|H) * P(H)` -- labeled "True Positive"
   - Red segment: `P(E|~H) * P(~H)` -- labeled "False Positive"
 - Total bar width = `P(E)` = sum of both segments.
 - Label above: "Likelihood Distribution Scale".
