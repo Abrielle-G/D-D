@@ -112,6 +112,19 @@ Add a `body::before` pseudo-element that creates a subtle grain/noise texture ov
 - `background-image`: use a base64-encoded tiny SVG noise pattern, OR use a CSS approach with `repeating-conic-gradient` or multiple layered `radial-gradient`s at random positions to simulate film grain
 - This noise texture is visible in the mockups and adds depth that prevents the flat-CSS look typical of AI-generated projects
 
+**Theme Backdrop Image Variable:**
+Add a `--theme-backdrop-image` CSS custom property to each `[data-theme="X"]` selector pointing to the user-provided backdrop JPG for that theme (see Phase 0.22). This variable is used by the hero banner, Settings theme cards, and any full-bleed atmospheric sections:
+
+```css
+[data-theme="fantasy"]  { --theme-backdrop-image: url('/images/themes/fantasy-backdrop.jpg'); }
+[data-theme="scifi"]    { --theme-backdrop-image: url('/images/themes/scifi-backdrop.jpg'); }
+[data-theme="western"]  { --theme-backdrop-image: url('/images/themes/western-backdrop.jpg'); }
+[data-theme="eldritch"] { --theme-backdrop-image: url('/images/themes/eldritch-backdrop.jpg'); }
+[data-theme="steampunk"]{ --theme-backdrop-image: url('/images/themes/steampunk-backdrop.jpg'); }
+```
+
+Usage pattern: apply via `background-image: var(--theme-backdrop-image)` on a container, combined with `background-size: cover`, `background-position: center`, and an overlay div set to `bg-[var(--color-bg-base)]/70` for legibility.
+
 **Custom Scrollbar:**
 - Width: 4px
 - Thumb: `var(--color-border)` with rounded ends

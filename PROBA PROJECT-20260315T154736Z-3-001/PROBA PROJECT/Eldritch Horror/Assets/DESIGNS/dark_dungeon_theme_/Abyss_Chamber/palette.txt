@@ -1,0 +1,6 @@
+Theme: Abyss Chamber
+Background: #0A0A0A
+Stone Lines: #232323
+Torch Glow: #7A2E1C
+Text: #B4B4B4
+Style: Dark medieval dungeon aesthetic

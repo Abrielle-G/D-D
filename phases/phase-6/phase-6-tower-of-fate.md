@@ -27,10 +27,12 @@ supabase/
 └── seed.sql                            ← MODIFY (add Tower of Fate data)
 public/
 └── images/
+    ├── themes/
+    │   └── fantasy-backdrop.jpg        ← already present from Phase 0.22 (usable as hero banner fallback)
     ├── maps/
     │   └── tower-of-fate-level-1.jpg   ← ADD (user-provided or placeholder)
     └── heroes/
-        └── tower-banner.jpg            ← ADD (user-provided or placeholder)
+        └── tower-banner.jpg            ← ADD (user-provided; fallback to fantasy-backdrop.jpg)
 ```
 
 ## Subphases

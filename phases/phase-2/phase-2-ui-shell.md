@@ -92,7 +92,7 @@ Work through each item after completing the implementation. Do not skip any.
 - [ ] Dashboard displays real data from the database, or shows appropriate empty states when no data exists.
 - [ ] Quick stat cards show correct counts that match the database.
 - [ ] Party member HP bars are color-coded correctly (green above 60%, yellow 30-60%, red below 30%).
-- [ ] Settings page shows all 5 theme cards with correct gradient backgrounds.
+- [ ] Settings page shows all 5 theme cards with correct gradient backgrounds, each showing the theme's backdrop image (from PROBA PROJECT) at low opacity behind the gradient overlay.
 - [ ] Clicking a theme card applies the theme instantly across the entire application.
 - [ ] Profile form saves display name and avatar to the database, and the sidebar reflects the changes.
 - [ ] Role toggle in system preferences updates the database `preferred_role` field.

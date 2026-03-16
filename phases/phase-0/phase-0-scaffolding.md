@@ -2,7 +2,7 @@
 
 ## Context
 
-This phase scaffolds the entire Next.js project, establishes the design system extracted from 12 HTML mockups, configures all tooling (TypeScript strict, ESLint, Prettier), sets up the 5-theme system via CSS custom properties, and creates the foundational component library (sidebar, topbar, status bar, cards, badges). Everything in Phases 1–7 depends on this being correct. The user has provided design mockups in `stitch_proba_project/stitch_proba_project/` — these are the pixel-perfect targets. The app must NOT look AI-generated.
+This phase scaffolds the entire Next.js project, establishes the design system extracted from 12 HTML mockups, configures all tooling (TypeScript strict, ESLint, Prettier), sets up the 5-theme system via CSS custom properties, and creates the foundational component library (sidebar, topbar, status bar, cards, badges). Everything in Phases 1–7 depends on this being correct. The user has provided design mockups in `stitch_proba_project/stitch_proba_project/` — these are the pixel-perfect targets. The user has also provided theme-specific backdrop images, custom fonts, and icon packs in `PROBA PROJECT-20260315T154736Z-3-001/PROBA PROJECT/` — Step 0.22 handles copying these into `public/`. The app must NOT look AI-generated.
 
 ## Design Reference Files
 
@@ -44,10 +44,12 @@ dice-and-decisions/
 │   │   ├── Inter-Variable.woff2
 │   │   └── JetBrainsMono-Variable.woff2
 │   └── images/
-│       ├── icons/          (user-provided custom icons)
+│       ├── icons/          (theme icon packs from PROBA PROJECT — organized as icons/{theme}/)
 │       ├── heroes/         (dashboard hero banner images)
 │       ├── npcs/           (NPC portrait images)
-│       └── maps/           (campaign map images)
+│       ├── maps/           (campaign map images)
+│       ├── themes/         (theme backdrop JPGs — fantasy-backdrop.jpg, scifi-backdrop.jpg, etc.)
+│       └── designs/        (supplementary design/animation assets per theme)
 ├── src/
 │   ├── app/
 │   │   ├── layout.tsx                     (root layout — providers, fonts, metadata)

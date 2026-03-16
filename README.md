@@ -101,6 +101,33 @@ Switched from **Settings → System Preferences**. Active theme is highlighted w
 
 ---
 
+## 🖼️ Asset Folder — PROBA PROJECT
+
+The `PROBA PROJECT-20260315T154736Z-3-001/PROBA PROJECT/` folder (at the `D-D/` root level) contains all user-provided backdrop images, fonts, icon packs, and design/animation assets organized by theme. The executing agent processes these in **Phase 0.22** — copying backdrops to `public/images/themes/`, extracting fonts to `public/fonts/`, and extracting icon packs to `public/images/icons/`.
+
+| Theme | Backdrop Image | Custom Fonts | Icon Packs | Extra Assets |
+| ---------------------- | --------------------------------- | ------------------------------------------- | ----------------------------------------- | ---------------------------------- |
+| 🏰 Fantasy | `Fantasy/fantasy.jpg` | `Almendra_Display.zip` | medieval-fantasy, creature, game-icons.net | — |
+| 🚀 Sci-Fi | `Sci-Fi/scifi.jpg` | — | — | — |
+| ⚙️ Steampunk | `Steampunk/backdrop_steampunk.jpg` | — | — | — |
+| 🤠 Western | `Western/vecteezy_flat-western-background.../` JPG | `Ewert,Rye,Sancreek,Smokum.zip` | `western.png.zip` | `Wild West.zip` designs |
+| 👁️ Eldritch Horror | `Eldritch Horror/eldritchbackdrop.jpg` | `dark_theme_fonts.zip` | `dark_theme_icons.zip` | Animations + dungeon designs + GIF pack |
+
+**Destination paths after copying/extracting:**
+
+| Asset Category | Public Path |
+| ------------------- | --------------------------------- |
+| Theme backdrops | `public/images/themes/*.jpg` |
+| Theme icon packs | `public/images/icons/{theme}/` |
+| Custom theme fonts | `public/fonts/` |
+| Animation / design assets | `public/images/designs/{theme}/` |
+
+> **Licensing note:** The Western backdrop is a Vecteezy image. Review `Vecteezy-License-Information.pdf` inside the Western folder before publishing — the free Vecteezy license covers personal and educational use.
+
+See **Phase 0.22** for step-by-step copy and extraction instructions.
+
+---
+
 ## 📅 Project Timeline
 
 | Phase | Focus                                | Dates                          |
@@ -120,6 +147,7 @@ Switched from **Settings → System Preferences**. Active theme is highlighted w
 | [`project_specification.md`](./project_specification.md) | Full project spec — features, data model, architecture, design system    |
 | `phases/`                                                | Step-by-step agent instruction files, organized by phase (phase-0 → phase-7) |
 | `stitch_proba_project/`                                  | Stitch HTML samples — use as UI/code reference                           |
+| `PROBA PROJECT-20260315T154736Z-3-001/PROBA PROJECT/`    | User-provided backdrop images, fonts, and icon packs organized by theme (Fantasy, Sci-Fi, Steampunk, Western, Eldritch Horror) |
 
 ---
 

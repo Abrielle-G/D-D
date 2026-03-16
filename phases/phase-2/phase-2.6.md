@@ -31,16 +31,16 @@ This file should already exist as a placeholder. Replace or update its content.
 - Render 5 theme cards in a responsive grid: 3 columns on the first row, 2 columns on the second row (centered). On mobile, stack to 1 column.
 - Each theme card is approximately 200px wide (or flex-grow to fill the grid cell) and approximately 120-140px tall.
 - **Card contents:**
-  - Background: a gradient fill unique to the theme (covering the full card). The gradient should use the theme's two or three primary colors.
+  - Background: the theme's backdrop image (from `themes[themeId].backdropImage`) rendered as a `<Image>` at ~40% opacity, with the theme's gradient color overlay on top (so the backdrop shows through but the gradient color still dominates). If the backdrop image hasn't loaded yet (or doesn't exist), fall back to the pure CSS gradient. The gradient should use the theme's two or three primary colors.
   - Centered vertically: a Lucide icon (~32px) above the theme name.
   - Theme name in bold white ~16px.
   - A short one-line description in smaller muted text ~12px.
 - **Theme definitions:**
-  1. **Fantasy** -- Purple gradient (`from-purple-900 to-indigo-800`), `Sparkles` icon, description "Classic fantasy adventure".
-  2. **Sci-Fi** -- Cyan/dark blue gradient (`from-cyan-900 to-blue-950`), `Rocket` icon, description "Futuristic space theme".
-  3. **Western** -- Amber/brown gradient (`from-amber-900 to-yellow-800`), `Star` icon, description "Rugged frontier style".
-  4. **Eldritch** -- Green/dark gradient (`from-emerald-900 to-gray-950`), `Eye` icon, description "Dark cosmic horror".
-  5. **Steampunk** -- Gold/brown gradient (`from-yellow-800 to-stone-900`), `Cog` icon, description "Victorian industrial".
+  1. **Fantasy** -- Purple gradient (`from-purple-900 to-indigo-800`) + `fantasy-backdrop.jpg`, `Sparkles` icon, description "Classic fantasy adventure".
+  2. **Sci-Fi** -- Cyan/dark blue gradient (`from-cyan-900 to-blue-950`) + `scifi-backdrop.jpg`, `Rocket` icon, description "Futuristic space theme".
+  3. **Western** -- Amber/brown gradient (`from-amber-900 to-yellow-800`) + `western-backdrop.jpg`, `Star` icon, description "Rugged frontier style".
+  4. **Eldritch** -- Green/dark gradient (`from-emerald-900 to-gray-950`) + `eldritch-backdrop.jpg`, `Eye` icon, description "Dark cosmic horror".
+  5. **Steampunk** -- Gold/brown gradient (`from-yellow-800 to-stone-900`) + `steampunk-backdrop.jpg`, `Cog` icon, description "Victorian industrial".
 - **Selected state:** The currently selected theme card gets:
   - A green checkmark icon (`Check` or `CheckCircle`) positioned in the top-right corner of the card.
   - An accent-colored border (2px solid accent color).
