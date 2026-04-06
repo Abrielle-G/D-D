@@ -52,9 +52,9 @@
 - **Business rules:**
   - DM mode shows all campaigns, NPCs, encounters, notes, full probability tools
   - Player mode shows only: their character sheet (editable), campaign info (read-only), probability visualizations (read-only)
-  - Role preference persists in user profile
+  - Role preference persists in localStorage
 - **Edge cases:** If a user has no character sheet created, Player mode prompts them to create one
-- **Dependencies:** Authentication
+- **Dependencies:** None (local state)
 
 ---
 
@@ -90,7 +90,7 @@
   - Players can only edit their own sheet
   - DM can view and edit any player's sheet
 - **Edge cases:** Blank character → show placeholder prompts in each field ("Enter your character's name...")
-- **Dependencies:** Auth (to link character to user)
+- **Dependencies:** Local state (Zustand)
 
 ---
 
@@ -194,7 +194,7 @@
   - Notes tagged "Session Log" are visible to all
   - Rich text editor — use a lightweight library (e.g., Tiptap or similar)
 - **Edge cases:** Empty note → don't save, show validation
-- **Dependencies:** Auth, Campaign
+- **Dependencies:** Local state, Campaign
 
 ---
 
@@ -276,14 +276,14 @@
 - **Business rules:**
   - DM can upload multiple maps per campaign
   - DM can toggle marker visibility during live sessions ("fog of war" lite)
-  - Maps stored in Supabase Storage (free tier: 1GB)
-  - Image upload validates file type and size before upload
-  - Markers are saved to the database, linked to a specific map
+  - Maps stored as object URLs in local state (files are loaded into memory from local disk)
+  - Image upload validates file type and size before loading
+  - Markers are saved in local state, linked to a specific map
 - **Edge cases:**
   - Image too large → show size limit error with compression suggestion
   - No maps uploaded → show placeholder with "Upload Your First Map" CTA
   - Mobile: use touch gestures for pan/zoom, long-press to place markers (DM mode)
-- **Dependencies:** Auth, Campaign, Supabase Storage
+- **Dependencies:** Local state, Campaign
 
 ---
 
@@ -313,14 +313,14 @@
 - **Inputs:** Theme selector (grid of theme cards in Settings, or a dropdown in the sidebar)
 - **Outputs:** Entire app re-themes instantly via CSS custom properties
 - **Business rules:**
-  - Theme preference stored per-user in the database
+  - Theme preference stored in localStorage
   - Theme applies immediately on selection (no page reload — CSS variables)
   - Default theme: Fantasy
   - All themes maintain WCAG AA contrast ratios for accessibility
   - Theme is cosmetic only — zero impact on game mechanics or data
 - **Edge cases:**
   - New user → defaults to Fantasy theme
-  - Invalid theme in database → graceful fallback to Fantasy
+  - Missing localStorage value → graceful fallback to Fantasy
 - **Technical approach:** CSS custom properties (`--color-accent`, `--color-bg-base`, etc.) defined per theme. Switching theme = swapping a `data-theme` attribute on `<html>`. Tailwind integrates with CSS variables. Zero JS overhead at runtime.
 - **Dependencies:** None (pure CSS/styling)
 
@@ -365,11 +365,8 @@
 | **Styling**         | Tailwind CSS 3                                   | Utility-first, rapid prototyping, excellent responsive design support, easy dark mode                                                         |
 | **UI Components**   | shadcn/ui                                        | Beautiful, accessible, customizable components built on Radix UI — perfect for the premium dashboard aesthetic                                |
 | **Charts**          | Recharts + custom SVG                            | Lightweight, React-native charting for probability distributions and Bayes visualizations                                                     |
-| **Backend/DB**      | Supabase (PostgreSQL + Auth + Realtime)          | Free tier is generous (50K monthly active users, 500MB DB), built-in auth, row-level security, real-time subscriptions for future multiplayer |
-| **ORM**             | Supabase JS Client (direct)                      | No need for Prisma overhead — Supabase client provides typed queries                                                                          |
-| **Auth**            | Supabase Auth (email/password)                   | Built-in, zero config, integrates with Row Level Security                                                                                     |
+| **State / Storage** | Zustand + localStorage                           | Lightweight client state management with built-in persistence via localStorage — no backend required                                          |
 | **Rich Text**       | Tiptap (headless editor)                         | Lightweight, extensible, works perfectly with React — for story notes                                                                         |
-| **File Storage**    | Supabase Storage                                 | Map image uploads, free tier (1GB), integrates with RLS for access control                                                                    |
 | **Map Interaction** | CSS transforms + event handlers                  | Pan/zoom via native browser APIs — lightweight, no extra library needed                                                                       |
 | **Hosting**         | Vercel (free tier)                               | Optimized for Next.js, automatic previews, generous free tier                                                                                 |
 | **CI/CD**           | Vercel Git Integration                           | Push to GitHub → auto deploy. Zero config.                                                                                                    |
@@ -388,17 +385,13 @@
 │  │ Char.    │ │ Bayes    │ │ Role Switcher      │   │
 │  │ Sheet    │ │ Analyzer │ │ (DM/Player)        │   │
 │  └──────────┘ └──────────┘ └────────────────────┘   │
+│                                                      │
+│  ┌──────────────────────────────────────────────┐   │
+│  │  Zustand Store (in-memory + localStorage)    │   │
+│  │  All campaign, character, and app state      │   │
+│  └──────────────────────────────────────────────┘   │
 └──────────────────────┬──────────────────────────────┘
-                       │ HTTPS / Supabase Client
-                       ▼
-┌─────────────────────────────────────────────────────┐
-│                    SUPABASE                          │
-│  ┌──────────┐ ┌──────────┐ ┌────────────────────┐   │
-│  │   Auth   │ │ Postgres │ │ Row Level Security │   │
-│  │ (email)  │ │   (DB)   │ │   (RLS Policies)   │   │
-│  └──────────┘ └──────────┘ └────────────────────┘   │
-└─────────────────────────────────────────────────────┘
-                       │
+                       │ Vercel CDN / SSG
                        ▼
 ┌─────────────────────────────────────────────────────┐
 │                    VERCEL                            │
@@ -408,168 +401,148 @@
 
 ### Data Model (Key Entities)
 
-#### **User**
+> All data is stored in **Zustand** (in-memory) and persisted to **localStorage**. No backend, no database. IDs are generated client-side using `crypto.randomUUID()` or `nanoid`.
 
-| Field          | Type      | Constraints                                                                       |
-| -------------- | --------- | --------------------------------------------------------------------------------- |
-| id             | UUID      | Primary key (from Supabase Auth)                                                  |
-| email          | text      | Unique, not null                                                                  |
-| display_name   | text      | Not null                                                                          |
-| preferred_role | enum      | 'dm' \| 'player', default 'player'                                                |
-| selected_theme | enum      | 'fantasy' \| 'scifi' \| 'western' \| 'eldritch' \| 'steampunk', default 'fantasy' |
-| created_at     | timestamp | Default now()                                                                     |
+#### **AppSettings**
+
+| Field          | Type    | Notes                                                                      |
+| -------------- | ------- | -------------------------------------------------------------------------- |
+| activeRole     | string  | `'dm'` \| `'player'`, default `'player'`                                   |
+| selectedTheme  | string  | `'fantasy'` \| `'scifi'` \| `'western'` \| `'eldritch'` \| `'steampunk'`, default `'fantasy'` |
 
 #### **Campaign**
 
-| Field       | Type      | Constraints                            |
-| ----------- | --------- | -------------------------------------- |
-| id          | UUID      | Primary key                            |
-| name        | text      | Not null                               |
-| description | text      | Nullable                               |
-| dm_user_id  | UUID      | FK → User.id, not null                 |
-| is_template | boolean   | Default false (true for Tower of Fate) |
-| status      | enum      | 'active' \| 'archived'                 |
-| created_at  | timestamp | Default now()                          |
-| updated_at  | timestamp | Auto-update                            |
-
-**Index:** `dm_user_id` (campaigns by DM)
+| Field       | Type     | Notes                                              |
+| ----------- | -------- | -------------------------------------------------- |
+| id          | string   | `crypto.randomUUID()`                              |
+| name        | string   | Required                                           |
+| description | string   | Optional                                           |
+| isTemplate  | boolean  | Default false (true for Tower of Fate)             |
+| status      | string   | `'active'` \| `'archived'`                        |
+| createdAt   | string   | ISO date string                                    |
+| updatedAt   | string   | ISO date string                                    |
 
 #### **Character**
 
-| Field        | Type      | Constraints                            |
-| ------------ | --------- | -------------------------------------- |
-| id           | UUID      | Primary key                            |
-| user_id      | UUID      | FK → User.id                           |
-| campaign_id  | UUID      | FK → Campaign.id                       |
-| name         | text      | Not null                               |
-| race         | text      | Not null                               |
-| char_class   | text      | Not null                               |
-| level        | integer   | Default 1, min 1, max 20               |
-| strength     | integer   | 1-30, default 10                       |
-| dexterity    | integer   | 1-30, default 10                       |
-| constitution | integer   | 1-30, default 10                       |
-| intelligence | integer   | 1-30, default 10                       |
-| wisdom       | integer   | 1-30, default 10                       |
-| charisma     | integer   | 1-30, default 10                       |
-| hp_current   | integer   | Min 0                                  |
-| hp_max       | integer   | Min 1                                  |
-| armor_class  | integer   | Min 0                                  |
-| speed        | integer   | Default 30                             |
-| weapons      | jsonb     | Array of {name, damage_dice, modifier} |
-| abilities    | jsonb     | Array of {name, description}           |
-| inventory    | jsonb     | Array of {name, quantity}              |
-| notes        | text      | Nullable                               |
-| created_at   | timestamp | Default now()                          |
-
-**Indexes:** `user_id`, `campaign_id`
-**Relations:** Belongs to User (1:1 per campaign), belongs to Campaign (M:1)
+| Field        | Type    | Notes                                        |
+| ------------ | ------- | -------------------------------------------- |
+| id           | string  | `crypto.randomUUID()`                        |
+| campaignId   | string  | Reference to Campaign.id                     |
+| name         | string  | Required                                     |
+| race         | string  | Required                                     |
+| charClass    | string  | Required                                     |
+| level        | number  | Default 1, min 1, max 20                     |
+| strength     | number  | 1–30, default 10                             |
+| dexterity    | number  | 1–30, default 10                             |
+| constitution | number  | 1–30, default 10                             |
+| intelligence | number  | 1–30, default 10                             |
+| wisdom       | number  | 1–30, default 10                             |
+| charisma     | number  | 1–30, default 10                             |
+| hpCurrent    | number  | Min 0                                        |
+| hpMax        | number  | Min 1                                        |
+| armorClass   | number  | Min 0                                        |
+| speed        | number  | Default 30                                   |
+| weapons      | array   | `{name, damageDice, modifier}[]`             |
+| abilities    | array   | `{name, description}[]`                      |
+| inventory    | array   | `{name, quantity}[]`                         |
+| notes        | string  | Optional                                     |
+| createdAt    | string  | ISO date string                              |
 
 #### **NPC**
 
-| Field                 | Type      | Constraints                            |
-| --------------------- | --------- | -------------------------------------- |
-| id                    | UUID      | Primary key                            |
-| campaign_id           | UUID      | FK → Campaign.id                       |
-| name                  | text      | Not null                               |
-| race                  | text      | Nullable                               |
-| role                  | text      | (Merchant, Villain, Quest Giver, etc.) |
-| description           | text      | Nullable                               |
-| hp                    | integer   | Nullable                               |
-| armor_class           | integer   | Nullable                               |
-| attack_bonus          | integer   | Nullable                               |
-| notes                 | text      | Nullable                               |
-| status                | enum      | 'active' \| 'deceased' \| 'hidden'     |
-| is_visible_to_players | boolean   | Default false                          |
-| created_at            | timestamp | Default now()                          |
-
-**Index:** `campaign_id`
+| Field               | Type    | Notes                                    |
+| ------------------- | ------- | ---------------------------------------- |
+| id                  | string  | `crypto.randomUUID()`                    |
+| campaignId          | string  | Reference to Campaign.id                 |
+| name                | string  | Required                                 |
+| race                | string  | Optional                                 |
+| role                | string  | Merchant, Villain, Quest Giver, etc.     |
+| description         | string  | Optional                                 |
+| hp                  | number  | Optional                                 |
+| armorClass          | number  | Optional                                 |
+| attackBonus         | number  | Optional                                 |
+| notes               | string  | Optional                                 |
+| status              | string  | `'active'` \| `'deceased'` \| `'hidden'` |
+| isVisibleToPlayers  | boolean | Default false                            |
+| createdAt           | string  | ISO date string                          |
 
 #### **Encounter**
 
-| Field            | Type      | Constraints                                        |
-| ---------------- | --------- | -------------------------------------------------- |
-| id               | UUID      | Primary key                                        |
-| campaign_id      | UUID      | FK → Campaign.id                                   |
-| name             | text      | Not null                                           |
-| description      | text      | Nullable                                           |
-| difficulty_class | integer   | Min 1, max 30                                      |
-| enemies          | jsonb     | Array of {name, hp, ac, attack_bonus, damage_dice} |
-| status           | enum      | 'planned' \| 'active' \| 'completed'               |
-| created_at       | timestamp | Default now()                                      |
-
-**Index:** `campaign_id`, `status`
+| Field           | Type    | Notes                                             |
+| --------------- | ------- | ------------------------------------------------- |
+| id              | string  | `crypto.randomUUID()`                             |
+| campaignId      | string  | Reference to Campaign.id                          |
+| name            | string  | Required                                          |
+| description     | string  | Optional                                          |
+| difficultyClass | number  | Min 1, max 30                                     |
+| enemies         | array   | `{name, hp, ac, attackBonus, damageDice}[]`       |
+| status          | string  | `'planned'` \| `'active'` \| `'completed'`        |
+| createdAt       | string  | ISO date string                                   |
 
 #### **Note**
 
-| Field                 | Type      | Constraints                                            |
-| --------------------- | --------- | ------------------------------------------------------ |
-| id                    | UUID      | Primary key                                            |
-| campaign_id           | UUID      | FK → Campaign.id                                       |
-| author_id             | UUID      | FK → User.id                                           |
-| title                 | text      | Not null                                               |
-| content               | text      | Rich text (HTML)                                       |
-| tag                   | enum      | 'session_log' \| 'world_lore' \| 'plot' \| 'dm_secret' |
-| is_visible_to_players | boolean   | Default true (false for dm_secret)                     |
-| session_number        | integer   | Nullable                                               |
-| created_at            | timestamp | Default now()                                          |
-
-**Index:** `campaign_id`, `tag`
+| Field               | Type    | Notes                                                   |
+| ------------------- | ------- | ------------------------------------------------------- |
+| id                  | string  | `crypto.randomUUID()`                                   |
+| campaignId          | string  | Reference to Campaign.id                                |
+| title               | string  | Required                                                |
+| content             | string  | Rich text (HTML from Tiptap)                            |
+| tag                 | string  | `'session_log'` \| `'world_lore'` \| `'plot'` \| `'dm_secret'` |
+| isVisibleToPlayers  | boolean | Default true (false for dm_secret)                      |
+| sessionNumber       | number  | Optional                                                |
+| createdAt           | string  | ISO date string                                         |
 
 #### **BayesScenario**
 
-| Field             | Type      | Constraints                                      |
-| ----------------- | --------- | ------------------------------------------------ |
-| id                | UUID      | Primary key                                      |
-| campaign_id       | UUID      | FK → Campaign.id (nullable for global scenarios) |
-| title             | text      | Not null                                         |
-| description       | text      | Not null                                         |
-| prior_probability | float     | 0.0-1.0                                          |
-| likelihood        | float     | 0.0-1.0                                          |
-| marginal_false    | float     | 0.0-1.0                                          |
-| is_template       | boolean   | Default false                                    |
-| created_at        | timestamp | Default now()                                    |
+| Field            | Type    | Notes                                          |
+| ---------------- | ------- | ---------------------------------------------- |
+| id               | string  | `crypto.randomUUID()`                          |
+| campaignId       | string  | Optional (null for global/template scenarios)  |
+| title            | string  | Required                                       |
+| description      | string  | Required                                       |
+| priorProbability | number  | 0.0–1.0                                        |
+| likelihood       | number  | 0.0–1.0                                        |
+| marginalFalse    | number  | 0.0–1.0                                        |
+| isTemplate       | boolean | Default false                                  |
+| createdAt        | string  | ISO date string                                |
 
 #### **CampaignMap**
 
-| Field       | Type      | Constraints                                |
-| ----------- | --------- | ------------------------------------------ |
-| id          | UUID      | Primary key                                |
-| campaign_id | UUID      | FK → Campaign.id                           |
-| name        | text      | Not null (e.g., "Tower of Fate — Level 1") |
-| image_url   | text      | Not null (Supabase Storage URL)            |
-| sort_order  | integer   | Default 0 (for ordering maps in sidebar)   |
-| created_at  | timestamp | Default now()                              |
-
-**Index:** `campaign_id`
+| Field      | Type   | Notes                                         |
+| ---------- | ------ | --------------------------------------------- |
+| id         | string | `crypto.randomUUID()`                         |
+| campaignId | string | Reference to Campaign.id                      |
+| name       | string | Required (e.g., "Tower of Fate — Level 1")    |
+| imageData  | string | Base64-encoded image data URL                 |
+| sortOrder  | number | Default 0 (for ordering maps in sidebar)      |
+| createdAt  | string | ISO date string                               |
 
 #### **MapMarker**
 
-| Field                 | Type      | Constraints                                         |
-| --------------------- | --------- | --------------------------------------------------- |
-| id                    | UUID      | Primary key                                         |
-| map_id                | UUID      | FK → CampaignMap.id                                 |
-| label                 | text      | Not null                                            |
-| description           | text      | Nullable                                            |
-| icon_type             | enum      | 'combat' \| 'quest' \| 'shop' \| 'danger' \| 'safe' |
-| pos_x                 | float     | 0.0-1.0 (percentage position on image)              |
-| pos_y                 | float     | 0.0-1.0 (percentage position on image)              |
-| is_visible_to_players | boolean   | Default false                                       |
-| created_at            | timestamp | Default now()                                       |
-
-**Index:** `map_id`
+| Field               | Type    | Notes                                               |
+| ------------------- | ------- | --------------------------------------------------- |
+| id                  | string  | `crypto.randomUUID()`                               |
+| mapId               | string  | Reference to CampaignMap.id                         |
+| label               | string  | Required                                            |
+| description         | string  | Optional                                            |
+| iconType            | string  | `'combat'` \| `'quest'` \| `'shop'` \| `'danger'` \| `'safe'` |
+| posX                | number  | 0.0–1.0 (percentage position on image)              |
+| posY                | number  | 0.0–1.0 (percentage position on image)              |
+| isVisibleToPlayers  | boolean | Default false                                       |
+| createdAt           | string  | ISO date string                                     |
 
 ### API Design Philosophy
 
-- **Supabase Client SDK** — direct database queries from the client with RLS policies acting as the API security layer
-- No custom REST API needed for MVP — Supabase handles CRUD operations
+- **No backend, no API** — all data lives in Zustand stores persisted to localStorage
 - All probability calculations run **client-side** (pure math, no server needed)
-- Error format: Supabase returns standardized PostgreSQL errors, catch and display user-friendly messages
+- All CRUD operations are synchronous Zustand store mutations that auto-persist to localStorage
+- Error handling: validate with Zod before writes; display user-friendly error toasts on validation failure
+- Data export/import: users can export their campaign as a JSON file and re-import it
 
 ### Third-Party Integrations
 
 | Service      | Purpose                           | Tier/Cost                             |
 | ------------ | --------------------------------- | ------------------------------------- |
-| Supabase     | Auth + Database + RLS + Storage   | Free (50K MAU, 500MB DB, 1GB Storage) |
 | Vercel       | Hosting + CDN + Serverless        | Free (100GB bandwidth)                |
 | Google Fonts | Typography (Inter/JetBrains Mono) | Free                                  |
 | Recharts     | Probability visualizations        | Free (MIT)                            |
@@ -608,8 +581,7 @@
   6. NPC Manager (card grid)
   7. Encounter Builder (form + linked probability cards)
   8. Story Notes (list + editor)
-  9. Settings (role switch, profile)
-  10. Login / Sign Up (minimal, on-brand)
+  9. Settings (role switch, theme)
 - **Responsive strategy:**
   - **Desktop (≥1024px):** Full sidebar + main content area
   - **Tablet (768px–1023px):** Collapsible sidebar (icon-only), full content
@@ -622,23 +594,15 @@
 ## 6. Security & Compliance
 
 - **Security tier:** MVP / School Project
-- **Authentication:**
-  - Email + password sign up/login via Supabase Auth
-  - Session managed via Supabase JWT tokens (auto-refresh)
-  - No social login in MVP (simplicity)
-- **Authorization:**
-  - Row Level Security (RLS) policies in Supabase:
-    - Users can only read/write their own character sheets
-    - Only the campaign's DM can CRUD NPCs, encounters, DM-secret notes
-    - Players can read campaign data, session logs, and player-visible notes
-    - Players can only update their own user profile
-  - Role (DM/Player) stored per-user, checked in RLS policies
+- **No authentication required** — the app runs entirely client-side with no user accounts
+- **Role switching:** DM/Player role stored in localStorage; accessible to anyone using the app on that device
 - **Data handling:**
-  - HTTPS everywhere (Vercel + Supabase enforce this)
-  - No sensitive PII beyond email
+  - All data stored in localStorage (browser-only, never transmitted)
+  - No PII collected — no accounts, no emails, no passwords
   - No payment data
-  - Environment variables for Supabase keys (never committed to repo)
-- **Rate limiting:** Supabase built-in rate limiting (sufficient for school project scale)
+  - No environment secrets needed (no external services)
+- **HTTPS:** Enforced by Vercel for production deployment
+- **Rate limiting:** Not applicable (no server-side endpoints)
 - **Audit logging:** Not required for MVP
 
 ---
@@ -646,8 +610,8 @@
 ## 7. Infrastructure & DevOps
 
 - **Environments:**
-  - **Development:** Local (`npm run dev`) + Supabase local (or Supabase cloud dev project)
-  - **Production:** Vercel deployment + Supabase cloud project
+  - **Development:** Local (`npm run dev`) — no external services needed
+  - **Production:** Vercel deployment (static/SSG Next.js app)
   - No staging needed for a school project
 - **Deployment strategy:**
   - GitHub repo → Vercel Git Integration → auto-deploy on push to `main`
@@ -655,9 +619,8 @@
 - **Monitoring:**
   - Vercel Analytics (free tier — Core Web Vitals)
   - Browser console for debugging
-  - Supabase Dashboard for DB monitoring
-- **Backup:** Supabase handles daily backups on free tier
-- **Scaling:** Not a concern — school project with <50 users
+- **Backup:** Users can export their campaign data as JSON at any time
+- **Scaling:** Not a concern — school project with <50 users, fully static
 
 ---
 
@@ -665,17 +628,16 @@
 
 | Phase | Focus                   | Duration                 | Key Deliverables                                                                                                                                                       |
 | ----- | ----------------------- | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **0** | Project setup & tooling | Day 1-2 (Mar 11-12)      | Next.js scaffold, Tailwind config, Supabase project, GitHub repo, Vercel deployment, design system (colors, typography, card components)                               |
-| **1** | Auth + Data Layer       | Day 3-4 (Mar 13-14)      | Supabase auth (login/signup), DB schema migration, RLS policies, role switcher (DM/Player)                                                                             |
-| **2** | Core UI Shell           | Day 5-7 (Mar 15-17)      | Sidebar navigation, dashboard layout, responsive breakpoints, card component system, empty states                                                                      |
-| **3** | Probability Engine      | Day 8-12 (Mar 18-22)     | Probability calculator, Probability Cards UI, Dice Distribution Visualizer (Recharts), Bayes Analyzer with pre-built scenarios — **🎯 PROTOTYPE DEADLINE (~March 22)** |
-| **4** | Campaign Management     | Day 13-17 (Mar 23-27)    | Character sheet (CRUD), NPC manager (CRUD), Story Notes (rich text with Tiptap), Encounter Builder, Campaign Map Viewer (image upload + markers)                       |
-| **5** | Tower of Fate Demo      | Day 18-19 (Mar 28-29)    | Pre-built campaign data (NPCs, encounters, story notes, Bayes scenarios), seeding script                                                                               |
-| **6** | Polish & Testing        | Day 20-22 (Mar 30-Apr 1) | Responsive QA, bug fixes, loading states, error handling, empty states, transitions                                                                                    |
-| **7** | Final Submission        | Day 23 (Apr 2-3)         | Final deployment, README, project documentation, demo walkthrough                                                                                                      |
+| **0** | Project setup & tooling | Day 1-2 (Mar 11-12)      | Next.js scaffold, Tailwind config, GitHub repo, Vercel deployment, design system (colors, typography, card components)                                                 |
+| **1** | Core UI Shell           | Day 3-5 (Mar 13-15)      | Sidebar navigation, dashboard layout, role switcher (DM/Player), responsive breakpoints, card component system, empty states                                           |
+| **2** | Probability Engine      | Day 6-10 (Mar 16-22)     | Probability calculator, Probability Cards UI, Dice Distribution Visualizer (Recharts), Bayes Analyzer with pre-built scenarios — **🎯 PROTOTYPE DEADLINE (~March 22)** |
+| **3** | Campaign Management     | Day 11-15 (Mar 23-27)    | Character sheet (CRUD), NPC manager (CRUD), Story Notes (rich text with Tiptap), Encounter Builder, Campaign Map Viewer (image upload + markers)                       |
+| **4** | Tower of Fate Demo      | Day 16-17 (Mar 28-29)    | Pre-built campaign data (NPCs, encounters, story notes, Bayes scenarios), seeding via initial store state                                                              |
+| **5** | Polish & Testing        | Day 18-20 (Mar 30-Apr 1) | Responsive QA, bug fixes, loading states, error handling, empty states, transitions                                                                                    |
+| **6** | Final Submission        | Day 21-22 (Apr 2-3)      | Final deployment, README, project documentation, demo walkthrough                                                                                                      |
 
 > [!IMPORTANT]
-> **Prototype (Phase 3 deadline ~March 22):** The prototype should demonstrate the **probability tools** (probability cards, dice visualizer, Bayes Analyzer) + the **auth flow** + the **dashboard shell**. Campaign management features come after.
+> **Prototype (Phase 2 deadline ~March 22):** The prototype should demonstrate the **probability tools** (probability cards, dice visualizer, Bayes Analyzer) + the **dashboard shell**. Campaign management features come after.
 
 ---
 
@@ -692,7 +654,7 @@
 
 | Risk                                        | Impact                                 | Mitigation                                                                             |
 | ------------------------------------------- | -------------------------------------- | -------------------------------------------------------------------------------------- |
-| Supabase free tier limits hit               | DB or auth stops working               | Monitor usage, free tier is generous (50K MAU) — extremely unlikely for school project |
+| localStorage size limit (~5MB)              | Large campaigns with map images may exceed limit | Store map images as compressed base64 or use IndexedDB for large assets   |
 | Tailwind + shadcn/ui learning curve         | Slower UI development                  | Both have excellent docs, component copy-paste workflow                                |
 | Rich text editor complexity (Tiptap)        | Story notes take too long to implement | Fall back to plain textarea with Markdown if Tiptap is too complex                     |
 | Responsive design takes longer than planned | Mobile experience incomplete           | Prioritize desktop/laptop first, mobile as stretch goal                                |
@@ -709,7 +671,7 @@
 | **Beginner-friendly**                          | New player can create a character and understand a probability card in <2 minutes | User testing with a classmate                 |
 | **Responsive**                                 | Usable on laptop and phone                                                        | Test on Chrome DevTools responsive mode       |
 | **Professional aesthetic**                     | Looks like a real SaaS product                                                    | Visual comparison against D&D Beyond / Linear |
-| **Prototype on time**                          | Probability tools + auth + shell working by ~March 22                             | Deployed Vercel URL                           |
+| **Prototype on time**                          | Probability tools + dashboard shell working by ~March 22                          | Deployed Vercel URL                           |
 | **Final submission on time**                   | All MVP features working by April 3                                               | Deployed Vercel URL                           |
 
 ---
@@ -719,10 +681,9 @@
 | Phase                 | Skills                                                                                           | Purpose                                                                        |
 | --------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
 | Phase 0: Setup        | `clean-code`, `cc-skill-coding-standards`, `environment-setup-guide`                             | Establish code standards, linting, project structure                           |
-| Phase 1: Auth + Data  | `nextjs-supabase-auth`, `database-design`, `cc-skill-security-review`                            | Supabase auth integration, schema design, RLS policies                         |
-| Phase 2: Core UI      | `react-patterns`, `tailwind-patterns`, `ui-ux-pro-max`, `frontend-design`, `scroll-experience`   | Component architecture, styling system, premium design quality                 |
-| Phase 3: Probability  | `javascript-mastery`, `claude-d3js-skill`, `react-ui-patterns`                                   | Math engine implementation, interactive chart visualizations, card UI patterns |
-| Phase 4: Campaign     | `react-best-practices`, `cc-skill-frontend-patterns`, `nextjs-best-practices`                    | CRUD patterns, form handling, optimistic updates, data fetching                |
-| Phase 5: Demo Content | `documentation-templates`, `concise-planning`                                                    | Structured seed data, content organization                                     |
-| Phase 6: Polish       | `web-performance-optimization`, `testing-patterns`, `lint-and-validate`, `web-design-guidelines` | Performance audit, cross-browser testing, responsive QA                        |
-| Phase 7: Deploy       | `vercel-deployment`, `deployment-procedures`                                                     | Production deployment, environment variables, domain setup                     |
+| Phase 1: Core UI      | `react-patterns`, `tailwind-patterns`, `ui-ux-pro-max`, `frontend-design`, `scroll-experience`   | Component architecture, styling system, premium design quality                 |
+| Phase 2: Probability  | `javascript-mastery`, `claude-d3js-skill`, `react-ui-patterns`                                   | Math engine implementation, interactive chart visualizations, card UI patterns |
+| Phase 3: Campaign     | `react-best-practices`, `cc-skill-frontend-patterns`, `nextjs-best-practices`                    | CRUD patterns, form handling, optimistic updates, local state                  |
+| Phase 4: Demo Content | `documentation-templates`, `concise-planning`                                                    | Structured seed data, content organization                                     |
+| Phase 5: Polish       | `web-performance-optimization`, `testing-patterns`, `lint-and-validate`, `web-design-guidelines` | Performance audit, cross-browser testing, responsive QA                        |
+| Phase 6: Deploy       | `vercel-deployment`, `deployment-procedures`                                                     | Production deployment, domain setup                                            |

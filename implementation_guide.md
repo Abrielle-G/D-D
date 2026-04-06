@@ -1,7 +1,7 @@
 # Dice & Decisions — Implementation Guide
 
 > A probability-powered Dungeon Master Command Center for a homebrew D&D-style RPG.
-> Built with Next.js 14+ · TypeScript · Tailwind CSS · shadcn/ui · Supabase · Recharts · Tiptap
+> Built with Next.js 14+ · TypeScript · Tailwind CSS · shadcn/ui · Recharts · Tiptap
 
 ---
 
@@ -11,7 +11,7 @@
 
 **Who:** School project for a probability class. Two user roles: Dungeon Master (DM) and Player.
 
-**Stack:** Next.js 14+ App Router, TypeScript strict, Tailwind CSS 3, shadcn/ui, Supabase (Auth + Postgres + RLS + Storage), Recharts, Tiptap, Vercel hosting.
+**Stack:** Next.js 14+ App Router, TypeScript strict, Tailwind CSS 3, shadcn/ui, Zustand (local state + localStorage), Recharts, Tiptap, Vercel hosting.
 
 **Scope:** MVP — Security tier: school project. Target: prototype by ~March 22, final by April 3.
 
@@ -25,7 +25,6 @@ All mockup files are in `stitch_proba_project/stitch_proba_project/`. Each folde
 
 | Screen | Folder | Phase |
 |---|---|---|
-| Login / Sign Up | `dice_decisions_auth_refined/` | 1 |
 | DM Dashboard | `dm_command_center_refined_fresh_copy/` | 2 |
 | Player Dashboard | `player_dashboard_sidebar_synced/` | 2 |
 | Probability Cards | `probability_cards_logo_refined/` | 3 |
@@ -47,32 +46,31 @@ All mockup files are in `stitch_proba_project/stitch_proba_project/`. Each folde
 | Phase | Title | Focus | Key Features |
 |---|---|---|---|
 | **0** | [Scaffolding & Design System](./phases/phase-0-scaffolding.md) | Project setup, Tailwind config, theme system, sidebar, topbar, status bar, component library | Foundation for everything |
-| **1** | [Authentication & Data Layer](./phases/phase-1-auth-data.md) | Supabase Auth, database schema (all 9 tables), RLS policies, role switcher | Features 3.1 |
-| **2** | [Core UI Shell & Dashboard](./phases/phase-2-ui-shell.md) | DM Dashboard, Player Dashboard, Settings page, theme selector, responsive polish | Features 3.2, 3.12 |
-| **3** | [Probability Engine](./phases/phase-3-probability-engine.md) | Probability Cards, Dice Visualizer (Recharts), Bayes Analyzer — core deliverable | Features 3.4, 3.5 |
-| **4** | [Campaign Management](./phases/phase-4-campaign-management.md) | Character Sheet, NPC Manager, Encounter Builder, Story Notes (Tiptap) | Features 3.3, 3.6, 3.7, 3.8 |
-| **5** | [Campaign Map Viewer](./phases/phase-5-map-viewer.md) | Map upload, pan/zoom, markers with DM/player visibility, marker popups | Feature 3.11 |
-| **6** | [Tower of Fate Demo](./phases/phase-6-tower-of-fate.md) | Pre-built campaign seed data: 4 NPCs, 3 encounters, 5 notes, 2 Bayes scenarios, map + markers | Feature 3.10 |
-| **7** | [Polish & Deployment](./phases/phase-7-polish-deploy.md) | Loading states, error handling, empty states, responsive QA, accessibility, animations, Vercel deploy | Launch readiness |
+| **1** | [Core UI Shell & Dashboard](./phases/phase-2-ui-shell.md) | DM Dashboard, Player Dashboard, Settings page, theme selector, role switcher, responsive polish | Features 3.1, 3.2, 3.12 |
+| **2** | [Probability Engine](./phases/phase-3-probability-engine.md) | Probability Cards, Dice Visualizer (Recharts), Bayes Analyzer — core deliverable | Features 3.4, 3.5 |
+| **3** | [Campaign Management](./phases/phase-4-campaign-management.md) | Character Sheet, NPC Manager, Encounter Builder, Story Notes (Tiptap) | Features 3.3, 3.6, 3.7, 3.8 |
+| **4** | [Campaign Map Viewer](./phases/phase-5-map-viewer.md) | Map upload (local file), pan/zoom, markers with DM/player visibility, marker popups | Feature 3.11 |
+| **5** | [Tower of Fate Demo](./phases/phase-6-tower-of-fate.md) | Pre-built campaign seed data: 4 NPCs, 3 encounters, 5 notes, 2 Bayes scenarios, map + markers | Feature 3.10 |
+| **6** | [Polish & Deployment](./phases/phase-7-polish-deploy.md) | Loading states, error handling, empty states, responsive QA, accessibility, animations, Vercel deploy | Launch readiness |
 
 ---
 
 ## Critical Path
 
 ```
-Phase 0 ──→ Phase 1 ──→ Phase 2 ──→ Phase 3 ──────────→ Phase 6 ──→ Phase 7
-                │                       │
-                └──→ Phase 4 ───────────┤
-                │                       │
-                └──→ Phase 5 ───────────┘
+Phase 0 ──→ Phase 1 ──→ Phase 2 ──────────→ Phase 5 ──→ Phase 6
+                │           │
+                └──→ Phase 3 ─┤
+                │             │
+                └──→ Phase 4 ─┘
 ```
 
-- **Phases 0 → 1 → 2 → 3** are strictly sequential (each depends on the previous)
-- **Phases 4 and 5** can start after Phase 1 (they need the database) but are best done after Phase 3 (Encounter Builder uses the probability engine)
-- **Phase 6** requires all features (0–5) to be complete
-- **Phase 7** is the final polish pass
+- **Phases 0 → 1 → 2** are strictly sequential (each depends on the previous)
+- **Phases 3 and 4** can start after Phase 1 (they need the local state store) but are best done after Phase 2 (Encounter Builder uses the probability engine)
+- **Phase 5** requires all features (0–4) to be complete
+- **Phase 6** is the final polish pass
 
-**Prototype deadline (~March 22):** Phases 0 + 1 + 2 + 3 must be complete. This demonstrates: auth + dashboard shell + probability tools (cards, dice visualizer, Bayes analyzer).
+**Prototype deadline (~March 22):** Phases 0 + 1 + 2 must be complete. This demonstrates: dashboard shell + probability tools (cards, dice visualizer, Bayes analyzer).
 
 ---
 
@@ -103,11 +101,10 @@ Phase 0 ──→ Phase 1 ──→ Phase 2 ──→ Phase 3 ──────
 | TypeScript (strict) | Type safety | typescriptlang.org |
 | Tailwind CSS 3 | Utility-first styling | tailwindcss.com |
 | shadcn/ui | Component library (customized) | ui.shadcn.com |
-| Supabase | Auth + PostgreSQL + RLS + Storage | supabase.com/docs |
+| Zustand | Client state + localStorage persistence | zustand-demo.pmnd.rs |
 | Recharts | Probability distribution charts | recharts.org |
 | Tiptap | Rich text editor for story notes | tiptap.dev |
 | Lucide React | Icon library | lucide.dev |
-| Zustand | Client state management | zustand-demo.pmnd.rs |
 | Zod | Schema validation | zod.dev |
 | React Hook Form | Form management | react-hook-form.com |
 | Vercel | Hosting & deployment | vercel.com/docs |
@@ -150,11 +147,11 @@ Phase 0 ──→ Phase 1 ──→ Phase 2 ──→ Phase 3 ──────
 
 ## Post-Launch Checklist
 
-After Phase 7 is complete and the app is deployed:
+After Phase 6 is complete and the app is deployed:
 
 - [ ] Production URL is live and accessible
-- [ ] All 12 mockup screens are reproduced faithfully with Tower of Fate data
-- [ ] End-to-end smoke test passes (Phase 7, Step 7.12)
+- [ ] All 11 mockup screens are reproduced faithfully with Tower of Fate data
+- [ ] End-to-end smoke test passes (Phase 6, Step 7.12)
 - [ ] Lighthouse scores: Performance 85+, Accessibility 90+, Best Practices 90+
 - [ ] README with setup instructions committed
 - [ ] Professor walkthrough prepared: show Probability Cards → Dice Visualizer → Bayes Analyzer → formula breakdowns

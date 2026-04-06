@@ -47,7 +47,7 @@ A pre-built starter campaign that ships with the app, showcasing all features wi
 
 ### 🎨 Campaign Theme Switcher
 
-5 genre themes that re-skin the **entire app** instantly via CSS custom properties — zero page reload, zero flash. Each theme has its own full color palette (backgrounds, sidebars, borders, text hierarchy, accent glow) and is saved to the user's profile in Supabase so it persists across devices.
+5 genre themes that re-skin the **entire app** instantly via CSS custom properties — zero page reload, zero flash. Each theme has its own full color palette (backgrounds, sidebars, borders, text hierarchy, accent glow) and is saved to localStorage so it persists across sessions.
 
 | Theme                  | Accent           | Background             | Text             | Feel                            |
 | ---------------------- | ---------------- | ---------------------- | ---------------- | ------------------------------- |
@@ -80,12 +80,10 @@ Switched from **Settings → System Preferences**. Active theme is highlighted w
 | **Styling**         | Tailwind CSS 3 · shadcn/ui                        |
 | **Charts**          | Recharts + custom SVG                             |
 | **Rich Text**       | Tiptap                                            |
-| **State**           | Zustand                                           |
+| **State**           | Zustand (local state + localStorage persistence)  |
 | **Forms**           | React Hook Form · Zod                             |
 | **Icons**           | Lucide React                                      |
 | **Toasts**          | Sonner                                            |
-| **Backend / DB**    | Supabase (PostgreSQL + Auth + Row Level Security) |
-| **File Storage**    | Supabase Storage                                  |
 | **Map Interaction** | CSS transforms + native event handlers            |
 | **Hosting**         | Vercel                                            |
 
@@ -132,10 +130,10 @@ See **Phase 0.22** for step-by-step copy and extraction instructions.
 
 | Phase | Focus                                | Dates                          |
 | ----- | ------------------------------------ | ------------------------------ |
-| 0–2   | Setup, auth, core UI shell           | Mar 11–17 ← **In Progress** ✅ |
-| 3     | **Probability Engine** _(prototype)_ | Mar 18–22 🎯                   |
-| 4–5   | Campaign management + demo content   | Mar 23–29                      |
-| 6–7   | Polish, testing, final submission    | Mar 30 – **Apr 3** 🚀          |
+| 0–1   | Setup, core UI shell                 | Mar 11–17 ← **In Progress** ✅ |
+| 2     | **Probability Engine** _(prototype)_ | Mar 18–22 🎯                   |
+| 3–4   | Campaign management + demo content   | Mar 23–29                      |
+| 5–6   | Polish, testing, final submission    | Mar 30 – **Apr 3** 🚀          |
 
 ---
 
